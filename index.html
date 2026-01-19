@@ -7588,7 +7588,7 @@
             // === SPECIAL TRIUMPHS ===
             'king_yellow_black': {
                 name: 'King of Yellow and Black',
-                desc: 'Have all 6 Big Hit cards in your hand at once',
+                desc: 'Have a hand where all 3 cards are Big Hit cards',
                 icon: '👑',
                 title: 'King of Yellow and Black',
                 titleEffect: 'royal-shimmer',
@@ -8113,8 +8113,8 @@
                 }
             }
 
-            // King of Yellow and Black - all 6 Big Hit cards in hand at once
-            if (bigHitsInHand.length === BIG_HIT_LIST.length) {
+            // King of Yellow and Black - all cards in hand are Big Hit cards
+            if (bigHitsInHand.length === hand.length && hand.length > 0) {
                 unlockTriumph('king_yellow_black');
             }
 
