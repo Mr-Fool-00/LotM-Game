@@ -3769,7 +3769,7 @@
                     messageEl.className = 'secret-message error';
                 }
             } else {
-                // GM Sign In (7-character code: gmhaha1 or gmhaha2)
+                // GM Sign In (7-character code: gmhaha1, gmhaha2, or gmhaha3)
                 const code = document.getElementById('gm-signin-input').value.toLowerCase();
 
                 if (code === 'gmhaha1') {
@@ -3788,6 +3788,17 @@
                     playerCode = 'GM002';
                     localStorage.setItem('pathwayClash_playerCode', playerCode);
                     messageEl.textContent = 'Signed in as GM 2';
+                    messageEl.className = 'secret-message success';
+                    setTimeout(() => {
+                        closeSecretPopup();
+                        document.getElementById('welcome-screen').classList.add('hidden');
+                        document.getElementById('intro-screen').classList.remove('hidden');
+                    }, 1000);
+                } else if (code === 'gmhaha3') {
+                    // Sign in as GM 3
+                    playerCode = 'GM003';
+                    localStorage.setItem('pathwayClash_playerCode', playerCode);
+                    messageEl.textContent = 'Signed in as GM 3';
                     messageEl.className = 'secret-message success';
                     setTimeout(() => {
                         closeSecretPopup();
