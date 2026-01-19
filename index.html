@@ -6751,11 +6751,19 @@
                 name: 'Lord of the Mysteries',
                 desc: 'Win 5,000 games',
                 icon: '👁️',
-                title: 'Lord of the Mysteries Reborn',
+                title: 'Lord of the Mysteries',
                 titleEffect: 'foggy-glitch',
                 difficulty: 10
             },
             // === OUTER DEITY / GREAT OLD ONE TRIUMPHS ===
+            'true_calamity': {
+                name: 'A true calamity',
+                desc: 'Deal 1,000,000 total damage across your career',
+                icon: '🔥',
+                title: 'Calamity of Destruction',
+                titleEffect: 'frenzy-flicker',
+                difficulty: 10
+            },
             'god_almighty': {
                 name: 'A true deity',
                 desc: 'Win 20 games without taking ANY damage',
@@ -7314,6 +7322,11 @@
                 achievementProgress.careerDamageReceived += damageReceived;
             }
 
+            // Track career damage dealt for Calamity of Destruction triumph
+            if (damageDealt > 0) {
+                achievementProgress.careerTotalDamage += damageDealt;
+            }
+
             // Track if player was ever behind (opponent had more HP) for Anarchy triumph
             const playerHPAfterBattle = playerHPBefore - damageReceived;
             const opponentHPAfterBattle = opponentHPBefore - damageDealt;
@@ -7585,6 +7598,11 @@
             // Eternal Darkness - Receive 1,000,000 total damage (tracked elsewhere, check here)
             if (achievementProgress.careerDamageReceived >= 1000000) {
                 unlockTriumph('eternal_darkness');
+            }
+
+            // Calamity of Destruction - Deal 1,000,000 total damage
+            if (achievementProgress.careerTotalDamage >= 1000000) {
+                unlockTriumph('true_calamity');
             }
 
             // Mother Goddess - Auto lose 20 games from madness (tracked in madness loss handler)
