@@ -2745,6 +2745,208 @@
             font-weight: bold;
         }
 
+        /* ===== ABILITY PHASE UI ===== */
+        .ability-phase-section {
+            display: none;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid var(--color-purple);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .ability-phase-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ability-phase-header {
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .ability-phase-header h3 {
+            color: var(--color-gold);
+            font-size: 16px;
+            margin: 0 0 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ability-phase-header p {
+            color: var(--color-text-dim);
+            font-size: 11px;
+            margin: 0;
+        }
+
+        .ability-cards-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .ability-card-column {
+            flex: 1;
+            min-width: 180px;
+            max-width: 220px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--color-purple);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .ability-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--color-purple);
+        }
+
+        .ability-card-header img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .ability-card-header .card-name {
+            color: var(--color-gold);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .ability-list-container {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .ability-list-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .ability-list-container::-webkit-scrollbar-thumb {
+            background: var(--color-purple);
+            border-radius: 2px;
+        }
+
+        .ability-btn {
+            display: block;
+            width: 100%;
+            padding: 6px 8px;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, #2a2a4a, #1a1a3a);
+            border: 1px solid transparent;
+            border-radius: 4px;
+            color: var(--color-text);
+            font-size: 10px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .ability-btn:hover {
+            background: linear-gradient(135deg, #3a3a5a, #2a2a4a);
+            border-color: var(--color-gold);
+        }
+
+        .ability-btn.selected {
+            background: linear-gradient(135deg, #4a3a1a, #3a2a0a);
+            border-color: var(--color-gold);
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .ability-btn .ability-name {
+            color: var(--color-gold);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .ability-btn .ability-desc {
+            color: var(--color-text-dim);
+            font-size: 9px;
+            line-height: 1.3;
+            display: block;
+        }
+
+        .ability-phase-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .btn-use-ability {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #4a8a4a, #2a5a2a);
+            border: 2px solid #6aba6a;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-use-ability:hover:not(:disabled) {
+            background: linear-gradient(135deg, #5a9a5a, #3a6a3a);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(106, 186, 106, 0.4);
+        }
+
+        .btn-use-ability:disabled {
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            border-color: #555;
+            color: #777;
+            cursor: not-allowed;
+        }
+
+        .btn-skip-ability {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #4a4a4a, #2a2a2a);
+            border: 2px solid #666;
+            border-radius: 8px;
+            color: var(--color-text-muted);
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-skip-ability:hover {
+            background: linear-gradient(135deg, #5a5a5a, #3a3a3a);
+            border-color: #888;
+        }
+
+        .ability-used-indicator {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #2a4a2a, #1a3a1a);
+            border: 1px solid #4a8a4a;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .ability-used-indicator.show {
+            display: block;
+        }
+
+        .ability-used-indicator .ability-used-text {
+            color: #8aba8a;
+            font-size: 12px;
+        }
+
+        .ability-used-indicator .ability-used-name {
+            color: var(--color-gold);
+            font-weight: bold;
+        }
+
         /* View All Button */
         .btn-view-all {
             width: 100%;
@@ -3202,6 +3404,82 @@
             .vs-text {
                 font-size: 14px;
                 padding: 4px 10px;
+            }
+
+            /* Ability Phase - Mobile */
+            .ability-phase-section {
+                padding: 10px;
+                margin-bottom: 10px;
+            }
+
+            .ability-phase-header h3 {
+                font-size: 14px;
+            }
+
+            .ability-phase-header p {
+                font-size: 10px;
+            }
+
+            .ability-cards-container {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .ability-card-column {
+                min-width: 100%;
+                max-width: 100%;
+                padding: 8px;
+            }
+
+            .ability-card-header {
+                margin-bottom: 6px;
+                padding-bottom: 6px;
+            }
+
+            .ability-card-header img {
+                width: 20px;
+                height: 20px;
+            }
+
+            .ability-card-header .card-name {
+                font-size: 11px;
+            }
+
+            .ability-list-container {
+                max-height: 120px;
+            }
+
+            .ability-btn {
+                padding: 5px 6px;
+                margin-bottom: 3px;
+            }
+
+            .ability-btn .ability-name {
+                font-size: 9px;
+            }
+
+            .ability-btn .ability-desc {
+                font-size: 8px;
+            }
+
+            .ability-phase-actions {
+                gap: 8px;
+                margin-top: 10px;
+            }
+
+            .btn-use-ability,
+            .btn-skip-ability {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .ability-used-indicator {
+                padding: 8px;
+                margin-bottom: 10px;
+            }
+
+            .ability-used-indicator .ability-used-text {
+                font-size: 11px;
             }
 
             /* Player hand - the main focus */
@@ -3963,6 +4241,26 @@
                     <div class="played-card empty" id="opponent-played">
                         <div>Opponent's Card</div>
                     </div>
+                </div>
+
+                <!-- Ability Phase Section -->
+                <div class="ability-phase-section" id="ability-phase-section">
+                    <div class="ability-phase-header">
+                        <h3>Ability Phase</h3>
+                        <p>Select an ability from any card in your hand (optional)</p>
+                    </div>
+                    <div class="ability-cards-container" id="ability-cards-container">
+                        <!-- Populated dynamically -->
+                    </div>
+                    <div class="ability-phase-actions">
+                        <button class="btn-use-ability" id="btn-use-ability" disabled onclick="confirmAbility()">Use Ability</button>
+                        <button class="btn-skip-ability" id="btn-skip-ability" onclick="skipAbility()">Skip</button>
+                    </div>
+                </div>
+
+                <!-- Ability Used Indicator -->
+                <div class="ability-used-indicator" id="ability-used-indicator">
+                    <span class="ability-used-text">Ability activated: <span class="ability-used-name" id="ability-used-name"></span></span>
                 </div>
 
                 <!-- Your Hand -->
@@ -7402,6 +7700,7 @@
                 opponentPlayedEl.innerHTML = '<div>Opponent\'s Card</div>';
 
                 updateUI();
+                showAbilityPhase();
             }, 2000);
         }
 
@@ -7416,7 +7715,11 @@
             selectedCard: null,
             damageMultiplier: 1,
             gameOver: false,
-            turn: 1
+            turn: 1,
+            // Ability phase state
+            abilityPhaseActive: false,
+            abilityUsedThisTurn: false,
+            selectedAbility: null  // { cardIndex, abilityIndex, cardName, abilityName, abilityDesc }
         };
 
         // Battle history for detail view
@@ -8469,7 +8772,11 @@
                 selectedCard: null,
                 damageMultiplier: 1,
                 gameOver: false,
-                turn: 1
+                turn: 1,
+                // Ability phase state
+                abilityPhaseActive: false,
+                abilityUsedThisTurn: false,
+                selectedAbility: null
             };
             cardHistory = [];
             battleHistory = [];
@@ -8496,6 +8803,7 @@
             drawHands();
             renderHand();
             updateUI();
+            showAbilityPhase();
         }
 
         // ============================================
@@ -8507,6 +8815,139 @@
             gameState.playerHand = getWeightedRandomCards(3);
             gameState.opponentHand = getWeightedRandomCards(3);
             checkAchievementsOnDraw(gameState.playerHand);
+            // Reset ability state for the new turn
+            gameState.abilityUsedThisTurn = false;
+            gameState.selectedAbility = null;
+            hideAbilityUsedIndicator();
+        }
+
+        // ============================================
+        // ABILITY PHASE FUNCTIONS
+        // ============================================
+
+        function showAbilityPhase() {
+            if (gameState.gameOver) return;
+
+            gameState.abilityPhaseActive = true;
+            const container = document.getElementById('ability-cards-container');
+            container.innerHTML = '';
+
+            // Create ability selection UI for each card in hand
+            gameState.playerHand.forEach((card, cardIndex) => {
+                const columnEl = document.createElement('div');
+                columnEl.className = 'ability-card-column';
+
+                // Card header
+                const headerEl = document.createElement('div');
+                headerEl.className = 'ability-card-header';
+                headerEl.innerHTML = `
+                    <img src="${card.icon}" alt="${card.name}">
+                    <span class="card-name">${card.name}</span>
+                `;
+                columnEl.appendChild(headerEl);
+
+                // Ability list
+                const listEl = document.createElement('div');
+                listEl.className = 'ability-list-container';
+
+                card.abilities.forEach((ability, abilityIndex) => {
+                    const abilityBtn = document.createElement('button');
+                    abilityBtn.className = 'ability-btn';
+                    abilityBtn.setAttribute('data-card-index', cardIndex);
+                    abilityBtn.setAttribute('data-ability-index', abilityIndex);
+                    abilityBtn.innerHTML = `
+                        <span class="ability-name">${ability.name}</span>
+                        <span class="ability-desc">${ability.desc}</span>
+                    `;
+                    abilityBtn.onclick = () => selectAbility(cardIndex, abilityIndex);
+                    listEl.appendChild(abilityBtn);
+                });
+
+                columnEl.appendChild(listEl);
+                container.appendChild(columnEl);
+            });
+
+            document.getElementById('ability-phase-section').classList.add('active');
+            document.getElementById('btn-use-ability').disabled = true;
+        }
+
+        function selectAbility(cardIndex, abilityIndex) {
+            // Clear previous selection
+            document.querySelectorAll('.ability-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+
+            // Select new ability
+            const card = gameState.playerHand[cardIndex];
+            const ability = card.abilities[abilityIndex];
+
+            gameState.selectedAbility = {
+                cardIndex: cardIndex,
+                abilityIndex: abilityIndex,
+                cardName: card.name,
+                abilityName: ability.name,
+                abilityDesc: ability.desc
+            };
+
+            // Highlight selected button
+            const selectedBtn = document.querySelector(
+                `.ability-btn[data-card-index="${cardIndex}"][data-ability-index="${abilityIndex}"]`
+            );
+            if (selectedBtn) {
+                selectedBtn.classList.add('selected');
+            }
+
+            // Enable the "Use Ability" button
+            document.getElementById('btn-use-ability').disabled = false;
+        }
+
+        function confirmAbility() {
+            if (!gameState.selectedAbility) return;
+
+            gameState.abilityUsedThisTurn = true;
+            gameState.abilityPhaseActive = false;
+
+            // Execute the ability (placeholder effect)
+            executeAbility(gameState.selectedAbility);
+
+            // Hide ability phase and show the indicator
+            document.getElementById('ability-phase-section').classList.remove('active');
+            showAbilityUsedIndicator(gameState.selectedAbility);
+
+            // Re-render hand to enable card selection
+            renderHand();
+        }
+
+        function skipAbility() {
+            gameState.abilityPhaseActive = false;
+            gameState.selectedAbility = null;
+            document.getElementById('ability-phase-section').classList.remove('active');
+
+            // Re-render hand to enable card selection
+            renderHand();
+        }
+
+        function executeAbility(ability) {
+            // Placeholder effect - just show notification and log
+            const logContent = document.getElementById('log-content');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry info';
+            entry.innerHTML = `<strong>Turn ${gameState.turn}:</strong> <span style="color: var(--color-gold);">${ability.cardName}</span> activated <span style="color: #8aba8a;">${ability.abilityName}</span>!`;
+            entry.innerHTML += `<div class="log-flavor">"${ability.abilityDesc}"</div>`;
+            logContent.insertBefore(entry, logContent.firstChild);
+
+            // Note: Actual ability effects will be implemented later
+            // For now, this is just a visual placeholder
+        }
+
+        function showAbilityUsedIndicator(ability) {
+            const indicator = document.getElementById('ability-used-indicator');
+            document.getElementById('ability-used-name').textContent = `${ability.abilityName} (${ability.cardName})`;
+            indicator.classList.add('show');
+        }
+
+        function hideAbilityUsedIndicator() {
+            document.getElementById('ability-used-indicator').classList.remove('show');
         }
 
         function getMatchupResult(playerCard, opponentCard) {
@@ -8777,7 +9218,7 @@
             gameState.playerHand.forEach((card, index) => {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'card';
-                if (gameState.gameOver || waitingForOpponent) cardEl.classList.add('disabled');
+                if (gameState.gameOver || waitingForOpponent || gameState.abilityPhaseActive) cardEl.classList.add('disabled');
                 if (gameState.selectedCard === index) cardEl.classList.add('selected');
                 cardEl.setAttribute('data-tooltip', card.flavor);
 
@@ -8792,7 +9233,7 @@
                 `;
 
                 cardEl.onclick = () => {
-                    if (!gameState.gameOver && !waitingForOpponent) {
+                    if (!gameState.gameOver && !waitingForOpponent && !gameState.abilityPhaseActive) {
                         selectCard(index);
                     }
                 };
@@ -8824,7 +9265,7 @@
         }
 
         function playTurn() {
-            if (gameState.selectedCard === null || gameState.gameOver) return;
+            if (gameState.selectedCard === null || gameState.gameOver || gameState.abilityPhaseActive) return;
 
             const playerCard = gameState.playerHand[gameState.selectedCard];
 
@@ -8908,6 +9349,7 @@
                     opponentPlayedEl.innerHTML = '<div>Opponent\'s Card</div>';
 
                     updateUI();
+                    showAbilityPhase();
                 }, 1500);
             }
         }
