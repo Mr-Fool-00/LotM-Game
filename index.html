@@ -1652,6 +1652,11 @@
         .btn-new-game {
             background: linear-gradient(135deg, #4a9eff, #0066cc);
             color: white;
+            display: none; /* Hidden by default, shown when game ends */
+        }
+
+        .btn-new-game.show {
+            display: inline-flex;
         }
 
         .btn-new-game:hover {
@@ -8340,6 +8345,7 @@
             resetGameAchievementState();
 
             document.getElementById('game-over').classList.remove('show');
+            document.getElementById('new-game-btn').classList.remove('show'); // Hide New Game button
             document.getElementById('log-content').innerHTML = '<div class="log-entry info">Game started! Select a card from your hand.</div>';
 
             const playerPlayedEl = document.getElementById('player-played');
@@ -8819,6 +8825,9 @@
             }
 
             overlay.classList.add('show');
+
+            // Show the New Game button
+            document.getElementById('new-game-btn').classList.add('show');
         }
 
         function dismissGameOver(event) {
