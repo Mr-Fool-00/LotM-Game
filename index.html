@@ -43,6 +43,15 @@
             --border-radius-sm: 6px;
             --border-radius-md: 12px;
             --border-radius-lg: 16px;
+
+            /* Responsive card sizing */
+            --card-width: 140px;
+            --card-height: 180px;
+            --played-card-width: 120px;
+            --played-card-height: 160px;
+            --card-back-width: 80px;
+            --card-back-height: 100px;
+            --touch-target-min: 44px;
         }
 
         body {
@@ -2979,6 +2988,703 @@
             height: 0;
             width: 0;
             z-index: -1;
+        }
+
+        /* ============================================
+           RESPONSIVE STYLES
+           ============================================ */
+
+        /* Touch-friendly defaults */
+        .card, .played-card, button {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ============================================
+           TABLET BREAKPOINT (max-width: 1024px)
+           ============================================ */
+        @media (max-width: 1024px) {
+            .left-sidebar,
+            .right-sidebar {
+                width: 280px;
+            }
+
+            .main-layout {
+                gap: 15px;
+            }
+
+            .card {
+                width: 120px;
+                height: 155px;
+                padding: 12px;
+            }
+
+            .card-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .card-name {
+                font-size: 12px;
+            }
+
+            .played-card {
+                width: 100px;
+                height: 135px;
+                padding: 8px;
+            }
+
+            .card-back {
+                width: 70px;
+                height: 88px;
+            }
+
+            .battle-area {
+                gap: 35px;
+            }
+
+            .pathway-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .pathway-modal-content {
+                max-width: 95%;
+            }
+
+            .pathway-table .pathway-desc-cell,
+            .pathway-table .pathway-abilities-cell {
+                max-width: 250px;
+            }
+        }
+
+        /* ============================================
+           MOBILE BREAKPOINT (max-width: 768px)
+           ============================================ */
+        @media (max-width: 768px) {
+            /* Stack layout vertically */
+            .main-layout {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            /* Sidebars become full-width */
+            .left-sidebar,
+            .right-sidebar {
+                width: 100%;
+                position: static;
+            }
+
+            /* Reorder: HP on top, game center, log at bottom */
+            .left-sidebar {
+                order: 1;
+            }
+
+            .center-content {
+                order: 2;
+                width: 100%;
+            }
+
+            .right-sidebar {
+                order: 3;
+            }
+
+            /* HP section becomes horizontal */
+            .hp-section {
+                flex-direction: row;
+                gap: 10px;
+            }
+
+            .hp-bar-container {
+                flex: 1;
+                padding: 10px;
+            }
+
+            /* Achievement box compact */
+            .achievement-box {
+                padding: 12px;
+            }
+
+            .achievement-header h3 {
+                font-size: 14px;
+            }
+
+            /* Pathway reference compact */
+            .pathway-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4px;
+            }
+
+            .pathway-item {
+                padding: 6px 4px;
+                font-size: 9px;
+            }
+
+            .pathway-item-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Cards adapt */
+            .card {
+                width: 105px;
+                height: 136px;
+                padding: 10px;
+            }
+
+            .card-name {
+                font-size: 10px;
+            }
+
+            .card-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .played-card {
+                width: 90px;
+                height: 120px;
+            }
+
+            .card-back {
+                width: 55px;
+                height: 69px;
+                font-size: 16px;
+            }
+
+            /* Battle area tighter */
+            .battle-area {
+                gap: 20px;
+                min-height: 140px;
+            }
+
+            .vs-text {
+                font-size: 16px;
+            }
+
+            /* Player hand */
+            .hand {
+                gap: 8px;
+            }
+
+            /* Touch-friendly buttons */
+            button {
+                min-height: var(--touch-target-min);
+            }
+
+            .btn-help {
+                width: 44px;
+                height: 44px;
+            }
+
+            .action-buttons {
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            /* Mode selection */
+            .mode-selection {
+                width: 100%;
+                gap: 8px;
+            }
+
+            .mode-btn {
+                flex: 1;
+                min-height: 44px;
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+
+            /* Battle log shorter */
+            .battle-log {
+                max-height: 250px;
+            }
+
+            .log-entry {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+
+            /* Modals near full-screen */
+            .achievement-modal-content {
+                max-width: 95%;
+                max-height: 90vh;
+            }
+
+            .pathway-modal-content {
+                max-width: 98%;
+                margin: 10px auto;
+                padding: 15px;
+            }
+
+            .pathway-table {
+                font-size: 12px;
+            }
+
+            .pathway-table th,
+            .pathway-table td {
+                padding: 8px 6px;
+            }
+
+            .pathway-table .pathway-desc-cell,
+            .pathway-table .pathway-abilities-cell {
+                max-width: 200px;
+            }
+
+            .feedback-content {
+                width: 95%;
+            }
+
+            /* Welcome/Intro screens */
+            .welcome-content {
+                padding: 30px 20px;
+                max-width: 95%;
+            }
+
+            .welcome-screen h1 {
+                font-size: 28px;
+            }
+
+            .intro-box {
+                padding: 20px;
+                max-width: 95%;
+            }
+
+            .intro-screen h1 {
+                font-size: 28px;
+            }
+
+            .intro-box h2 {
+                font-size: 18px;
+            }
+
+            .intro-box p,
+            .intro-box li {
+                font-size: 13px;
+            }
+
+            /* Game over overlay */
+            .game-over-content {
+                padding: 30px 20px;
+            }
+
+            .game-over-content h2 {
+                font-size: 32px;
+            }
+
+            /* Multiplier display compact */
+            .multiplier-display {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            /* GM Panel */
+            .gm-panel-content {
+                max-width: 95%;
+                padding: 20px;
+            }
+
+            /* Secret popup */
+            .secret-popup-content {
+                max-width: 90%;
+                padding: 20px;
+            }
+
+            .secret-code-input {
+                font-size: 20px;
+                width: 130px;
+            }
+
+            /* Achievement notifications */
+            .achievement-notification,
+            .triumph-notification {
+                left: 10px;
+                right: 10px;
+                transform: translateX(0) translateY(-100px);
+            }
+
+            .achievement-notification.show,
+            .triumph-notification.show {
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        /* ============================================
+           SMALL PHONE BREAKPOINT (max-width: 480px)
+           ============================================ */
+        @media (max-width: 480px) {
+            /* Container padding reduction */
+            .game-container {
+                padding: 10px;
+            }
+
+            /* Title simplification */
+            h1 {
+                font-size: 18px;
+            }
+
+            .subtitle {
+                font-size: 11px;
+            }
+
+            /* Compact HP bars */
+            .hp-section {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .hp-bar-container {
+                padding: 8px;
+            }
+
+            .hp-bar {
+                height: 20px;
+            }
+
+            .hp-label {
+                font-size: 11px;
+            }
+
+            /* Hide achievement progress bar on small screens */
+            .achievement-progress {
+                display: none;
+            }
+
+            .achievement-header h3 {
+                font-size: 12px;
+            }
+
+            /* Smallest playable cards */
+            .card {
+                width: 90px;
+                height: 116px;
+                padding: 8px;
+                border-radius: 8px;
+            }
+
+            .card-name {
+                font-size: 9px;
+            }
+
+            .card-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .card-type {
+                font-size: 7px;
+            }
+
+            .card-weight {
+                font-size: 8px;
+            }
+
+            .played-card {
+                width: 75px;
+                height: 100px;
+                border-radius: 8px;
+            }
+
+            .played-card .card-icon {
+                width: 28px;
+                height: 28px;
+            }
+
+            .played-card .card-name {
+                font-size: 8px;
+            }
+
+            .card-back {
+                width: 45px;
+                height: 56px;
+                font-size: 12px;
+                border-radius: 6px;
+            }
+
+            /* Battle area minimal */
+            .battle-area {
+                gap: 12px;
+                min-height: 110px;
+                margin-bottom: 15px;
+            }
+
+            .vs-text {
+                font-size: 12px;
+                padding: 4px 10px;
+            }
+
+            /* Hand section */
+            .hand {
+                gap: 6px;
+            }
+
+            .hand-label {
+                font-size: 10px;
+            }
+
+            /* Opponent hand */
+            .opponent-hand {
+                gap: 4px;
+            }
+
+            /* Pathway grid minimal */
+            .pathway-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .pathway-item {
+                padding: 4px 2px;
+                font-size: 8px;
+            }
+
+            .pathway-item-icon {
+                width: 16px;
+                height: 16px;
+            }
+
+            /* Buttons stack on very small screens */
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 8px;
+            }
+
+            .btn-play,
+            .btn-new-game {
+                width: 100%;
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+
+            .btn-help {
+                align-self: center;
+            }
+
+            /* Mode buttons stack */
+            .mode-selection {
+                flex-direction: column;
+                gap: 6px;
+            }
+
+            .mode-btn {
+                width: 100%;
+                padding: 10px;
+                font-size: 11px;
+            }
+
+            /* Battle log minimal */
+            .battle-log {
+                max-height: 180px;
+                padding: 10px;
+            }
+
+            .log-entry {
+                font-size: 11px;
+                padding: 6px 8px;
+            }
+
+            /* Welcome screen */
+            .welcome-content {
+                padding: 20px 15px;
+            }
+
+            .welcome-screen h1 {
+                font-size: 22px;
+            }
+
+            .welcome-subtitle {
+                font-size: 12px;
+            }
+
+            .welcome-buttons {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .welcome-btn {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .player-code-display {
+                font-size: 28px;
+                letter-spacing: 6px;
+            }
+
+            .code-input-container input {
+                font-size: 24px;
+                width: 140px;
+                letter-spacing: 5px;
+            }
+
+            /* Intro screen */
+            .intro-screen h1 {
+                font-size: 22px;
+            }
+
+            .intro-screen .subtitle {
+                font-size: 12px;
+            }
+
+            .intro-box {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .intro-box h2 {
+                font-size: 16px;
+            }
+
+            .intro-box p {
+                font-size: 12px;
+            }
+
+            .intro-box ul {
+                font-size: 11px;
+            }
+
+            .btn-play {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+
+            /* Modals full screen */
+            .achievement-modal-content {
+                max-width: 100%;
+                max-height: 95vh;
+                border-radius: 12px;
+            }
+
+            .achievement-modal-header h2 {
+                font-size: 18px;
+            }
+
+            .pathway-modal-content {
+                max-width: 100%;
+                margin: 5px;
+                padding: 10px;
+            }
+
+            .pathway-modal-header h2 {
+                font-size: 18px;
+            }
+
+            /* Pathway table horizontal scroll */
+            .pathway-table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .pathway-table {
+                font-size: 11px;
+                min-width: 600px;
+            }
+
+            .pathway-table th,
+            .pathway-table td {
+                padding: 6px 4px;
+            }
+
+            /* Game over */
+            .game-over-content h2 {
+                font-size: 26px;
+            }
+
+            .game-over-content p {
+                font-size: 13px;
+            }
+
+            .game-over-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .game-over-buttons button {
+                width: 100%;
+            }
+
+            /* Feedback modal */
+            .feedback-content {
+                width: 98%;
+                padding: 20px 15px;
+            }
+
+            .feedback-content h2 {
+                font-size: 20px;
+            }
+
+            .feedback-content textarea {
+                min-height: 100px;
+            }
+
+            /* Achievement notifications */
+            .achievement-notification,
+            .triumph-notification {
+                padding: 10px 12px;
+            }
+
+            .achievement-notification-icon,
+            .triumph-notification-icon {
+                font-size: 24px;
+            }
+
+            .achievement-notification-name,
+            .triumph-notification-name {
+                font-size: 12px;
+            }
+
+            /* Multiplier display */
+            .multiplier-display {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            .multiplier-value {
+                font-size: 20px;
+            }
+
+            /* GM Panel */
+            .gm-panel-content {
+                max-width: 100%;
+                padding: 15px;
+                max-height: 95vh;
+            }
+
+            .gm-panel-content h2 {
+                font-size: 18px;
+            }
+
+            /* Battle detail modal */
+            .battle-detail-content {
+                padding: 15px;
+            }
+
+            .battle-detail-content h3 {
+                font-size: 16px;
+            }
+
+            /* Secret popup */
+            .secret-popup-content {
+                padding: 15px;
+            }
+
+            .secret-code-input {
+                font-size: 18px;
+                width: 120px;
+            }
+
+            /* Room code for PvP */
+            .room-code-section {
+                padding: 10px;
+            }
+
+            .room-code {
+                font-size: 20px;
+                letter-spacing: 4px;
+            }
         }
     </style>
 
