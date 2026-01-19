@@ -6757,100 +6757,67 @@
             },
             // === OUTER DEITY / GREAT OLD ONE TRIUMPHS ===
             'god_almighty': {
-                name: 'Above the Sequences',
-                desc: 'Win 20 games without taking any damage',
+                name: 'A true deity',
+                desc: 'Win 20 games without taking ANY damage',
                 icon: '⛧',
                 title: 'God Almighty',
                 titleEffect: 'sefirah-glow',
-                difficulty: 10
-            },
-            'eternal_darkness': {
-                name: 'Embrace of the Singularity',
-                desc: 'Win 50 games using both Darkness and Death',
-                icon: '🌑',
-                title: 'Child of Eternal Darkness',
-                titleEffect: 'void-pulse',
-                difficulty: 10
+                difficulty: 10,
+                pathways: ['Visionary', 'Sun', 'Tyrant', 'Hanged Man', 'White Tower']
             },
             'mother_goddess': {
-                name: 'Depravity Incarnate',
-                desc: 'Win 50 games using both Mother and Moon',
+                name: 'Total eclipse',
+                desc: 'Auto lose 20 games from madness',
                 icon: '🌙',
-                title: 'Blessed by the Primordial Moon',
+                title: 'Mother Goddess of Depravity',
                 titleEffect: 'moon-shimmer',
-                difficulty: 10
+                difficulty: 10,
+                pathways: ['Mother', 'Moon']
             },
-            'true_calamity': {
-                name: 'A True Calamity',
-                desc: 'Deal 1,000,000 total damage across your career',
-                icon: '🔥',
-                title: 'Calamity of Destruction',
-                titleEffect: 'frenzy-flicker',
-                difficulty: 10
+            'eternal_darkness': {
+                name: 'Abyss watcher',
+                desc: 'Receive 1,000,000 total damage across your career',
+                icon: '🌑',
+                title: 'Eternal Darkness',
+                titleEffect: 'void-pulse',
+                difficulty: 10,
+                pathways: ['Darkness', 'Death', 'Twilight Giant']
             },
-            'god_of_knowledge': {
-                name: 'Omniscient Observer',
-                desc: 'Win 100 games where you never lost a damage exchange',
-                icon: '📚',
-                title: 'Keeper of All Knowledge',
-                titleEffect: 'knowledge-glow',
-                difficulty: 10
-            },
-            'god_of_war': {
-                name: 'War Never Changes',
-                desc: 'Deal 500+ damage in a single turn 50 times',
-                icon: '⚔️',
-                title: 'Avatar of Destruction',
-                titleEffect: 'war-flame',
-                difficulty: 10
-            },
-            'ancient_sun_god': {
-                name: 'The First Light',
-                desc: 'Win 50 games using Sun, Visionary, and Twilight Giant together',
-                icon: '☀️',
-                title: 'Heir of the Ancient Sun',
-                titleEffect: 'solar-radiance',
-                difficulty: 10
-            },
-            'father_of_devils': {
-                name: 'From the Abyss',
-                desc: 'Win 100 games using Abyss pathway',
-                icon: '👿',
-                title: 'Favored of the Devil',
-                titleEffect: 'abyssal-corruption',
-                difficulty: 10
+            'authority_of_order': {
+                name: 'Primordial chaos',
+                desc: 'Win 50 games after being behind (opponent had more HP)',
+                icon: '⚖️',
+                title: 'Anarchy',
+                titleEffect: 'order-pulse',
+                difficulty: 10,
+                pathways: ['Black Emperor', 'Justiciar']
             },
             'key_of_light': {
-                name: 'Bearer of Sacred Light',
-                desc: 'Win 100 games using Sun pathway',
+                name: 'Refracted edge',
+                desc: 'Achieve x128 multiplier 15 times',
                 icon: '🔑',
                 title: 'Key of Light',
                 titleEffect: 'holy-radiance',
-                difficulty: 10
+                difficulty: 10,
+                pathways: ['Wheel of Fortune']
             },
-            'authority_of_order': {
-                name: 'Law Above All',
-                desc: 'Achieve a 100 game win streak',
-                icon: '⚖️',
-                title: 'Arbiter of Order',
-                titleEffect: 'order-pulse',
-                difficulty: 10
+            'father_of_devils': {
+                name: 'Diablo',
+                desc: 'Win 100 games after dropping below 15% HP',
+                icon: '👿',
+                title: 'Father of Devils',
+                titleEffect: 'abyssal-corruption',
+                difficulty: 10,
+                pathways: ['Abyss', 'Chained']
             },
-            'wheel_master': {
-                name: 'Fate Bends to My Will',
-                desc: 'Achieve x128 multiplier 10 times',
-                icon: '🎡',
-                title: 'Master of Fortune',
-                titleEffect: 'fortune-spin',
-                difficulty: 10
-            },
-            'original_creator': {
-                name: 'The Original Creator',
-                desc: 'Win using only one pathway group, for all 5 groups',
-                icon: '✧',
-                title: 'Spark of the Original Creator',
-                titleEffect: 'creation-shimmer',
-                difficulty: 10
+            'god_of_knowledge': {
+                name: 'A true dictionary',
+                desc: 'Win 50 games where you never lost a single damage exchange',
+                icon: '📚',
+                title: 'Demon of Knowledge',
+                titleEffect: 'knowledge-glow',
+                difficulty: 10,
+                pathways: ['White Tower']
             }
         };
 
@@ -6863,16 +6830,16 @@
             'Chaos Domain': ['Abyss', 'Wheel of Fortune', 'Chained']
         };
 
-        // Deity pathways for Outer Deity triumphs (must use ALL listed pathways in same game)
+        // Deity pathways for Outer Deity triumphs (associated pathways for display/thematic purposes)
+        // Note: These triumphs are now unlocked by career stats, not pathway usage
         const DEITY_PATHWAYS = {
-            'god_almighty': ['Fool', 'Door', 'Error'],
-            'eternal_darkness': ['Darkness', 'Death'],
+            'god_almighty': ['Visionary', 'Sun', 'Tyrant', 'Hanged Man', 'White Tower'],
             'mother_goddess': ['Mother', 'Moon'],
-            'calamity_frenzy': ['Demoness', 'Chained'],
-            'god_of_knowledge': ['White Tower', 'Hermit'],
-            'god_of_war': ['Red Priest', 'Tyrant'],
-            'ancient_sun_god': ['Sun', 'Visionary', 'Twilight Giant'],
-            'authority_of_order': ['Black Emperor', 'Justiciar']
+            'eternal_darkness': ['Darkness', 'Death', 'Twilight Giant'],
+            'authority_of_order': ['Black Emperor', 'Justiciar'],
+            'key_of_light': ['Wheel of Fortune'],
+            'father_of_devils': ['Abyss', 'Chained'],
+            'god_of_knowledge': ['White Tower']
         };
 
         // Special condition triumphs (unique requirements)
@@ -6897,36 +6864,46 @@
             pathwaysWonWith: [], // Track all pathways used in winning games
             singlePathwayWins: {}, // Track wins using only one pathway type { 'Abyss': 5, 'Sun': 3, ... }
             // Supreme Triumph tracking
-            careerTotalDamage: 0, // For 1M damage triumph
-            flawlessWins: 0, // Wins without taking damage
-            darknessPlusDeathWins: 0, // Wins using both Darkness and Death
-            motherPlusMoonWins: 0, // Wins using both Mother and Moon
-            dominantExchangeWins: 0, // Wins where never lost a damage exchange
-            massiveDamageTurns: 0, // Turns with 500+ damage dealt
-            sunTrioWins: 0, // Wins with Sun + Visionary + Twilight Giant
-            abyssWins: 0, // Wins using Abyss pathway
-            sunWins: 0, // Wins using Sun pathway
-            currentWinStreak: 0, // Current consecutive wins
-            maxWinStreak: 0, // Highest win streak
-            x128Count: 0, // Times x128 multiplier achieved
-            pathwayGroupWins: {} // Track single-group wins { 'Sefirah Trinity': true, ... }
+            careerTotalDamage: 0, // For career damage dealt tracking
+            careerDamageReceived: 0, // For Eternal Darkness (1M damage received)
+            flawlessWins: 0, // For God Almighty (20 wins without taking damage)
+            madnessLosses: 0, // For Mother Goddess (20 auto-losses from madness)
+            comebackWins: 0, // For Anarchy (50 wins after being behind)
+            lowHPWins: 0, // For Father of Devils (100 wins after dropping below 15% HP)
+            dominantExchangeWins: 0, // For Demon of Knowledge (50 wins never losing exchange)
+            x128Count: 0, // For Key of Light (15 times x128 multiplier achieved)
+            // Legacy tracking (kept for backwards compatibility)
+            darknessPlusDeathWins: 0,
+            motherPlusMoonWins: 0,
+            massiveDamageTurns: 0,
+            sunTrioWins: 0,
+            abyssWins: 0,
+            sunWins: 0,
+            currentWinStreak: 0,
+            maxWinStreak: 0,
+            pathwayGroupWins: {}
         }));
 
         // Migration: ensure new fields exist in old saves
         if (!achievementProgress.pathwaysWonWith) achievementProgress.pathwaysWonWith = [];
         if (!achievementProgress.singlePathwayWins) achievementProgress.singlePathwayWins = {};
         if (!achievementProgress.careerTotalDamage) achievementProgress.careerTotalDamage = 0;
+        if (!achievementProgress.careerDamageReceived) achievementProgress.careerDamageReceived = 0;
         if (!achievementProgress.flawlessWins) achievementProgress.flawlessWins = 0;
+        if (!achievementProgress.madnessLosses) achievementProgress.madnessLosses = 0;
+        if (!achievementProgress.comebackWins) achievementProgress.comebackWins = 0;
+        if (!achievementProgress.lowHPWins) achievementProgress.lowHPWins = 0;
+        if (!achievementProgress.dominantExchangeWins) achievementProgress.dominantExchangeWins = 0;
+        if (!achievementProgress.x128Count) achievementProgress.x128Count = 0;
+        // Legacy tracking migrations (kept for backwards compatibility)
         if (!achievementProgress.darknessPlusDeathWins) achievementProgress.darknessPlusDeathWins = 0;
         if (!achievementProgress.motherPlusMoonWins) achievementProgress.motherPlusMoonWins = 0;
-        if (!achievementProgress.dominantExchangeWins) achievementProgress.dominantExchangeWins = 0;
         if (!achievementProgress.massiveDamageTurns) achievementProgress.massiveDamageTurns = 0;
         if (!achievementProgress.sunTrioWins) achievementProgress.sunTrioWins = 0;
         if (!achievementProgress.abyssWins) achievementProgress.abyssWins = 0;
         if (!achievementProgress.sunWins) achievementProgress.sunWins = 0;
         if (!achievementProgress.currentWinStreak) achievementProgress.currentWinStreak = 0;
         if (!achievementProgress.maxWinStreak) achievementProgress.maxWinStreak = 0;
-        if (!achievementProgress.x128Count) achievementProgress.x128Count = 0;
         if (!achievementProgress.pathwayGroupWins) achievementProgress.pathwayGroupWins = {};
 
         // Per-game tracking (reset each game)
@@ -6951,7 +6928,10 @@
                 usedOnlyIndirectDamage: true, // Assume true, set false if direct damage used
                 playerHPWhenComebackStarted: null, // For smiling clown tracking
                 neverLostDamageExchange: true, // True until player loses a damage exchange
-                lowestHP: 100 // Track lowest HP for comeback triumphs
+                lowestHP: 100, // Track lowest HP for comeback triumphs
+                wasEverBehind: false, // True if opponent ever had more HP than player
+                droppedBelow15Percent: false, // True if player HP dropped below 15% at any point
+                reachedX128ThisSequence: false // Track if x128 was reached in current draw sequence
             };
         }
 
@@ -7329,6 +7309,34 @@
             gameAchievementState.damageDealtThisGame += damageDealt;
             gameAchievementState.damageReceivedThisGame += damageReceived;
 
+            // Track career damage received for Eternal Darkness triumph
+            if (damageReceived > 0) {
+                achievementProgress.careerDamageReceived += damageReceived;
+            }
+
+            // Track if player was ever behind (opponent had more HP) for Anarchy triumph
+            const playerHPAfterBattle = playerHPBefore - damageReceived;
+            const opponentHPAfterBattle = opponentHPBefore - damageDealt;
+            if (opponentHPAfterBattle > playerHPAfterBattle) {
+                gameAchievementState.wasEverBehind = true;
+            }
+
+            // Track if player dropped below 15% HP for Father of Devils triumph
+            if (playerHPAfterBattle < 15 && playerHPAfterBattle > 0) {
+                gameAchievementState.droppedBelow15Percent = true;
+            }
+
+            // Track lowest HP for triumph tracking
+            if (playerHPAfterBattle < gameAchievementState.lowestHP) {
+                gameAchievementState.lowestHP = playerHPAfterBattle;
+            }
+
+            // Track if player lost a damage exchange (for Demon of Knowledge)
+            // Player loses exchange if they took damage and opponent didn't, or took more damage
+            if (result.outcome === 'LOSE' || (result.outcome === 'DRAW' && damageReceived > damageDealt)) {
+                gameAchievementState.neverLostDamageExchange = false;
+            }
+
             // No Mercy - 50+ damage in one round
             if (damageDealt >= 50) {
                 unlockAchievement('no_mercy');
@@ -7386,6 +7394,12 @@
             }
             if (multiplierBefore >= 128) {
                 unlockAchievement('unstoppable_force');
+                // Track x128 achievement for Key of Light triumph (only count once per instance)
+                // This triggers when we reach 128 for the first time in a game sequence
+                if (!gameAchievementState.reachedX128ThisSequence) {
+                    gameAchievementState.reachedX128ThisSequence = true;
+                    achievementProgress.x128Count++;
+                }
             }
 
             // The Fool of This Era - played all Big Hit cards
@@ -7529,36 +7543,53 @@
             }
 
             // === OUTER DEITY TRIUMPHS ===
+            // These are unlocked based on career stats, tracked incrementally
 
-            // Check deity pathway triumphs (must use ALL pathways in same game)
-            const usedPathways = gameAchievementState.pathwaysUsedThisGame;
-            for (const [triumphId, requiredPathways] of Object.entries(DEITY_PATHWAYS)) {
-                const hasAll = requiredPathways.every(p => usedPathways.includes(p));
-                if (hasAll) {
-                    unlockTriumph(triumphId);
+            // God Almighty - Win 20 games without taking ANY damage
+            if (gameAchievementState.damageReceivedThisGame === 0) {
+                achievementProgress.flawlessWins++;
+                if (achievementProgress.flawlessWins >= 20) {
+                    unlockTriumph('god_almighty');
                 }
             }
 
-            // === SPECIAL CONDITION TRIUMPHS ===
-
-            // Father of Devils - Win after being below 20% HP with Abyss
-            if (usedPathways.includes('Abyss') && gameAchievementState.lowestHP <= 20) {
-                unlockTriumph('father_of_devils');
+            // Anarchy (Authority of Order) - Win 50 games after being behind (opponent had more HP)
+            if (gameAchievementState.wasEverBehind) {
+                achievementProgress.comebackWins++;
+                if (achievementProgress.comebackWins >= 50) {
+                    unlockTriumph('authority_of_order');
+                }
             }
 
-            // Key of Light - Win without taking damage using Sun
-            if (usedPathways.includes('Sun') && gameAchievementState.damageReceivedThisGame === 0) {
+            // Father of Devils - Win 100 games after dropping below 15% HP
+            if (gameAchievementState.droppedBelow15Percent) {
+                achievementProgress.lowHPWins++;
+                if (achievementProgress.lowHPWins >= 100) {
+                    unlockTriumph('father_of_devils');
+                }
+            }
+
+            // Demon of Knowledge - Win 50 games where you never lost a single damage exchange
+            if (gameAchievementState.neverLostDamageExchange) {
+                achievementProgress.dominantExchangeWins++;
+                if (achievementProgress.dominantExchangeWins >= 50) {
+                    unlockTriumph('god_of_knowledge');
+                }
+            }
+
+            // Key of Light - Achieve x128 multiplier 15 times (tracked elsewhere, check here)
+            if (achievementProgress.x128Count >= 15) {
                 unlockTriumph('key_of_light');
             }
 
-            // Wheel Master - Win with x32+ multiplier using Wheel of Fortune
-            if (usedPathways.includes('Wheel of Fortune') && gameAchievementState.maxMultiplierReached >= 32) {
-                unlockTriumph('wheel_master');
+            // Eternal Darkness - Receive 1,000,000 total damage (tracked elsewhere, check here)
+            if (achievementProgress.careerDamageReceived >= 1000000) {
+                unlockTriumph('eternal_darkness');
             }
 
-            // Original Creator - won using all 22 pathways across career
-            if (achievementProgress.pathwaysWonWith.length >= 22) {
-                unlockTriumph('original_creator');
+            // Mother Goddess - Auto lose 20 games from madness (tracked in madness loss handler)
+            if (achievementProgress.madnessLosses >= 20) {
+                unlockTriumph('mother_goddess');
             }
 
             // Note: These triumphs require systems not yet implemented:
@@ -7701,6 +7732,8 @@
                 gameState.damageMultiplier *= 2;
             } else {
                 gameState.damageMultiplier = 1;
+                // Reset x128 sequence tracker when multiplier resets
+                gameAchievementState.reachedX128ThisSequence = false;
             }
 
             // Store battle data for detail view
