@@ -2148,6 +2148,24 @@
             cursor: not-allowed;
         }
 
+        .btn-leave-match {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            margin-top: 10px;
+        }
+
+        .btn-leave-match:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+            transform: scale(1.05);
+        }
+
         .matchmaking-status {
             display: flex;
             flex-direction: column;
@@ -7063,9 +7081,10 @@
             document.getElementById('btn-find-match').style.display = 'none';
             document.getElementById('match-type-selector').style.display = 'none';
 
-            // Show room info
+            // Show room info with Leave Match button
             const publicUI = document.getElementById('public-match-ui');
-            publicUI.innerHTML = '<div class="room-code-display">Public Match - Room: ' + roomCode + '</div>';
+            publicUI.innerHTML = '<div class="room-code-display">Public Match - Room: ' + roomCode + '</div>' +
+                '<button class="btn-leave-match" onclick="leaveAndFindNewMatch()">Leave & Find New Match</button>';
 
             // Initialize multiplayer
             playerId = isHost ? 'player1' : 'player2';
@@ -7143,8 +7162,13 @@
 
             // Reset UI to show Find Match button
             const publicUI = document.getElementById('public-match-ui');
-            publicUI.innerHTML = '<p>Searching for opponents...</p>' +
-                '<button class="btn-find-match" id="btn-find-match" onclick="joinPublicQueue()">Find Match</button>';
+            publicUI.innerHTML = '<div class="room-code-label">Get matched with a random opponent</div>' +
+                '<button class="btn-find-match" id="btn-find-match" onclick="joinPublicQueue()">Find Match</button>' +
+                '<div class="matchmaking-status" id="matchmaking-status" style="display: none;">' +
+                '<div class="matchmaking-spinner"></div>' +
+                '<span id="matchmaking-text">Searching for opponent...</span>' +
+                '<button class="btn-cancel-match" onclick="leavePublicQueue()">Cancel</button>' +
+                '</div>';
             document.getElementById('btn-find-match').style.display = 'block';
             document.getElementById('match-type-selector').style.display = 'flex';
 
