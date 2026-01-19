@@ -7585,6 +7585,15 @@
                 titleEffect: 'door-creak',
                 difficulty: 9
             },
+            // === SPECIAL TRIUMPHS ===
+            'king_yellow_black': {
+                name: 'King of Yellow and Black',
+                desc: 'Have all 6 Big Hit cards in your hand at once',
+                icon: '👑',
+                title: 'King of Yellow and Black',
+                titleEffect: 'royal-shimmer',
+                difficulty: 10
+            },
             // === OUTER DEITY / GREAT OLD ONE TRIUMPHS ===
             'true_calamity': {
                 name: 'A true calamity',
@@ -8102,6 +8111,11 @@
                 if (gameState.turn === 1) {
                     unlockAchievement('fortune_bold');
                 }
+            }
+
+            // King of Yellow and Black - all 6 Big Hit cards in hand at once
+            if (bigHitsInHand.length === BIG_HIT_LIST.length) {
+                unlockTriumph('king_yellow_black');
             }
 
             // Store first hand cards
