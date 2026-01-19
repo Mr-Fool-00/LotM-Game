@@ -2365,6 +2365,18 @@
             color: var(--color-text-dim);
         }
 
+        .no-code-link {
+            font-size: 12px;
+            color: #666;
+            margin-top: 20px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .no-code-link:hover {
+            color: var(--color-text-dim);
+        }
+
         .welcome-choice.hidden,
         .welcome-new-player.hidden,
         .welcome-returning.hidden,
@@ -2987,6 +2999,7 @@
                     <button class="welcome-btn new-player" onclick="setupNewPlayer()">New Player</button>
                     <button class="welcome-btn returning-player" onclick="showReturningPlayerInput()">Returning Player</button>
                 </div>
+                <p class="no-code-link" onclick="skipPlayerCode()">No code please</p>
             </div>
 
             <div class="welcome-new-player hidden" id="welcome-new-player">
@@ -3566,6 +3579,14 @@
             document.getElementById('welcome-new-player').classList.add('hidden');
             document.getElementById('welcome-back').classList.add('hidden');
             document.getElementById('welcome-choice').classList.remove('hidden');
+        }
+
+        function skipPlayerCode() {
+            // Skip player code - mainly for GMs to avoid taking up number slots
+            playerCode = null;
+            localStorage.removeItem('pathwayClash_playerCode');
+            document.getElementById('welcome-screen').classList.add('hidden');
+            document.getElementById('intro-screen').classList.remove('hidden');
         }
 
         async function submitReturningCode() {
