@@ -7123,6 +7123,35 @@
             myQueueId = null;
         }
 
+        function leaveAndFindNewMatch() {
+            // Clean up current room
+            if (roomRef) {
+                roomRef.off(); // Remove all listeners
+                roomRef.child(playerId).set(false); // Mark as disconnected
+                roomRef = null;
+            }
+
+            // Reset state
+            currentRoomCode = null;
+            playerId = null;
+            opponentReady = false;
+            myCardPlayed = null;
+            opponentCardPlayed = null;
+
+            // Reset game state
+            resetGameState();
+
+            // Reset UI to show Find Match button
+            const publicUI = document.getElementById('public-match-ui');
+            publicUI.innerHTML = '<p>Searching for opponents...</p>' +
+                '<button class="btn-find-match" id="btn-find-match" onclick="joinPublicQueue()">Find Match</button>';
+            document.getElementById('btn-find-match').style.display = 'block';
+            document.getElementById('match-type-selector').style.display = 'flex';
+
+            updateConnectionStatus('waiting', 'Click Find Match to search for an opponent');
+            updatePlayerIndicator();
+        }
+
         function joinRoom() {
             const input = document.getElementById('room-code-input');
             const code = input.value.trim();
@@ -7237,8 +7266,15 @@
             // Listen for disconnections
             roomRef.child(playerId === 'player1' ? 'player2' : 'player1').on('value', (snapshot) => {
                 if (snapshot.val() === false && opponentReady) {
-                    updateConnectionStatus('waiting', 'Room ' + currentRoomCode + ' - Opponent disconnected. Waiting...');
+                    updateConnectionStatus('waiting', 'Opponent disconnected');
                     opponentReady = false;
+
+                    // Show Find New Match button for public matches
+                    if (matchType === 'public') {
+                        const publicUI = document.getElementById('public-match-ui');
+                        publicUI.innerHTML = '<div class="room-code-display">Opponent left the match</div>' +
+                            '<button class="btn-find-match" onclick="leaveAndFindNewMatch()">Find New Match</button>';
+                    }
                 }
             });
         }
