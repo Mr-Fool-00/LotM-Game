@@ -7442,20 +7442,12 @@
             'star_still_shines': { name: 'The Star Still Shines', desc: 'Win without ever drawing a Big Hit card', icon: '✨', difficulty: 5 },
             'silver_bullet': { name: 'Silver Bullet', desc: 'End the game with a single attack', icon: '🔫', difficulty: 6 },
             'unfortunate': { name: "Well That's Unfortunate", desc: 'Tie while both at full health the turn before', icon: '😬', difficulty: 6 },
-            'devastation': { name: 'Calamity Unleashed', desc: 'Deal over 500 damage in one game', icon: '🔥', difficulty: 6 },
-            'punching_bag': { name: "Martyr's Burden", desc: 'Receive over 500 damage in one game', icon: '⛓️', difficulty: 6 },
             'fool_of_era': { name: 'The Fool of This Era', desc: 'Play every Big Hit card', icon: '🎭', difficulty: 7 },
             'high_roller': { name: 'High Roller', desc: 'Obtain x32 and x64 multipliers', icon: '🎰', difficulty: 7 },
-            'critical_strike': { name: "Hunter's Precision", desc: 'Deal over 500 damage in one turn', icon: '🎯', difficulty: 7 },
-            'brutal_blow': { name: "Abyss's Touch", desc: 'Receive over 500 damage in one turn', icon: '🕳️', difficulty: 7 },
             'sequence_0': { name: 'Sequence 0', desc: 'Play each pathway card at least once', icon: '👑', difficulty: 8 },
             'calculated_insanity': { name: 'Calculated Insanity', desc: 'Win while at high madness for 3+ turns', icon: '🌀', difficulty: 8 },
             'true_madness': { name: 'True Madness', desc: 'Use every ability at least once', icon: '🔮', difficulty: 8 },
-            'annihilation': { name: 'Twilight of Destruction', desc: 'Deal over 1000 damage in one game', icon: '☄️', difficulty: 8 },
-            'immortal_resolve': { name: "Evernight's Blessing", desc: 'Receive over 1000 damage in one game', icon: '🌙', difficulty: 8 },
             'unstoppable_force': { name: 'A Truly Unstoppable Force', desc: 'Obtain a x128 damage multiplier', icon: '⚡', difficulty: 9 },
-            'overkill': { name: 'Authority Unleashed', desc: 'Deal over 1000 damage in one turn', icon: '👁️', difficulty: 9 },
-            'near_death': { name: 'Door to Death', desc: 'Receive over 1000 damage in one turn', icon: '🚪', difficulty: 9 },
             'pathway_adept': { name: 'Pathway Adept', desc: 'Win 100 games', icon: '🏆', difficulty: 10 },
             'silent_assassin': { name: 'Silent Assassin', desc: 'Deal 100 damage from indirect sources', icon: '🗡️', difficulty: 10 }
         };
@@ -7526,6 +7518,72 @@
                 title: 'Lord of the Mysteries',
                 titleEffect: 'foggy-glitch',
                 difficulty: 10
+            },
+            // === DAMAGE TRIUMPHS (Per Game) ===
+            'calamity_unleashed': {
+                name: 'Calamity Unleashed',
+                desc: 'Deal over 500 damage in one game',
+                icon: '🔥',
+                title: 'Agent of Catastrophe',
+                titleEffect: 'flame-pulse',
+                difficulty: 6
+            },
+            'twilight_destruction': {
+                name: 'Twilight of Destruction',
+                desc: 'Deal over 1000 damage in one game',
+                icon: '☄️',
+                title: 'Herald of Extinction',
+                titleEffect: 'meteor-glow',
+                difficulty: 8
+            },
+            'martyrs_burden': {
+                name: "Martyr's Burden",
+                desc: 'Receive over 500 damage in one game',
+                icon: '⛓️',
+                title: 'Blood-Bound Survivor',
+                titleEffect: 'blood-drip',
+                difficulty: 6
+            },
+            'evernights_blessing': {
+                name: "Evernight's Blessing",
+                desc: 'Receive over 1000 damage in one game',
+                icon: '🌙',
+                title: 'Sleepless Sentinel',
+                titleEffect: 'moon-shimmer',
+                difficulty: 8
+            },
+            // === DAMAGE TRIUMPHS (Per Turn) ===
+            'hunters_precision': {
+                name: "Hunter's Precision",
+                desc: 'Deal over 500 damage in one turn',
+                icon: '🎯',
+                title: 'Executioner of Fate',
+                titleEffect: 'target-lock',
+                difficulty: 7
+            },
+            'authority_unleashed': {
+                name: 'Authority Unleashed',
+                desc: 'Deal over 1000 damage in one turn',
+                icon: '👁️',
+                title: 'Sovereign of a Single Thought',
+                titleEffect: 'eye-glow',
+                difficulty: 9
+            },
+            'abyss_touch': {
+                name: "Abyss's Touch",
+                desc: 'Receive over 500 damage in one turn',
+                icon: '🕳️',
+                title: 'Marked by Darkness',
+                titleEffect: 'void-swirl',
+                difficulty: 7
+            },
+            'door_to_death': {
+                name: 'Door to Death',
+                desc: 'Receive over 1000 damage in one turn',
+                icon: '🚪',
+                title: 'Knower of the Final Door',
+                titleEffect: 'door-creak',
+                difficulty: 9
             },
             // === OUTER DEITY / GREAT OLD ONE TRIUMPHS ===
             'true_calamity': {
@@ -8127,44 +8185,44 @@
                 unlockAchievement('no_mercy');
             }
 
-            // Critical Strike - 500+ damage in one turn
+            // Hunter's Precision - 500+ damage in one turn
             if (damageDealt >= 500) {
-                unlockAchievement('critical_strike');
+                unlockTriumph('hunters_precision');
             }
 
-            // Overkill - 1000+ damage in one turn
+            // Authority Unleashed - 1000+ damage in one turn
             if (damageDealt >= 1000) {
-                unlockAchievement('overkill');
+                unlockTriumph('authority_unleashed');
             }
 
-            // Brutal Blow - receive 500+ damage in one turn
+            // Abyss's Touch - receive 500+ damage in one turn
             if (damageReceived >= 500) {
-                unlockAchievement('brutal_blow');
+                unlockTriumph('abyss_touch');
             }
 
-            // Near Death Experience - receive 1000+ damage in one turn
+            // Door to Death - receive 1000+ damage in one turn
             if (damageReceived >= 1000) {
-                unlockAchievement('near_death');
+                unlockTriumph('door_to_death');
             }
 
-            // Devastation - 500+ damage in one game
+            // Calamity Unleashed - 500+ damage in one game
             if (gameAchievementState.damageDealtThisGame >= 500) {
-                unlockAchievement('devastation');
+                unlockTriumph('calamity_unleashed');
             }
 
-            // Annihilation - 1000+ damage in one game
+            // Twilight of Destruction - 1000+ damage in one game
             if (gameAchievementState.damageDealtThisGame >= 1000) {
-                unlockAchievement('annihilation');
+                unlockTriumph('twilight_destruction');
             }
 
-            // Punching Bag - receive 500+ damage in one game
+            // Martyr's Burden - receive 500+ damage in one game
             if (gameAchievementState.damageReceivedThisGame >= 500) {
-                unlockAchievement('punching_bag');
+                unlockTriumph('martyrs_burden');
             }
 
-            // Immortal Resolve - receive 1000+ damage in one game
+            // Evernight's Blessing - receive 1000+ damage in one game
             if (gameAchievementState.damageReceivedThisGame >= 1000) {
-                unlockAchievement('immortal_resolve');
+                unlockTriumph('evernights_blessing');
             }
 
             // Check multiplier achievements using the multiplier BEFORE it was modified
