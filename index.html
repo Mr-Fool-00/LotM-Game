@@ -1927,6 +1927,278 @@
             text-align: justify;
         }
 
+        /* Ability Modal Styles */
+        .ability-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ability-modal.active {
+            display: flex;
+        }
+
+        .ability-modal-content {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border: 2px solid var(--color-gold);
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ability-modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .ability-modal-header h2 {
+            color: var(--color-gold);
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .ability-modal-header p {
+            color: var(--color-text-muted);
+            font-size: 14px;
+        }
+
+        .ability-modal-body {
+            margin-bottom: 20px;
+        }
+
+        .ability-modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ability-modal-option {
+            background: var(--bg-dark);
+            border: 2px solid var(--color-purple);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .ability-modal-option:hover {
+            border-color: var(--color-gold);
+            background: var(--bg-gold-subtle);
+        }
+
+        .ability-modal-option.selected {
+            border-color: var(--color-gold);
+            background: var(--bg-gold-light);
+        }
+
+        .ability-option-title {
+            color: var(--color-gold);
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .ability-option-desc {
+            color: var(--color-text-muted);
+            font-size: 13px;
+        }
+
+        .ability-modal-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px 0;
+        }
+
+        .ability-modal-card {
+            background: var(--bg-dark);
+            border: 2px solid var(--color-purple);
+            border-radius: 10px;
+            padding: 12px;
+            width: 100px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .ability-modal-card:hover {
+            border-color: var(--color-gold);
+            transform: translateY(-3px);
+        }
+
+        .ability-modal-card.selected {
+            border-color: var(--color-gold);
+            background: var(--bg-gold-light);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .ability-modal-card img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+        }
+
+        .ability-modal-card .card-name {
+            font-size: 11px;
+            color: var(--color-gold);
+            font-weight: bold;
+        }
+
+        .ability-modal-card.blinded {
+            background: repeating-linear-gradient(45deg, #1a1a2e, #1a1a2e 10px, #2a2a4a 10px, #2a2a4a 20px);
+        }
+
+        .ability-modal-card.blinded img {
+            opacity: 0;
+        }
+
+        .ability-modal-card.blinded .card-name {
+            color: var(--color-text-dim);
+        }
+
+        .ability-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .ability-modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .ability-modal-btn.primary {
+            background: linear-gradient(135deg, #4a8a4a, #2a5a2a);
+            color: white;
+        }
+
+        .ability-modal-btn.primary:hover {
+            background: linear-gradient(135deg, #5a9a5a, #3a6a3a);
+        }
+
+        .ability-modal-btn.primary:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+        }
+
+        .ability-modal-btn.secondary {
+            background: linear-gradient(135deg, #6a3a3a, #4a2a2a);
+            color: white;
+        }
+
+        .ability-modal-btn.secondary:hover {
+            background: linear-gradient(135deg, #7a4a4a, #5a3a3a);
+        }
+
+        .ability-modal-btn.danger {
+            background: linear-gradient(135deg, #8a4a4a, #5a2a2a);
+            color: white;
+        }
+
+        /* Damage/Heal popup animation */
+        .effect-popup {
+            position: fixed;
+            font-size: 28px;
+            font-weight: bold;
+            pointer-events: none;
+            z-index: 1200;
+            animation: popupFloat 1.5s ease-out forwards;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .effect-popup.damage {
+            color: #ff4a4a;
+        }
+
+        .effect-popup.heal {
+            color: #00ff88;
+        }
+
+        .effect-popup.effect {
+            color: var(--color-gold);
+        }
+
+        @keyframes popupFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(-30px) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-60px) scale(0.8);
+            }
+        }
+
+        /* Blinded hand card style */
+        .card.blinded .card-icon,
+        .card.blinded .card-name {
+            visibility: hidden;
+        }
+
+        .card.blinded::after {
+            content: '?';
+            position: absolute;
+            font-size: 48px;
+            color: var(--color-text-dim);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .card.decoy-active {
+            border-color: #aa44ff;
+            box-shadow: 0 0 15px rgba(170, 68, 255, 0.5);
+            pointer-events: none;
+        }
+
+        .card.decoy-active::before {
+            content: 'DECOY';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #aa44ff;
+            color: white;
+            font-size: 9px;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
         /* Game Over Overlay */
         .game-over-overlay {
             position: fixed;
@@ -4402,6 +4674,23 @@
             </div>
         </div>
     </div>
+
+    <!-- Ability Effect Modal -->
+    <div class="ability-modal" id="ability-modal">
+        <div class="ability-modal-content">
+            <div class="ability-modal-header">
+                <h2 id="ability-modal-title">Ability Effect</h2>
+                <p id="ability-modal-subtitle"></p>
+            </div>
+            <div class="ability-modal-body" id="ability-modal-body">
+                <!-- Dynamic content inserted here -->
+            </div>
+            <div class="ability-modal-buttons" id="ability-modal-buttons">
+                <!-- Dynamic buttons inserted here -->
+            </div>
+        </div>
+    </div>
+
     <script>
         // ============================================
         // SHARED FIREBASE CONFIGURATION
@@ -5121,6 +5410,7 @@
                 name: 'Fool',
                 icon: 'images/fool.png',
                 flavor: 'Master of disguise, weaver of fate',
+                abilityCategory: 'fool',
                 description: 'The Fool is the master of deception, preparation, and unseen control. Rather than overwhelming foes with power, they manipulate the battlefield through disguise, illusion, and fate. Identities are tools to be worn and discarded, while history and coincidence become weapons. A Fool rarely fights head-on; enemies instead face traps, proxies, and outcomes that seem inevitable. To confront a Fool is to question what is real—and whether the battle was already decided before it began.',
                 abilities: [
                     { name: 'Disguise & Identity Manipulation', desc: 'Alter appearance, aura, and perceived identity, enabling infiltration and misdirection resistant to detection.' },
@@ -5136,6 +5426,7 @@
                 name: 'Door',
                 icon: 'images/door.png',
                 flavor: 'Wanderer between worlds and dimensions',
+                abilityCategory: 'door',
                 description: 'The Door pathway commands space itself. Practitioners can open passages between locations, dimensions, and even concepts. In combat, they are nearly impossible to pin down—teleporting at will, banishing foes to distant realms, or sealing areas entirely. They excel at controlling engagement distance and denying enemies any foothold. Fighting a Door is like grasping smoke; the moment you close in, they are already elsewhere.',
                 abilities: [
                     { name: 'Teleportation', desc: 'Instantly relocate self or others across any distance, ignoring physical barriers.' },
@@ -5150,6 +5441,7 @@
                 name: 'Error',
                 icon: 'images/error.png',
                 flavor: 'Stealer of all, corruptor of existence',
+                abilityCategory: 'error',
                 description: 'The Error pathway embodies theft, corruption, and the unraveling of order. Practitioners steal abilities, items, concepts, and even luck from their targets. They insert flaws into enemy techniques, corrupt magical processes, and turn strengths into weaknesses. In battle, facing an Error means watching your carefully prepared abilities fail at critical moments while your opponent wields your own power against you.',
                 abilities: [
                     { name: 'Ability Theft', desc: 'Temporarily or permanently steal powers, skills, or Beyonder abilities from targets.' },
@@ -5164,6 +5456,7 @@
                 name: 'Visionary',
                 icon: 'images/visionary.png',
                 flavor: 'Seer of minds, shaper of thoughts',
+                abilityCategory: 'visionary',
                 description: 'The Visionary pathway dominates the mental realm. Practitioners read thoughts, implant ideas, rewrite memories, and trap minds in fabricated realities. At higher sequences, they can author entire narratives that reshape how events unfold. In combat, physical defenses mean nothing—the battle is fought in the mind, where a Visionary can make you believe you\'ve already lost, or simply rewrite your intent to fight.',
                 abilities: [
                     { name: 'Mind Reading', desc: 'Perceive surface thoughts, deep memories, and hidden intentions of targets.' },
@@ -5179,6 +5472,7 @@
                 name: 'White Tower',
                 icon: 'images/white tower.png',
                 flavor: 'Keeper of knowledge, master of wisdom',
+                abilityCategory: 'knowledge',
                 description: 'The White Tower pathway pursues absolute knowledge and analytical perfection. Practitioners possess superhuman intelligence, perfect memory, and the ability to calculate optimal outcomes. They decode enemy abilities instantly, predict attack patterns, and devise counter-strategies in moments. In battle, they turn combat into a solved equation—every move anticipated, every weakness catalogued, every victory calculated before the first blow.',
                 abilities: [
                     { name: 'Absolute Analysis', desc: 'Instantly understand any phenomenon, ability, or system upon observation.' },
@@ -5193,6 +5487,7 @@
                 name: 'Sun',
                 icon: 'images/sun.png',
                 flavor: 'Holy light that purifies all darkness',
+                abilityCategory: 'purification',
                 description: 'The Sun pathway channels holy radiance and purifying flame. Practitioners wield light as both weapon and shield, burning away corruption, undead, and darkness. They heal allies, resurrect the fallen, and stand as beacons of absolute opposition to evil. In combat, they are relentless purifiers—their light reveals all hidden things and their flames leave no shadow for enemies to hide within.',
                 abilities: [
                     { name: 'Holy Light Manipulation', desc: 'Command sacred radiance to illuminate, blind, damage, or purify.' },
@@ -5208,6 +5503,7 @@
                 name: 'Tyrant',
                 icon: 'images/tyrant.png',
                 flavor: 'Commander of storms and seas',
+                abilityCategory: 'destruction',
                 description: 'The Tyrant pathway commands the primal forces of nature—storms, seas, lightning, and wind. Practitioners are forces of devastation, calling down hurricanes and tsunamis upon their enemies. They also embody dominion and authority, compelling obedience through sheer presence. In combat, they overwhelm with environmental destruction, leaving no safe ground while their lightning strikes with the certainty of divine judgment.',
                 abilities: [
                     { name: 'Storm Summoning', desc: 'Call forth hurricanes, thunderstorms, and devastating weather at will.' },
@@ -5223,6 +5519,7 @@
                 name: 'Hanged Man',
                 icon: 'images/hanged man.png',
                 flavor: 'Walker between life and death',
+                abilityCategory: 'death',
                 description: 'The Hanged Man pathway exists in the liminal space between life and death. Practitioners manipulate spirits, inflict curses, and wield powers of decay and disease. They can enter death-like states to avoid harm, communicate with the deceased, and turn the boundary of mortality into a weapon. In combat, they are patient corruptors—their curses accumulate, their diseases spread, and time itself becomes their ally.',
                 abilities: [
                     { name: 'Spirit Manipulation', desc: 'Command, communicate with, and bind spirits and souls.' },
@@ -5238,6 +5535,7 @@
                 name: 'Darkness',
                 icon: 'images/darkness.png',
                 flavor: 'Shadow that consumes all light',
+                abilityCategory: 'darkness',
                 description: 'The Darkness pathway commands shadow, concealment, and the cold void. Practitioners become one with darkness—invisible, intangible, and everywhere shadows fall. They assassinate from impossible angles, drain warmth and hope, and create zones of absolute blackness. In combat, they are patient hunters who strike from nowhere and vanish before retaliation, slowly surrounding enemies in inescapable night.',
                 abilities: [
                     { name: 'Shadow Meld', desc: 'Become one with darkness, achieving perfect concealment and intangibility.' },
@@ -5253,6 +5551,7 @@
                 name: 'Death',
                 icon: 'images/death.png',
                 flavor: 'Ruler of the undead realm',
+                abilityCategory: 'death',
                 description: 'The Death pathway commands the forces of mortality and undeath. Practitioners raise armies of the dead, exist as immortal undead themselves, and wield the cold finality of death as a weapon. They are nearly impossible to destroy permanently, reforming from destruction and growing stronger through accumulated souls. In combat, they overwhelm through attrition—what they kill joins their army, and they themselves refuse to stay dead.',
                 abilities: [
                     { name: 'Undead Creation', desc: 'Raise and command corpses, skeletons, and spiritual undead.' },
@@ -5268,6 +5567,7 @@
                 name: 'Twilight Giant',
                 icon: 'images/twilight giant.png',
                 flavor: 'Ancient strength that shakes the earth',
+                abilityCategory: 'destruction',
                 description: 'The Twilight Giant pathway embodies primordial physical might and ancient warrior traditions. Practitioners possess strength to shatter mountains, durability to ignore most attacks, and combat mastery refined over millennia. They wield legendary weapons and armor, and their very footsteps shake the earth. In combat, they are unstoppable juggernauts—no barrier holds them, no blow fells them, and their strikes end battles decisively.',
                 abilities: [
                     { name: 'Titanic Strength', desc: 'Possess physical power capable of reshaping terrain and overwhelming any defense.' },
@@ -5283,6 +5583,7 @@
                 name: 'Red Priest',
                 icon: 'images/red priest.png',
                 flavor: 'Flames of war, destruction incarnate',
+                abilityCategory: 'destruction',
                 description: 'The Red Priest pathway channels the pure essence of war, destruction, and flame. Practitioners are living weapons—their fires burn without limit, their mere presence incites violence, and they grow stronger through conflict. They command armies with supernatural coordination and turn battlefields into infernos. In combat, they are overwhelming offense incarnate, burning through defenses and turning every exchange into escalating devastation.',
                 abilities: [
                     { name: 'War Flames', desc: 'Command fires that burn hotter and spread faster in conflict.' },
@@ -5298,6 +5599,7 @@
                 name: 'Demoness',
                 icon: 'images/demoness.png',
                 flavor: 'Beauty that hides deadly intent',
+                abilityCategory: 'stealth',
                 description: 'The Demoness pathway wields desire, calamity, and corruption as weapons. Practitioners possess supernatural beauty and charm that clouds judgment and inflames obsession. They bring disaster upon their enemies through manipulated emotions and accumulated misfortune. In combat, they rarely fight directly—instead, enemies destroy themselves through poor decisions, allies turn traitor, and calamities strike at the worst possible moments.',
                 abilities: [
                     { name: 'Supernatural Allure', desc: 'Project irresistible beauty and charm that clouds minds and judgment.' },
@@ -5313,6 +5615,7 @@
                 name: 'Justiciar',
                 icon: 'images/justiciar.png',
                 flavor: 'Law absolute, judgment unquestioned',
+                abilityCategory: 'justiciar',
                 description: 'The Justiciar pathway embodies absolute law and divine judgment. Practitioners establish rules that cannot be broken, punish transgressors with certainty, and see through all deception to truth. Their prohibitions carry the weight of reality—what they forbid becomes impossible. In combat, they define the rules of engagement, forbid enemy abilities, and execute judgment that cannot be appealed or escaped.',
                 abilities: [
                     { name: 'Absolute Prohibition', desc: 'Declare actions forbidden, making them impossible within your authority.' },
@@ -5328,6 +5631,7 @@
                 name: 'Black Emperor',
                 icon: 'images/black emperor.png',
                 flavor: 'Distortion of rules, chaos enthroned',
+                abilityCategory: 'fate',
                 description: 'The Black Emperor pathway commands distortion, loopholes, and the subversion of order. Practitioners twist rules rather than break them, finding exceptions that shouldn\'t exist and exploiting technicalities in reality itself. They manipulate authority structures and corrupt systems from within. In combat, they turn enemy abilities against their users, find impossible escapes from certain death, and make the unfair seem perfectly legal.',
                 abilities: [
                     { name: 'Rule Distortion', desc: 'Twist laws and rules to create loopholes and exceptions.' },
@@ -5343,6 +5647,7 @@
                 name: 'Hermit',
                 icon: 'images/hermit.png',
                 flavor: 'Seeker of secrets, wielder of elements',
+                abilityCategory: 'knowledge',
                 description: 'The Hermit pathway pursues forbidden knowledge and elemental mastery. Practitioners command multiple elements, uncover hidden truths, and wield magic refined through isolation and study. They hoard secrets that grant power and understand connections invisible to others. In combat, they are versatile spellcasters—adapting elemental attacks to any situation while their secret knowledge reveals enemy weaknesses.',
                 abilities: [
                     { name: 'Elemental Mastery', desc: 'Command fire, water, earth, air, and their combinations with expertise.' },
@@ -5358,6 +5663,7 @@
                 name: 'Paragon',
                 icon: 'images/paragon.png',
                 flavor: 'Perfection through machinery and order',
+                abilityCategory: 'creation',
                 description: 'The Paragon pathway seeks perfection through mechanical precision and systematic order. Practitioners enhance themselves with machinery, create intricate devices, and optimize everything to flawless efficiency. They construct zones of absolute control where nothing operates outside designed parameters. In combat, they deploy mechanical armies, personal augmentations, and environmental systems that create perfect, inescapable kill zones.',
                 abilities: [
                     { name: 'Mechanical Enhancement', desc: 'Augment body and abilities with precise, powerful machinery.' },
@@ -5373,6 +5679,7 @@
                 name: 'Mother',
                 icon: 'images/mother.png',
                 flavor: 'Life eternal, nature\'s embrace',
+                abilityCategory: 'creation',
                 description: 'The Mother pathway embodies life, nature, and endless growth. Practitioners command plants, animals, and the forces of nature itself. They heal with a touch, grow forests in moments, and possess regeneration that makes them nearly impossible to kill permanently. In combat, they overwhelm through endless vitality—terrain becomes hostile jungle, wounds heal instantly, and the natural world rises to defend its champion.',
                 abilities: [
                     { name: 'Nature Command', desc: 'Control plants, animals, and natural phenomena at will.' },
@@ -5388,6 +5695,7 @@
                 name: 'Moon',
                 icon: 'images/moon.png',
                 flavor: 'Ever-changing, never constant',
+                abilityCategory: 'stealth',
                 description: 'The Moon pathway embodies transformation, predation, and constant change. Practitioners shapeshift freely, possess powerful regeneration tied to lunar cycles, and can assume monstrous hunting forms. They spread lycanthropy and command other shifters. In combat, they are relentless predators—adapting their form to counter any threat, healing from devastating wounds, and hunting with primal ferocity that never tires.',
                 abilities: [
                     { name: 'Shapeshifting', desc: 'Transform into any creature or hybrid form at will.' },
@@ -5403,6 +5711,7 @@
                 name: 'Chained',
                 icon: 'images/chained.png',
                 flavor: 'Prisoner and jailer, bound together',
+                abilityCategory: 'binding',
                 description: 'The Chained pathway masters imprisonment, binding, and restriction. Practitioners create inescapable restraints, seal away powers, and trap beings in prisons physical and conceptual. Paradoxically, they also understand freedom—their own restrictions become sources of power when released. In combat, they deny enemy capabilities systematically, sealing away threats one by one until their opponent is helpless.',
                 abilities: [
                     { name: 'Binding Chains', desc: 'Create unbreakable restraints that seal movement and abilities.' },
@@ -5418,6 +5727,7 @@
                 name: 'Abyss',
                 icon: 'images/abyss.png',
                 flavor: 'Depths of madness, whispers of the deep',
+                abilityCategory: 'death',
                 description: 'The Abyss pathway channels the incomprehensible horrors of the deep void. Practitioners wield madness as a weapon, summon tentacled abominations, and corrupt minds with forbidden knowledge. Their very presence erodes sanity. In combat, they attack the mind as readily as the body—enemies go mad, see impossible things, and are dragged into darkness by things that should not exist.',
                 abilities: [
                     { name: 'Madness Projection', desc: 'Assault minds with sanity-breaking visions and impossible knowledge.' },
@@ -5433,6 +5743,7 @@
                 name: 'Wheel of Fortune',
                 icon: 'images/key of light.png',
                 flavor: 'Luck favors the bold... sometimes',
+                abilityCategory: 'fate',
                 description: 'The Wheel of Fortune pathway commands probability and fate itself. Practitioners manipulate luck, ensure fortunate outcomes for themselves, and curse enemies with disaster. They can glimpse and influence destiny, turning certain defeat into unexpected victory. In combat, their attacks always find openings, enemy strikes miss inexplicably, and the most unlikely circumstances consistently favor the fortunate one.',
                 abilities: [
                     { name: 'Luck Manipulation', desc: 'Bend probability to ensure favorable outcomes for any action.' },
@@ -7719,7 +8030,25 @@
             // Ability phase state
             abilityPhaseActive: false,
             abilityUsedThisTurn: false,
-            selectedAbility: null  // { cardIndex, abilityIndex, cardName, abilityName, abilityDesc }
+            selectedAbility: null,  // { cardIndex, abilityIndex, cardName, abilityName, abilityDesc }
+            // Ability effects state
+            priorPlayerHand: [],           // Previous hand for Knowledge recall
+            priorOpponentHand: [],         // Previous opponent hand for Knowledge recall
+            nextTurnEffects: [],           // Pending effects for next turn [{type, target, data}]
+            opponentBlinded: false,        // Darkness effect - opponent can't see cards
+            playerBlinded: false,          // Darkness effect on player
+            opponentAbilityBlocked: false, // Justiciar/Darkness - opponent can't use abilities
+            playerAbilityBlocked: false,   // Justiciar/Darkness - player can't use abilities
+            foolDecoyActive: false,        // Fool mechanic active
+            foolDecoyCardIndex: null,      // Which card is the decoy
+            forcedPlayerCard: null,        // Card player is forced to play (Binding/Visionary/Justiciar)
+            forcedOpponentCard: null,      // Card opponent is forced to play
+            guaranteedPlayerPathway: null, // Pathway guaranteed in next hand (Fate/Authority)
+            guaranteedOpponentPathway: null, // Pathway guaranteed for opponent
+            extraCardNextTurn: false,      // Door effect - draw extra card
+            opponentExtraCard: false,      // Door effect for opponent
+            abilitiesCancelled: false,     // Error effect - all abilities cancelled this turn
+            opponentUsedAbility: false     // Track if opponent used ability (for AI)
         };
 
         // Battle history for detail view
@@ -8776,7 +9105,25 @@
                 // Ability phase state
                 abilityPhaseActive: false,
                 abilityUsedThisTurn: false,
-                selectedAbility: null
+                selectedAbility: null,
+                // Ability effects state
+                priorPlayerHand: [],
+                priorOpponentHand: [],
+                nextTurnEffects: [],
+                opponentBlinded: false,
+                playerBlinded: false,
+                opponentAbilityBlocked: false,
+                playerAbilityBlocked: false,
+                foolDecoyActive: false,
+                foolDecoyCardIndex: null,
+                forcedPlayerCard: null,
+                forcedOpponentCard: null,
+                guaranteedPlayerPathway: null,
+                guaranteedOpponentPathway: null,
+                extraCardNextTurn: false,
+                opponentExtraCard: false,
+                abilitiesCancelled: false,
+                opponentUsedAbility: false
             };
             cardHistory = [];
             battleHistory = [];
@@ -8812,9 +9159,65 @@
 
         function drawHands() {
             gameAchievementState.drewBigHitThisTurn = false;
-            gameState.playerHand = getWeightedRandomCards(3);
-            gameState.opponentHand = getWeightedRandomCards(3);
+
+            // Save prior hands for Knowledge ability
+            gameState.priorPlayerHand = [...gameState.playerHand];
+            gameState.priorOpponentHand = [...gameState.opponentHand];
+
+            // Determine card counts (base 3, or 4 with extra card effect)
+            const playerCardCount = gameState.extraCardNextTurn ? 4 : 3;
+            const opponentCardCount = gameState.opponentExtraCard ? 4 : 3;
+
+            // Draw new hands
+            gameState.playerHand = getWeightedRandomCards(playerCardCount);
+            gameState.opponentHand = getWeightedRandomCards(opponentCardCount);
+
+            // Apply guaranteed pathways (Fate/Authority)
+            if (gameState.guaranteedPlayerPathway) {
+                const pathway = PATHWAYS.find(p => p.name === gameState.guaranteedPlayerPathway);
+                if (pathway && gameState.playerHand.length > 0) {
+                    gameState.playerHand[0] = pathway;
+                }
+                gameState.guaranteedPlayerPathway = null;
+            }
+
+            if (gameState.guaranteedOpponentPathway) {
+                const pathway = PATHWAYS.find(p => p.name === gameState.guaranteedOpponentPathway);
+                if (pathway && gameState.opponentHand.length > 0) {
+                    gameState.opponentHand[0] = pathway;
+                }
+                gameState.guaranteedOpponentPathway = null;
+            }
+
+            // Apply next turn effects
+            gameState.nextTurnEffects.forEach(effect => {
+                if (effect.type === 'recallCard') {
+                    if (effect.target === 'player' && effect.card) {
+                        // Replace first card with recalled card
+                        gameState.playerHand[0] = effect.card;
+                    } else if (effect.target === 'opponent' && effect.card) {
+                        gameState.opponentHand[0] = effect.card;
+                    }
+                } else if (effect.type === 'guaranteeCard') {
+                    if (effect.target === 'player' && effect.card) {
+                        gameState.playerHand[0] = effect.card;
+                    } else if (effect.target === 'opponent' && effect.card) {
+                        gameState.opponentHand[0] = effect.card;
+                    }
+                }
+            });
+            gameState.nextTurnEffects = [];
+
+            // Clear turn-based effects
+            gameState.extraCardNextTurn = false;
+            gameState.opponentExtraCard = false;
+            gameState.abilitiesCancelled = false;
+
+            // Note: blinded and blocked states persist until they're applied/checked this turn
+            // They should be cleared at the END of the turn, not the start
+
             checkAchievementsOnDraw(gameState.playerHand);
+
             // Reset ability state for the new turn
             gameState.abilityUsedThisTurn = false;
             gameState.selectedAbility = null;
@@ -8828,6 +9231,30 @@
         function showAbilityPhase() {
             if (gameState.gameOver) return;
 
+            // AI uses ability first (in AI mode)
+            if (gameMode === 'ai') {
+                aiSelectAndUseAbility();
+            }
+
+            // Check if player abilities are blocked
+            if (gameState.playerAbilityBlocked) {
+                const logContent = document.getElementById('log-content');
+                const entry = document.createElement('div');
+                entry.className = 'log-entry info';
+                entry.innerHTML = `<strong>Turn ${gameState.turn}:</strong> <span style="color: #ff6b6b;">Your abilities are blocked this turn!</span>`;
+                logContent.insertBefore(entry, logContent.firstChild);
+
+                // Skip ability phase
+                gameState.playerAbilityBlocked = false; // Clear for next turn
+                gameState.opponentAbilityBlocked = false; // Also clear opponent's block
+                gameState.abilityPhaseActive = false;
+                renderHand();
+                return;
+            }
+
+            // Clear blocked state for opponent (their turn to be blocked is over)
+            gameState.opponentAbilityBlocked = false;
+
             gameState.abilityPhaseActive = true;
             const container = document.getElementById('ability-cards-container');
             container.innerHTML = '';
@@ -8837,13 +9264,23 @@
                 const columnEl = document.createElement('div');
                 columnEl.className = 'ability-card-column';
 
+                // Check if this card is blinded
+                const isBlinded = gameState.playerBlinded;
+
                 // Card header
                 const headerEl = document.createElement('div');
                 headerEl.className = 'ability-card-header';
-                headerEl.innerHTML = `
-                    <img src="${card.icon}" alt="${card.name}">
-                    <span class="card-name">${card.name}</span>
-                `;
+                if (isBlinded) {
+                    headerEl.innerHTML = `
+                        <div style="width: 40px; height: 40px; background: #333; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 20px;">?</div>
+                        <span class="card-name" style="color: #666;">???</span>
+                    `;
+                } else {
+                    headerEl.innerHTML = `
+                        <img src="${card.icon}" alt="${card.name}">
+                        <span class="card-name">${card.name}</span>
+                    `;
+                }
                 columnEl.appendChild(headerEl);
 
                 // Ability list
@@ -8853,12 +9290,23 @@
                 card.abilities.forEach((ability, abilityIndex) => {
                     const abilityBtn = document.createElement('button');
                     abilityBtn.className = 'ability-btn';
+                    if (isBlinded) {
+                        abilityBtn.classList.add('blinded');
+                    }
                     abilityBtn.setAttribute('data-card-index', cardIndex);
                     abilityBtn.setAttribute('data-ability-index', abilityIndex);
-                    abilityBtn.innerHTML = `
-                        <span class="ability-name">${ability.name}</span>
-                        <span class="ability-desc">${ability.desc}</span>
-                    `;
+
+                    if (isBlinded) {
+                        abilityBtn.innerHTML = `
+                            <span class="ability-name" style="color: #666;">???</span>
+                            <span class="ability-desc" style="color: #444;">Hidden by darkness</span>
+                        `;
+                    } else {
+                        abilityBtn.innerHTML = `
+                            <span class="ability-name">${ability.name}</span>
+                            <span class="ability-desc">${ability.desc}</span>
+                        `;
+                    }
                     abilityBtn.onclick = () => selectAbility(cardIndex, abilityIndex);
                     listEl.appendChild(abilityBtn);
                 });
@@ -8927,17 +9375,851 @@
             renderHand();
         }
 
-        function executeAbility(ability) {
-            // Placeholder effect - just show notification and log
+        function executeAbility(ability, isAI = false) {
+            // Check if abilities are cancelled by Error
+            if (gameState.abilitiesCancelled) {
+                addAbilityLog(ability, 'Ability was cancelled by Error!', isAI);
+                return;
+            }
+
+            // Check if ability is blocked
+            if ((!isAI && gameState.playerAbilityBlocked) || (isAI && gameState.opponentAbilityBlocked)) {
+                addAbilityLog(ability, 'Ability was blocked!', isAI);
+                return;
+            }
+
+            // Find the pathway for this card
+            const pathway = PATHWAYS.find(p => p.name === ability.cardName);
+            if (!pathway) {
+                addAbilityLog(ability, 'Unknown pathway!', isAI);
+                return;
+            }
+
+            // Route to appropriate handler based on category
+            const category = pathway.abilityCategory;
+
+            switch (category) {
+                case 'creation':
+                    executeCreationAbility(ability, isAI);
+                    break;
+                case 'purification':
+                    executePurificationAbility(ability, isAI);
+                    break;
+                case 'destruction':
+                    executeDestructionAbility(ability, isAI);
+                    break;
+                case 'death':
+                    executeDeathAbility(ability, isAI);
+                    break;
+                case 'knowledge':
+                    executeKnowledgeAbility(ability, isAI);
+                    break;
+                case 'stealth':
+                    executeStealthAbility(ability, isAI);
+                    break;
+                case 'fate':
+                    executeFateAbility(ability, isAI);
+                    break;
+                case 'binding':
+                    executeBindingAbility(ability, isAI);
+                    break;
+                case 'door':
+                    executeDoorAbility(ability, isAI);
+                    break;
+                case 'darkness':
+                    executeDarknessAbility(ability, isAI);
+                    break;
+                case 'visionary':
+                    executeVisionaryAbility(ability, isAI);
+                    break;
+                case 'justiciar':
+                    executeJusticiarAbility(ability, isAI);
+                    break;
+                case 'error':
+                    executeErrorAbility(ability, isAI);
+                    break;
+                case 'fool':
+                    executeFoolAbility(ability, isAI);
+                    break;
+                default:
+                    addAbilityLog(ability, 'Ability activated!', isAI);
+            }
+
+            // Track for achievements
+            if (!isAI) {
+                unlockAchievement('madness_begins');
+            }
+        }
+
+        // ============================================
+        // ABILITY HELPER FUNCTIONS
+        // ============================================
+
+        function addAbilityLog(ability, effectText, isAI = false) {
             const logContent = document.getElementById('log-content');
             const entry = document.createElement('div');
             entry.className = 'log-entry info';
-            entry.innerHTML = `<strong>Turn ${gameState.turn}:</strong> <span style="color: var(--color-gold);">${ability.cardName}</span> activated <span style="color: #8aba8a;">${ability.abilityName}</span>!`;
-            entry.innerHTML += `<div class="log-flavor">"${ability.abilityDesc}"</div>`;
+            const actor = isAI ? 'Opponent' : 'You';
+            entry.innerHTML = `<strong>Turn ${gameState.turn}:</strong> ${actor} used <span style="color: var(--color-gold);">${ability.cardName}</span> - <span style="color: #8aba8a;">${ability.abilityName}</span>`;
+            entry.innerHTML += `<div class="log-flavor">${effectText}</div>`;
             logContent.insertBefore(entry, logContent.firstChild);
+        }
 
-            // Note: Actual ability effects will be implemented later
-            // For now, this is just a visual placeholder
+        function showEffectPopup(text, type, targetHP = 'player') {
+            const popup = document.createElement('div');
+            popup.className = `effect-popup ${type}`;
+            popup.textContent = text;
+
+            // Position near the relevant HP bar
+            const hpBar = document.getElementById(targetHP === 'player' ? 'player-hp' : 'opponent-hp');
+            if (hpBar) {
+                const rect = hpBar.getBoundingClientRect();
+                popup.style.left = `${rect.left + rect.width / 2}px`;
+                popup.style.top = `${rect.top}px`;
+            } else {
+                popup.style.left = '50%';
+                popup.style.top = '50%';
+            }
+
+            document.body.appendChild(popup);
+            setTimeout(() => popup.remove(), 1500);
+        }
+
+        function showAbilityModal(title, subtitle, bodyContent, buttons) {
+            const modal = document.getElementById('ability-modal');
+            document.getElementById('ability-modal-title').textContent = title;
+            document.getElementById('ability-modal-subtitle').textContent = subtitle || '';
+            document.getElementById('ability-modal-body').innerHTML = bodyContent;
+
+            const buttonsContainer = document.getElementById('ability-modal-buttons');
+            buttonsContainer.innerHTML = '';
+
+            buttons.forEach(btn => {
+                const button = document.createElement('button');
+                button.className = `ability-modal-btn ${btn.class || 'primary'}`;
+                button.textContent = btn.text;
+                button.disabled = btn.disabled || false;
+                button.onclick = () => {
+                    btn.callback();
+                    if (!btn.keepOpen) {
+                        closeAbilityModal();
+                    }
+                };
+                buttonsContainer.appendChild(button);
+            });
+
+            modal.classList.add('active');
+        }
+
+        function closeAbilityModal() {
+            document.getElementById('ability-modal').classList.remove('active');
+        }
+
+        function discardRandomCard(hand, owner = 'player') {
+            if (hand.length === 0) return null;
+            const index = Math.floor(Math.random() * hand.length);
+            const discarded = hand.splice(index, 1)[0];
+            return discarded;
+        }
+
+        function getPathwayByName(name) {
+            return PATHWAYS.find(p => p.name === name);
+        }
+
+        function getRandomPathway() {
+            return PATHWAYS[Math.floor(Math.random() * PATHWAYS.length)];
+        }
+
+        // ============================================
+        // SIMPLE ABILITY IMPLEMENTATIONS
+        // ============================================
+
+        // Creation (Mother, Paragon): Heal 20% HP
+        function executeCreationAbility(ability, isAI) {
+            const healAmount = 20;
+            if (isAI) {
+                gameState.opponentHP = Math.min(100, gameState.opponentHP + healAmount);
+                showEffectPopup(`+${healAmount}`, 'heal', 'opponent');
+            } else {
+                gameState.playerHP = Math.min(100, gameState.playerHP + healAmount);
+                showEffectPopup(`+${healAmount}`, 'heal', 'player');
+            }
+            addAbilityLog(ability, `Healed ${healAmount} HP!`, isAI);
+            updateUI();
+        }
+
+        // Purification (Sun): Heal 10% HP, must pick random card from hand
+        function executePurificationAbility(ability, isAI) {
+            const healAmount = 10;
+
+            if (isAI) {
+                // AI heals and picks a random card (no effect, just flavor)
+                gameState.opponentHP = Math.min(100, gameState.opponentHP + healAmount);
+                showEffectPopup(`+${healAmount}`, 'heal', 'opponent');
+                // AI must play a random card from remaining hand
+                if (gameState.opponentHand.length > 1) {
+                    gameState.forcedOpponentCard = gameState.opponentHand[Math.floor(Math.random() * gameState.opponentHand.length)].name;
+                }
+                addAbilityLog(ability, `Healed ${healAmount} HP! (Must play random card)`, isAI);
+            } else {
+                gameState.playerHP = Math.min(100, gameState.playerHP + healAmount);
+                showEffectPopup(`+${healAmount}`, 'heal', 'player');
+
+                // Force player to play a random card (select it automatically)
+                if (gameState.playerHand.length > 0) {
+                    const randomIndex = Math.floor(Math.random() * gameState.playerHand.length);
+                    gameState.forcedPlayerCard = gameState.playerHand[randomIndex].name;
+                    addAbilityLog(ability, `Healed ${healAmount} HP! You must play ${gameState.forcedPlayerCard}!`, isAI);
+                } else {
+                    addAbilityLog(ability, `Healed ${healAmount} HP!`, isAI);
+                }
+            }
+            updateUI();
+        }
+
+        // Destruction (Twilight Giant, Tyrant, Red Priest): Deal 10 OR 15 damage
+        function executeDestructionAbility(ability, isAI) {
+            if (isAI) {
+                // AI always chooses 15 damage (aggressive)
+                const damage = 15;
+                gameState.playerHP = Math.max(0, gameState.playerHP - damage);
+                showEffectPopup(`-${damage}`, 'damage', 'player');
+                addAbilityLog(ability, `Dealt ${damage} damage!`, isAI);
+                updateUI();
+                checkGameOver();
+            } else {
+                // Show choice modal for player
+                showAbilityModal(
+                    'Destruction',
+                    'Choose your damage output',
+                    `<div class="ability-modal-options">
+                        <div class="ability-modal-option" data-damage="10" onclick="selectDestructionDamage(10)">
+                            <div class="ability-option-title">10 Damage</div>
+                            <div class="ability-option-desc">A measured strike</div>
+                        </div>
+                        <div class="ability-modal-option" data-damage="15" onclick="selectDestructionDamage(15)">
+                            <div class="ability-option-title">15 Damage</div>
+                            <div class="ability-option-desc">Full force devastation</div>
+                        </div>
+                    </div>`,
+                    [
+                        { text: 'Confirm', class: 'primary', disabled: true, callback: () => confirmDestructionDamage(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedDestructionDamage = null;
+        let pendingDestructionAbility = null;
+
+        function selectDestructionDamage(damage) {
+            selectedDestructionDamage = damage;
+            document.querySelectorAll('.ability-modal-option').forEach(opt => {
+                opt.classList.remove('selected');
+                if (parseInt(opt.dataset.damage) === damage) {
+                    opt.classList.add('selected');
+                }
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmDestructionDamage(ability) {
+            if (selectedDestructionDamage) {
+                gameState.opponentHP = Math.max(0, gameState.opponentHP - selectedDestructionDamage);
+                showEffectPopup(`-${selectedDestructionDamage}`, 'damage', 'opponent');
+                addAbilityLog(ability, `Dealt ${selectedDestructionDamage} damage!`, false);
+                selectedDestructionDamage = null;
+                updateUI();
+                checkGameOver();
+            }
+        }
+
+        // Death/Corruption (Death, Hanged Man, Abyss): Both players discard a random card
+        function executeDeathAbility(ability, isAI) {
+            const playerDiscarded = discardRandomCard(gameState.playerHand, 'player');
+            const opponentDiscarded = discardRandomCard(gameState.opponentHand, 'opponent');
+
+            let effectText = 'Corruption spreads... ';
+            if (playerDiscarded) effectText += `You lost ${playerDiscarded.name}. `;
+            if (opponentDiscarded) effectText += `Opponent lost a card.`;
+
+            addAbilityLog(ability, effectText, isAI);
+            renderHand();
+        }
+
+        // ============================================
+        // MEDIUM ABILITY IMPLEMENTATIONS
+        // ============================================
+
+        // Knowledge (White Tower, Hermit): Recall card from prior hand
+        function executeKnowledgeAbility(ability, isAI) {
+            if (isAI) {
+                // AI recalls a random card from prior hand
+                if (gameState.priorOpponentHand.length > 0) {
+                    const recallCard = gameState.priorOpponentHand[Math.floor(Math.random() * gameState.priorOpponentHand.length)];
+                    gameState.nextTurnEffects.push({
+                        type: 'recallCard',
+                        target: 'opponent',
+                        card: recallCard
+                    });
+                    addAbilityLog(ability, 'Will recall a card from memory next turn!', isAI);
+                } else {
+                    addAbilityLog(ability, 'No prior knowledge to recall!', isAI);
+                }
+            } else {
+                // Show player's prior hand to choose from
+                if (gameState.priorPlayerHand.length === 0) {
+                    addAbilityLog(ability, 'No prior knowledge to recall!', isAI);
+                    return;
+                }
+
+                let cardsHtml = '<div class="ability-modal-cards">';
+                gameState.priorPlayerHand.forEach((card, index) => {
+                    cardsHtml += `
+                        <div class="ability-modal-card" data-index="${index}" onclick="selectKnowledgeCard(${index})">
+                            <img src="${card.icon}" alt="${card.name}">
+                            <div class="card-name">${card.name}</div>
+                        </div>
+                    `;
+                });
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Knowledge Recall',
+                    'Select a card from your previous hand to add to your next hand',
+                    cardsHtml,
+                    [
+                        { text: 'Recall Card', class: 'primary', disabled: true, callback: () => confirmKnowledgeRecall(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedKnowledgeCardIndex = null;
+
+        function selectKnowledgeCard(index) {
+            selectedKnowledgeCardIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmKnowledgeRecall(ability) {
+            if (selectedKnowledgeCardIndex !== null) {
+                const recallCard = gameState.priorPlayerHand[selectedKnowledgeCardIndex];
+                gameState.nextTurnEffects.push({
+                    type: 'recallCard',
+                    target: 'player',
+                    card: recallCard
+                });
+                addAbilityLog(ability, `Will recall ${recallCard.name} next turn!`, false);
+                selectedKnowledgeCardIndex = null;
+            }
+        }
+
+        // Stealth (Demoness, Moon): Peek at next 2 cards, must discard one
+        function executeStealthAbility(ability, isAI) {
+            // Get next 2 potential cards for the deck
+            const peekCards = [getRandomPathway(), getRandomPathway()];
+
+            if (isAI) {
+                // AI just discards one randomly (we don't reveal this to player)
+                addAbilityLog(ability, 'Glimpsed the future and altered fate!', isAI);
+            } else {
+                let cardsHtml = '<div class="ability-modal-cards">';
+                peekCards.forEach((card, index) => {
+                    cardsHtml += `
+                        <div class="ability-modal-card" data-index="${index}" onclick="selectStealthDiscard(${index})">
+                            <img src="${card.icon}" alt="${card.name}">
+                            <div class="card-name">${card.name}</div>
+                        </div>
+                    `;
+                });
+                cardsHtml += '</div>';
+
+                // Store for later use
+                window.stealthPeekCards = peekCards;
+
+                showAbilityModal(
+                    'Foresight',
+                    'You see 2 upcoming cards. Choose one to discard from the future.',
+                    cardsHtml,
+                    [
+                        { text: 'Discard Selected', class: 'danger', disabled: true, callback: () => confirmStealthDiscard(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedStealthIndex = null;
+
+        function selectStealthDiscard(index) {
+            selectedStealthIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.danger').disabled = false;
+        }
+
+        function confirmStealthDiscard(ability) {
+            if (selectedStealthIndex !== null && window.stealthPeekCards) {
+                const discarded = window.stealthPeekCards[selectedStealthIndex];
+                const kept = window.stealthPeekCards[1 - selectedStealthIndex];
+
+                // Add the kept card to next turn effects
+                gameState.nextTurnEffects.push({
+                    type: 'guaranteeCard',
+                    target: 'player',
+                    card: kept
+                });
+
+                addAbilityLog(ability, `Discarded ${discarded.name} from the future. ${kept.name} is guaranteed next turn!`, false);
+                selectedStealthIndex = null;
+                window.stealthPeekCards = null;
+            }
+        }
+
+        // Fate/Authority (Black Emperor, Wheel of Fortune): Guarantee specific pathway in next hand
+        function executeFateAbility(ability, isAI) {
+            if (isAI) {
+                // AI picks a random pathway to guarantee
+                const randomPathway = getRandomPathway();
+                gameState.guaranteedOpponentPathway = randomPathway.name;
+                addAbilityLog(ability, 'Fate has been woven for next turn!', isAI);
+            } else {
+                // Show pathway selector
+                let cardsHtml = '<div class="ability-modal-cards" style="max-height: 400px; overflow-y: auto;">';
+                PATHWAYS.forEach((pathway, index) => {
+                    cardsHtml += `
+                        <div class="ability-modal-card" data-pathway="${pathway.name}" onclick="selectFatePathway('${pathway.name}')">
+                            <img src="${pathway.icon}" alt="${pathway.name}">
+                            <div class="card-name">${pathway.name}</div>
+                        </div>
+                    `;
+                });
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Manipulate Fate',
+                    'Select a pathway to guarantee in your next hand',
+                    cardsHtml,
+                    [
+                        { text: 'Set Fate', class: 'primary', disabled: true, callback: () => confirmFateSelection(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedFatePathway = null;
+
+        function selectFatePathway(pathwayName) {
+            selectedFatePathway = pathwayName;
+            document.querySelectorAll('.ability-modal-card').forEach(card => {
+                card.classList.toggle('selected', card.dataset.pathway === pathwayName);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmFateSelection(ability) {
+            if (selectedFatePathway) {
+                gameState.guaranteedPlayerPathway = selectedFatePathway;
+                addAbilityLog(ability, `${selectedFatePathway} is guaranteed in your next hand!`, false);
+                selectedFatePathway = null;
+            }
+        }
+
+        // Binding (Chained): Force opponent to play a random card of your choosing
+        function executeBindingAbility(ability, isAI) {
+            if (isAI) {
+                // AI forces player to play a random card
+                if (gameState.playerHand.length > 0) {
+                    const forcedIndex = Math.floor(Math.random() * gameState.playerHand.length);
+                    gameState.forcedPlayerCard = gameState.playerHand[forcedIndex].name;
+                    addAbilityLog(ability, `You are bound! You must play ${gameState.forcedPlayerCard}!`, isAI);
+                } else {
+                    addAbilityLog(ability, 'No cards to bind!', isAI);
+                }
+            } else {
+                // Player picks which card opponent must play (shown as hidden options)
+                let cardsHtml = `<p style="color: var(--color-text-muted); margin-bottom: 15px;">Choose a position in opponent's hand to force them to play.</p>`;
+                cardsHtml += '<div class="ability-modal-cards">';
+                for (let i = 0; i < gameState.opponentHand.length; i++) {
+                    cardsHtml += `
+                        <div class="ability-modal-card blinded" data-index="${i}" onclick="selectBindingCard(${i})">
+                            <img src="images/fool.png" alt="Hidden">
+                            <div class="card-name">Card ${i + 1}</div>
+                        </div>
+                    `;
+                }
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Binding Chains',
+                    'Force opponent to play a specific card',
+                    cardsHtml,
+                    [
+                        { text: 'Bind Card', class: 'primary', disabled: true, callback: () => confirmBinding(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedBindingIndex = null;
+
+        function selectBindingCard(index) {
+            selectedBindingIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmBinding(ability) {
+            if (selectedBindingIndex !== null && gameState.opponentHand[selectedBindingIndex]) {
+                gameState.forcedOpponentCard = gameState.opponentHand[selectedBindingIndex].name;
+                addAbilityLog(ability, `Opponent is bound! They must play their card #${selectedBindingIndex + 1}!`, false);
+                selectedBindingIndex = null;
+            }
+        }
+
+        // ============================================
+        // COMPLEX ABILITY IMPLEMENTATIONS
+        // ============================================
+
+        // Door: Draw extra card next turn, must discard one now
+        function executeDoorAbility(ability, isAI) {
+            if (isAI) {
+                // AI discards a random card and gets extra next turn
+                const discarded = discardRandomCard(gameState.opponentHand, 'opponent');
+                gameState.opponentExtraCard = true;
+                addAbilityLog(ability, 'Opened a portal! Will draw extra card next turn.', isAI);
+            } else {
+                // Player must choose a card to discard
+                let cardsHtml = '<div class="ability-modal-cards">';
+                gameState.playerHand.forEach((card, index) => {
+                    cardsHtml += `
+                        <div class="ability-modal-card" data-index="${index}" onclick="selectDoorDiscard(${index})">
+                            <img src="${card.icon}" alt="${card.name}">
+                            <div class="card-name">${card.name}</div>
+                        </div>
+                    `;
+                });
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Dimensional Door',
+                    'Discard one card now to draw an extra card next turn',
+                    cardsHtml,
+                    [
+                        { text: 'Discard & Open Portal', class: 'danger', disabled: true, callback: () => confirmDoorDiscard(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedDoorIndex = null;
+
+        function selectDoorDiscard(index) {
+            selectedDoorIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.danger').disabled = false;
+        }
+
+        function confirmDoorDiscard(ability) {
+            if (selectedDoorIndex !== null) {
+                const discarded = gameState.playerHand.splice(selectedDoorIndex, 1)[0];
+                gameState.extraCardNextTurn = true;
+                addAbilityLog(ability, `Discarded ${discarded.name}. Will draw extra card next turn!`, false);
+                selectedDoorIndex = null;
+                renderHand();
+            }
+        }
+
+        // Darkness: Opponent can't see their cards next round, blocks their ability
+        function executeDarknessAbility(ability, isAI) {
+            if (isAI) {
+                gameState.playerBlinded = true;
+                gameState.playerAbilityBlocked = true;
+                addAbilityLog(ability, 'Darkness descends! You cannot see your cards or use abilities next turn!', isAI);
+            } else {
+                gameState.opponentBlinded = true;
+                gameState.opponentAbilityBlocked = true;
+                addAbilityLog(ability, 'Shrouded opponent in darkness! They cannot see cards or use abilities next turn!', isAI);
+            }
+        }
+
+        // Visionary: Choose a non-high hit card for opponent next round
+        function executeVisionaryAbility(ability, isAI) {
+            if (isAI) {
+                // AI forces player to play a non-big-hit card
+                const nonBigHits = gameState.playerHand.filter(c => !BIG_HIT_LIST.includes(c.name));
+                if (nonBigHits.length > 0) {
+                    const forced = nonBigHits[Math.floor(Math.random() * nonBigHits.length)];
+                    gameState.forcedPlayerCard = forced.name;
+                    addAbilityLog(ability, `Your mind is invaded! You must play ${forced.name}!`, isAI);
+                } else {
+                    addAbilityLog(ability, 'Vision clouded - no valid target!', isAI);
+                }
+            } else {
+                // Player sees opponent's hand (blinded style) and forces a card
+                let cardsHtml = `<p style="color: var(--color-text-muted); margin-bottom: 15px;">Peer into opponent's mind. Force them to play a specific card.</p>`;
+                cardsHtml += '<div class="ability-modal-cards">';
+                for (let i = 0; i < gameState.opponentHand.length; i++) {
+                    cardsHtml += `
+                        <div class="ability-modal-card blinded" data-index="${i}" onclick="selectVisionaryCard(${i})">
+                            <img src="images/visionary.png" alt="Hidden">
+                            <div class="card-name">Mind #${i + 1}</div>
+                        </div>
+                    `;
+                }
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Mind Reading',
+                    'Force opponent to play a specific card',
+                    cardsHtml,
+                    [
+                        { text: 'Implant Command', class: 'primary', disabled: true, callback: () => confirmVisionarySelection(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedVisionaryIndex = null;
+
+        function selectVisionaryCard(index) {
+            selectedVisionaryIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmVisionarySelection(ability) {
+            if (selectedVisionaryIndex !== null && gameState.opponentHand[selectedVisionaryIndex]) {
+                gameState.forcedOpponentCard = gameState.opponentHand[selectedVisionaryIndex].name;
+                addAbilityLog(ability, `Implanted command! Opponent must play their card #${selectedVisionaryIndex + 1}!`, false);
+                selectedVisionaryIndex = null;
+            }
+        }
+
+        // Justiciar: Force opponent's next card to be random, block their ability next turn
+        function executeJusticiarAbility(ability, isAI) {
+            if (isAI) {
+                // Force player to play random card and block ability
+                if (gameState.playerHand.length > 0) {
+                    const randomCard = gameState.playerHand[Math.floor(Math.random() * gameState.playerHand.length)];
+                    gameState.forcedPlayerCard = randomCard.name;
+                }
+                gameState.playerAbilityBlocked = true;
+                addAbilityLog(ability, 'Judgment passed! Your card is randomized and ability blocked!', isAI);
+            } else {
+                // Force opponent random and block
+                if (gameState.opponentHand.length > 0) {
+                    const randomCard = gameState.opponentHand[Math.floor(Math.random() * gameState.opponentHand.length)];
+                    gameState.forcedOpponentCard = randomCard.name;
+                }
+                gameState.opponentAbilityBlocked = true;
+                addAbilityLog(ability, 'Judgment passed! Opponent\'s card is randomized and ability blocked next turn!', isAI);
+            }
+        }
+
+        // Error: Cancel all abilities this turn, reshuffle all hands
+        function executeErrorAbility(ability, isAI) {
+            // Cancel all pending abilities
+            gameState.abilitiesCancelled = true;
+
+            // Clear all next turn effects
+            gameState.nextTurnEffects = [];
+
+            // Clear all forced cards
+            gameState.forcedPlayerCard = null;
+            gameState.forcedOpponentCard = null;
+
+            // Reshuffle both hands
+            gameState.playerHand = getWeightedRandomCards(3);
+            gameState.opponentHand = getWeightedRandomCards(3);
+
+            addAbilityLog(ability, 'ERROR! Reality corrupted! All abilities cancelled, all hands reshuffled!', isAI);
+            renderHand();
+        }
+
+        // Fool: Decoy card mechanic
+        function executeFoolAbility(ability, isAI) {
+            if (isAI) {
+                // AI sets a random card as decoy
+                if (gameState.opponentHand.length > 0) {
+                    const decoyIndex = Math.floor(Math.random() * gameState.opponentHand.length);
+                    // For AI, we just log it - the decoy mechanic works differently
+                    addAbilityLog(ability, 'Set a decoy! Is the card real or fake?', isAI);
+
+                    // Create a simple guess prompt for the player
+                    setTimeout(() => {
+                        showAbilityModal(
+                            'Fool\'s Decoy',
+                            'Opponent played a decoy! Guess if it\'s real or fake.',
+                            `<div class="ability-modal-options">
+                                <div class="ability-modal-option" data-guess="real" onclick="selectFoolGuess('real')">
+                                    <div class="ability-option-title">REAL</div>
+                                    <div class="ability-option-desc">The card will be played normally</div>
+                                </div>
+                                <div class="ability-modal-option" data-guess="fake" onclick="selectFoolGuess('fake')">
+                                    <div class="ability-option-title">FAKE</div>
+                                    <div class="ability-option-desc">The card is a decoy and will be discarded</div>
+                                </div>
+                            </div>`,
+                            [
+                                { text: 'Make Guess', class: 'primary', disabled: true, callback: () => resolveFoolGuess(true, decoyIndex) }
+                            ]
+                        );
+                    }, 500);
+                }
+            } else {
+                // Player selects which card to use as decoy
+                let cardsHtml = `<p style="color: var(--color-text-muted); margin-bottom: 15px;">Select a card to set as decoy. You cannot play this card as a battle card this turn.</p>`;
+                cardsHtml += '<div class="ability-modal-cards">';
+                gameState.playerHand.forEach((card, index) => {
+                    cardsHtml += `
+                        <div class="ability-modal-card" data-index="${index}" onclick="selectFoolDecoy(${index})">
+                            <img src="${card.icon}" alt="${card.name}">
+                            <div class="card-name">${card.name}</div>
+                        </div>
+                    `;
+                });
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Paper Figurine Substitution',
+                    'Select a card as your decoy',
+                    cardsHtml,
+                    [
+                        { text: 'Set Decoy', class: 'primary', disabled: true, callback: () => confirmFoolDecoy(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedFoolDecoyIndex = null;
+        let selectedFoolGuess = null;
+
+        function selectFoolDecoy(index) {
+            selectedFoolDecoyIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmFoolDecoy(ability) {
+            if (selectedFoolDecoyIndex !== null) {
+                gameState.foolDecoyActive = true;
+                gameState.foolDecoyCardIndex = selectedFoolDecoyIndex;
+                addAbilityLog(ability, `Set ${gameState.playerHand[selectedFoolDecoyIndex].name} as decoy! Opponent must guess.`, false);
+                selectedFoolDecoyIndex = null;
+                renderHand();
+
+                // AI makes a guess
+                setTimeout(() => {
+                    const aiGuess = Math.random() > 0.5 ? 'real' : 'fake';
+                    const isReal = Math.random() > 0.5; // 50/50 for simplicity
+
+                    let resultText;
+                    if ((aiGuess === 'real' && isReal) || (aiGuess === 'fake' && !isReal)) {
+                        // AI guessed correctly - player takes 5 damage
+                        gameState.playerHP = Math.max(0, gameState.playerHP - 5);
+                        showEffectPopup('-5', 'damage', 'player');
+                        resultText = `Opponent guessed ${aiGuess.toUpperCase()} - Correct! You take 5 damage.`;
+                    } else {
+                        // AI guessed wrong - opponent takes 5 damage
+                        gameState.opponentHP = Math.max(0, gameState.opponentHP - 5);
+                        showEffectPopup('-5', 'damage', 'opponent');
+                        resultText = `Opponent guessed ${aiGuess.toUpperCase()} - Wrong! Opponent takes 5 damage.`;
+                    }
+
+                    addAbilityLog({ cardName: 'Fool', abilityName: 'Decoy Resolution' }, resultText, false);
+                    gameState.foolDecoyActive = false;
+                    gameState.foolDecoyCardIndex = null;
+                    updateUI();
+                    renderHand();
+                }, 1000);
+            }
+        }
+
+        function selectFoolGuess(guess) {
+            selectedFoolGuess = guess;
+            document.querySelectorAll('.ability-modal-option').forEach(opt => {
+                opt.classList.toggle('selected', opt.dataset.guess === guess);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function resolveFoolGuess(isAIDecoy, decoyIndex) {
+            if (selectedFoolGuess) {
+                const isReal = Math.random() > 0.5; // 50/50 for simplicity
+
+                let resultText;
+                if ((selectedFoolGuess === 'real' && isReal) || (selectedFoolGuess === 'fake' && !isReal)) {
+                    // Player guessed correctly - opponent takes 5 damage
+                    gameState.opponentHP = Math.max(0, gameState.opponentHP - 5);
+                    showEffectPopup('-5', 'damage', 'opponent');
+                    resultText = `You guessed ${selectedFoolGuess.toUpperCase()} - Correct! Opponent takes 5 damage.`;
+                } else {
+                    // Player guessed wrong - player takes 5 damage
+                    gameState.playerHP = Math.max(0, gameState.playerHP - 5);
+                    showEffectPopup('-5', 'damage', 'player');
+                    resultText = `You guessed ${selectedFoolGuess.toUpperCase()} - Wrong! You take 5 damage.`;
+                }
+
+                addAbilityLog({ cardName: 'Fool', abilityName: 'Decoy Resolution' }, resultText, false);
+                selectedFoolGuess = null;
+                updateUI();
+                checkGameOver();
+            }
+        }
+
+        function checkGameOver() {
+            if (gameState.playerHP <= 0 || gameState.opponentHP <= 0) {
+                gameState.gameOver = true;
+                showGameOver();
+            }
+        }
+
+        // ============================================
+        // AI ABILITY SYSTEM
+        // ============================================
+
+        function aiSelectAndUseAbility() {
+            if (gameState.opponentAbilityBlocked || gameState.abilitiesCancelled) {
+                gameState.opponentUsedAbility = false;
+                return;
+            }
+
+            // AI has 60% chance to use an ability
+            if (Math.random() < 0.6) {
+                // Select random card and ability
+                const cardIndex = Math.floor(Math.random() * gameState.opponentHand.length);
+                const card = gameState.opponentHand[cardIndex];
+                if (card && card.abilities && card.abilities.length > 0) {
+                    const abilityIndex = Math.floor(Math.random() * card.abilities.length);
+                    const ability = card.abilities[abilityIndex];
+
+                    const aiAbility = {
+                        cardIndex: cardIndex,
+                        abilityIndex: abilityIndex,
+                        cardName: card.name,
+                        abilityName: ability.name,
+                        abilityDesc: ability.desc
+                    };
+
+                    gameState.opponentUsedAbility = true;
+                    executeAbility(aiAbility, true);
+                }
+            } else {
+                gameState.opponentUsedAbility = false;
+            }
         }
 
         function showAbilityUsedIndicator(ability) {
@@ -9215,31 +10497,71 @@
             handEl.innerHTML = '';
             const weights = getCardWeights();
 
+            // Check for forced card selection
+            if (gameState.forcedPlayerCard && !gameState.abilityPhaseActive) {
+                const forcedIndex = gameState.playerHand.findIndex(c => c.name === gameState.forcedPlayerCard);
+                if (forcedIndex !== -1 && gameState.selectedCard === null) {
+                    gameState.selectedCard = forcedIndex;
+                }
+            }
+
             gameState.playerHand.forEach((card, index) => {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'card';
-                if (gameState.gameOver || waitingForOpponent || gameState.abilityPhaseActive) cardEl.classList.add('disabled');
+
+                // Check if card is blinded
+                const isBlinded = gameState.playerBlinded;
+
+                // Check if this card is the decoy
+                const isDecoy = gameState.foolDecoyActive && gameState.foolDecoyCardIndex === index;
+
+                // Check if this card is forced
+                const isForced = gameState.forcedPlayerCard === card.name;
+
+                if (gameState.gameOver || waitingForOpponent || gameState.abilityPhaseActive || isDecoy) {
+                    cardEl.classList.add('disabled');
+                }
                 if (gameState.selectedCard === index) cardEl.classList.add('selected');
-                cardEl.setAttribute('data-tooltip', card.flavor);
+                if (isDecoy) cardEl.classList.add('decoy-active');
+                if (isForced && !gameState.abilityPhaseActive) cardEl.classList.add('selected');
+
+                cardEl.setAttribute('data-tooltip', isBlinded ? '???' : card.flavor);
 
                 const weight = weights[card.name];
                 const isFresh = weight >= FRESH_WEIGHT * 0.7;
                 const isBigHit = BIG_HIT_LIST.includes(card.name);
 
-                cardEl.innerHTML = `
-                    <div class="card-icon"><img src="${card.icon}" alt="${card.name}"></div>
-                    <div class="card-name ${isBigHit ? 'rainbow' : ''}">${card.name}</div>
-                    <div class="card-weight ${isFresh ? 'fresh' : ''}">${isFresh ? 'Fresh!' : ''}</div>
-                `;
+                if (isBlinded) {
+                    cardEl.innerHTML = `
+                        <div class="card-icon" style="position: relative;">
+                            <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #2a2a4a, #1a1a2e); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #666;">?</div>
+                        </div>
+                        <div class="card-name" style="color: #666;">???</div>
+                        <div class="card-weight"></div>
+                    `;
+                } else {
+                    cardEl.innerHTML = `
+                        <div class="card-icon"><img src="${card.icon}" alt="${card.name}"></div>
+                        <div class="card-name ${isBigHit ? 'rainbow' : ''}">${card.name}</div>
+                        <div class="card-weight ${isFresh ? 'fresh' : ''}">${isFresh ? 'Fresh!' : ''}${isForced ? ' (Forced!)' : ''}</div>
+                    `;
+                }
 
                 cardEl.onclick = () => {
-                    if (!gameState.gameOver && !waitingForOpponent && !gameState.abilityPhaseActive) {
+                    if (!gameState.gameOver && !waitingForOpponent && !gameState.abilityPhaseActive && !isDecoy) {
+                        // If forced, only allow selecting the forced card
+                        if (gameState.forcedPlayerCard && card.name !== gameState.forcedPlayerCard) {
+                            return;
+                        }
                         selectCard(index);
                     }
                 };
 
                 handEl.appendChild(cardEl);
             });
+
+            // Clear blinded state after render (player has made their choice)
+            // Note: We keep blinded until after turn resolution for full effect
         }
 
         function selectCard(index) {
@@ -9298,12 +10620,26 @@
                     });
                 }
 
+                // Clear forced card state after play
+                gameState.forcedPlayerCard = null;
+
                 updateUI();
                 renderHand();
                 checkBothPlayed();
 
             } else {
-                const opponentCard = gameState.opponentHand[Math.floor(Math.random() * 3)];
+                // Determine opponent's card - use forced card if set, otherwise random
+                let opponentCard;
+                if (gameState.forcedOpponentCard) {
+                    opponentCard = gameState.opponentHand.find(c => c.name === gameState.forcedOpponentCard);
+                    if (!opponentCard) {
+                        // Fallback to random if forced card not in hand
+                        opponentCard = gameState.opponentHand[Math.floor(Math.random() * gameState.opponentHand.length)];
+                    }
+                    gameState.forcedOpponentCard = null;
+                } else {
+                    opponentCard = gameState.opponentHand[Math.floor(Math.random() * gameState.opponentHand.length)];
+                }
 
                 const playerPlayedEl = document.getElementById('player-played');
                 const opponentPlayedEl = document.getElementById('opponent-played');
@@ -9325,6 +10661,14 @@
                 `;
 
                 resolveBattle(playerCard.name, opponentCard.name);
+
+                // Clear turn-based ability states after battle resolution
+                gameState.forcedPlayerCard = null;
+                gameState.playerBlinded = false;
+                gameState.opponentBlinded = false;
+                gameState.foolDecoyActive = false;
+                gameState.foolDecoyCardIndex = null;
+
                 updateUI();
 
                 if (gameState.playerHP <= 0 || gameState.opponentHP <= 0) {
