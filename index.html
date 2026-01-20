@@ -9228,6 +9228,71 @@
         // ABILITY PHASE FUNCTIONS
         // ============================================
 
+        // Game ability definitions - ONE ability per category
+        const GAME_ABILITIES = {
+            'fool': {
+                name: 'Paper Figurine',
+                desc: 'Set a decoy card. Opponent guesses real/fake. Wrong guess = double damage reflected. Fool cannot be played this turn.'
+            },
+            'door': {
+                name: 'Dimensional Gate',
+                desc: 'Discard a card now to draw an extra card next turn (guaranteed medium hit or higher).'
+            },
+            'error': {
+                name: 'Corruption',
+                desc: 'Cancel ALL ability effects this turn and reshuffle both hands.'
+            },
+            'visionary': {
+                name: 'Mind Control',
+                desc: 'Force opponent to play a specific non-high-hit card of your choosing.'
+            },
+            'darkness': {
+                name: 'Shroud of Night',
+                desc: 'Opponent cannot see their cards next round and cannot use abilities.'
+            },
+            'justiciar': {
+                name: 'Absolute Order',
+                desc: 'Force opponent to play a random card (you pick blindly). They cannot use abilities next turn.'
+            },
+            'fate': {
+                name: 'Twist of Fate',
+                desc: 'Guarantee a specific pathway card appears in your next hand.'
+            },
+            'knowledge': {
+                name: 'Perfect Recall',
+                desc: 'Recall one card from your previous hand into your next hand.'
+            },
+            'stealth': {
+                name: 'Foresight',
+                desc: 'Peek at your next 2 cards, but you must discard one of them.'
+            },
+            'death': {
+                name: 'Decay',
+                desc: 'Force both players to discard a random card from their hand.'
+            },
+            'destruction': {
+                name: 'Devastation',
+                desc: 'Deal 10 or 15 damage to opponent (your choice).'
+            },
+            'creation': {
+                name: 'Vitality',
+                desc: 'Heal 20% of your maximum HP.'
+            },
+            'purification': {
+                name: 'Cleansing Light',
+                desc: 'Heal 10% HP, but you must play a random card from your hand this turn.'
+            },
+            'binding': {
+                name: 'Chains of Restraint',
+                desc: 'Force opponent to play a random card of your choosing (you pick blindly from their hand).'
+            }
+        };
+
+        function getGameAbility(card) {
+            const category = card.abilityCategory;
+            return GAME_ABILITIES[category] || { name: 'Unknown', desc: 'No ability defined.' };
+        }
+
         function showAbilityPhase() {
             if (gameState.gameOver) return;
 
@@ -9259,13 +9324,16 @@
             const container = document.getElementById('ability-cards-container');
             container.innerHTML = '';
 
-            // Create ability selection UI for each card in hand
+            // Create ability selection UI for each card in hand - ONE ability per card
             gameState.playerHand.forEach((card, cardIndex) => {
                 const columnEl = document.createElement('div');
                 columnEl.className = 'ability-card-column';
 
                 // Check if this card is blinded
                 const isBlinded = gameState.playerBlinded;
+
+                // Get the single game ability for this card's category
+                const gameAbility = getGameAbility(card);
 
                 // Card header
                 const headerEl = document.createElement('div');
@@ -9283,33 +9351,30 @@
                 }
                 columnEl.appendChild(headerEl);
 
-                // Ability list
+                // Single ability button per card
                 const listEl = document.createElement('div');
                 listEl.className = 'ability-list-container';
 
-                card.abilities.forEach((ability, abilityIndex) => {
-                    const abilityBtn = document.createElement('button');
-                    abilityBtn.className = 'ability-btn';
-                    if (isBlinded) {
-                        abilityBtn.classList.add('blinded');
-                    }
-                    abilityBtn.setAttribute('data-card-index', cardIndex);
-                    abilityBtn.setAttribute('data-ability-index', abilityIndex);
+                const abilityBtn = document.createElement('button');
+                abilityBtn.className = 'ability-btn';
+                if (isBlinded) {
+                    abilityBtn.classList.add('blinded');
+                }
+                abilityBtn.setAttribute('data-card-index', cardIndex);
 
-                    if (isBlinded) {
-                        abilityBtn.innerHTML = `
-                            <span class="ability-name" style="color: #666;">???</span>
-                            <span class="ability-desc" style="color: #444;">Hidden by darkness</span>
-                        `;
-                    } else {
-                        abilityBtn.innerHTML = `
-                            <span class="ability-name">${ability.name}</span>
-                            <span class="ability-desc">${ability.desc}</span>
-                        `;
-                    }
-                    abilityBtn.onclick = () => selectAbility(cardIndex, abilityIndex);
-                    listEl.appendChild(abilityBtn);
-                });
+                if (isBlinded) {
+                    abilityBtn.innerHTML = `
+                        <span class="ability-name" style="color: #666;">???</span>
+                        <span class="ability-desc" style="color: #444;">Hidden by darkness</span>
+                    `;
+                } else {
+                    abilityBtn.innerHTML = `
+                        <span class="ability-name">${gameAbility.name}</span>
+                        <span class="ability-desc">${gameAbility.desc}</span>
+                    `;
+                }
+                abilityBtn.onclick = () => selectAbility(cardIndex, 0);
+                listEl.appendChild(abilityBtn);
 
                 columnEl.appendChild(listEl);
                 container.appendChild(columnEl);
@@ -9325,21 +9390,21 @@
                 btn.classList.remove('selected');
             });
 
-            // Select new ability
+            // Select new ability - use GAME_ABILITIES based on card category
             const card = gameState.playerHand[cardIndex];
-            const ability = card.abilities[abilityIndex];
+            const gameAbility = getGameAbility(card);
 
             gameState.selectedAbility = {
                 cardIndex: cardIndex,
-                abilityIndex: abilityIndex,
+                abilityIndex: 0, // Always 0 since there's only one ability per card
                 cardName: card.name,
-                abilityName: ability.name,
-                abilityDesc: ability.desc
+                abilityName: gameAbility.name,
+                abilityDesc: gameAbility.desc
             };
 
             // Highlight selected button
             const selectedBtn = document.querySelector(
-                `.ability-btn[data-card-index="${cardIndex}"][data-ability-index="${abilityIndex}"]`
+                `.ability-btn[data-card-index="${cardIndex}"]`
             );
             if (selectedBtn) {
                 selectedBtn.classList.add('selected');
@@ -10198,24 +10263,25 @@
             }
 
             // AI has 60% chance to use an ability
-            if (Math.random() < 0.6) {
-                // Select random card and ability
+            if (Math.random() < 0.6 && gameState.opponentHand.length > 0) {
+                // Select random card
                 const cardIndex = Math.floor(Math.random() * gameState.opponentHand.length);
                 const card = gameState.opponentHand[cardIndex];
-                if (card && card.abilities && card.abilities.length > 0) {
-                    const abilityIndex = Math.floor(Math.random() * card.abilities.length);
-                    const ability = card.abilities[abilityIndex];
+                if (card && card.abilityCategory) {
+                    // Get the game ability for this card's category
+                    const gameAbility = GAME_ABILITIES[card.abilityCategory];
+                    if (gameAbility) {
+                        const aiAbility = {
+                            cardIndex: cardIndex,
+                            abilityIndex: 0,
+                            cardName: card.name,
+                            abilityName: gameAbility.name,
+                            abilityDesc: gameAbility.desc
+                        };
 
-                    const aiAbility = {
-                        cardIndex: cardIndex,
-                        abilityIndex: abilityIndex,
-                        cardName: card.name,
-                        abilityName: ability.name,
-                        abilityDesc: ability.desc
-                    };
-
-                    gameState.opponentUsedAbility = true;
-                    executeAbility(aiAbility, true);
+                        gameState.opponentUsedAbility = true;
+                        executeAbility(aiAbility, true);
+                    }
                 }
             } else {
                 gameState.opponentUsedAbility = false;
