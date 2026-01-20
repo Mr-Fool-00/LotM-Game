@@ -10085,10 +10085,10 @@
             }
         }
 
-        // Justiciar: Force opponent's next card to be random, block their ability next turn
+        // Justiciar: Force opponent's next card (player picks blindly), block their ability next turn
         function executeJusticiarAbility(ability, isAI) {
             if (isAI) {
-                // Force player to play random card and block ability
+                // AI forces player to play random card and blocks ability
                 if (gameState.playerHand.length > 0) {
                     const randomCard = gameState.playerHand[Math.floor(Math.random() * gameState.playerHand.length)];
                     gameState.forcedPlayerCard = randomCard.name;
@@ -10096,13 +10096,51 @@
                 gameState.playerAbilityBlocked = true;
                 addAbilityLog(ability, 'Judgment passed! Your card is randomized and ability blocked!', isAI);
             } else {
-                // Force opponent random and block
-                if (gameState.opponentHand.length > 0) {
-                    const randomCard = gameState.opponentHand[Math.floor(Math.random() * gameState.opponentHand.length)];
-                    gameState.forcedOpponentCard = randomCard.name;
+                // Player picks blindly from opponent's hand
+                if (gameState.opponentHand.length === 0) {
+                    addAbilityLog(ability, 'No cards to judge!', isAI);
+                    return;
                 }
+
+                let cardsHtml = `<p style="color: var(--color-text-muted); margin-bottom: 15px;">Pass judgment! Pick a card position to force the opponent to play.</p>`;
+                cardsHtml += '<div class="ability-modal-cards">';
+                for (let i = 0; i < gameState.opponentHand.length; i++) {
+                    cardsHtml += `
+                        <div class="ability-modal-card blinded" data-index="${i}" onclick="selectJusticiarCard(${i})">
+                            <img src="images/justiciar.png" alt="Hidden">
+                            <div class="card-name">Card ${i + 1}</div>
+                        </div>
+                    `;
+                }
+                cardsHtml += '</div>';
+
+                showAbilityModal(
+                    'Absolute Order',
+                    'Force opponent to play a specific card and block their ability',
+                    cardsHtml,
+                    [
+                        { text: 'Pass Judgment', class: 'primary', disabled: true, callback: () => confirmJusticiarSelection(ability) }
+                    ]
+                );
+            }
+        }
+
+        let selectedJusticiarIndex = null;
+
+        function selectJusticiarCard(index) {
+            selectedJusticiarIndex = index;
+            document.querySelectorAll('.ability-modal-card').forEach((card, i) => {
+                card.classList.toggle('selected', i === index);
+            });
+            document.querySelector('.ability-modal-btn.primary').disabled = false;
+        }
+
+        function confirmJusticiarSelection(ability) {
+            if (selectedJusticiarIndex !== null && gameState.opponentHand[selectedJusticiarIndex]) {
+                gameState.forcedOpponentCard = gameState.opponentHand[selectedJusticiarIndex].name;
                 gameState.opponentAbilityBlocked = true;
-                addAbilityLog(ability, 'Judgment passed! Opponent\'s card is randomized and ability blocked next turn!', isAI);
+                addAbilityLog(ability, `Judgment passed! Opponent must play card #${selectedJusticiarIndex + 1} and cannot use abilities next turn!`, false);
+                selectedJusticiarIndex = null;
             }
         }
 
