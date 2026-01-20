@@ -9177,15 +9177,16 @@
             // Door ability: extra card is guaranteed medium hit or higher
             if (gameState.extraCardNextTurn && gameState.playerHand.length > 3) {
                 const mediumOrHigher = [...BIG_HIT_LIST, ...MEDIUM_HIT_LIST];
-                const guaranteedCard = PATHWAYS.find(p => mediumOrHigher.includes(p.name));
+                const randomName = mediumOrHigher[Math.floor(Math.random() * mediumOrHigher.length)];
+                const guaranteedCard = PATHWAYS.find(p => p.name === randomName);
                 if (guaranteedCard) {
                     gameState.playerHand[3] = guaranteedCard;
                 }
             }
             if (gameState.opponentExtraCard && gameState.opponentHand.length > 3) {
                 const mediumOrHigher = [...BIG_HIT_LIST, ...MEDIUM_HIT_LIST];
-                const randomMediumOrHigher = mediumOrHigher[Math.floor(Math.random() * mediumOrHigher.length)];
-                const guaranteedCard = PATHWAYS.find(p => p.name === randomMediumOrHigher);
+                const randomName = mediumOrHigher[Math.floor(Math.random() * mediumOrHigher.length)];
+                const guaranteedCard = PATHWAYS.find(p => p.name === randomName);
                 if (guaranteedCard) {
                     gameState.opponentHand[3] = guaranteedCard;
                 }
