@@ -8041,6 +8041,7 @@
             playerAbilityBlocked: false,   // Justiciar/Darkness - player can't use abilities
             foolDecoyActive: false,        // Fool mechanic active
             foolDecoyCardIndex: null,      // Which card is the decoy
+            foolDecoyIsReal: null,         // Whether the decoy is "real" or "fake"
             forcedPlayerCard: null,        // Card player is forced to play (Binding/Visionary/Justiciar)
             forcedOpponentCard: null,      // Card opponent is forced to play
             guaranteedPlayerPathway: null, // Pathway guaranteed in next hand (Fate/Authority)
@@ -9172,6 +9173,23 @@
             gameState.playerHand = getWeightedRandomCards(playerCardCount);
             gameState.opponentHand = getWeightedRandomCards(opponentCardCount);
 
+            // Door ability: extra card is guaranteed medium hit or higher
+            if (gameState.extraCardNextTurn && gameState.playerHand.length > 3) {
+                const mediumOrHigher = [...BIG_HIT_LIST, ...MEDIUM_HIT_LIST];
+                const guaranteedCard = PATHWAYS.find(p => mediumOrHigher.includes(p.name));
+                if (guaranteedCard) {
+                    gameState.playerHand[3] = guaranteedCard;
+                }
+            }
+            if (gameState.opponentExtraCard && gameState.opponentHand.length > 3) {
+                const mediumOrHigher = [...BIG_HIT_LIST, ...MEDIUM_HIT_LIST];
+                const randomMediumOrHigher = mediumOrHigher[Math.floor(Math.random() * mediumOrHigher.length)];
+                const guaranteedCard = PATHWAYS.find(p => p.name === randomMediumOrHigher);
+                if (guaranteedCard) {
+                    gameState.opponentHand[3] = guaranteedCard;
+                }
+            }
+
             // Apply guaranteed pathways (Fate/Authority)
             if (gameState.guaranteedPlayerPathway) {
                 const pathway = PATHWAYS.find(p => p.name === gameState.guaranteedPlayerPathway);
@@ -9587,10 +9605,6 @@
             return discarded;
         }
 
-        function getPathwayByName(name) {
-            return PATHWAYS.find(p => p.name === name);
-        }
-
         function getRandomPathway() {
             return PATHWAYS[Math.floor(Math.random() * PATHWAYS.length)];
         }
@@ -9675,7 +9689,6 @@
         }
 
         let selectedDestructionDamage = null;
-        let pendingDestructionAbility = null;
 
         function selectDestructionDamage(damage) {
             selectedDestructionDamage = damage;
@@ -10182,6 +10195,8 @@
             if (selectedFoolDecoyIndex !== null) {
                 gameState.foolDecoyActive = true;
                 gameState.foolDecoyCardIndex = selectedFoolDecoyIndex;
+                const isReal = Math.random() > 0.5; // Determine if decoy is "real" or "fake"
+                gameState.foolDecoyIsReal = isReal;
                 addAbilityLog(ability, `Set ${gameState.playerHand[selectedFoolDecoyIndex].name} as decoy! Opponent must guess.`, false);
                 selectedFoolDecoyIndex = null;
                 renderHand();
@@ -10189,28 +10204,62 @@
                 // AI makes a guess
                 setTimeout(() => {
                     const aiGuess = Math.random() > 0.5 ? 'real' : 'fake';
-                    const isReal = Math.random() > 0.5; // 50/50 for simplicity
-
-                    let resultText;
-                    if ((aiGuess === 'real' && isReal) || (aiGuess === 'fake' && !isReal)) {
-                        // AI guessed correctly - player takes 5 damage
-                        gameState.playerHP = Math.max(0, gameState.playerHP - 5);
-                        showEffectPopup('-5', 'damage', 'player');
-                        resultText = `Opponent guessed ${aiGuess.toUpperCase()} - Correct! You take 5 damage.`;
-                    } else {
-                        // AI guessed wrong - opponent takes 5 damage
-                        gameState.opponentHP = Math.max(0, gameState.opponentHP - 5);
-                        showEffectPopup('-5', 'damage', 'opponent');
-                        resultText = `Opponent guessed ${aiGuess.toUpperCase()} - Wrong! Opponent takes 5 damage.`;
-                    }
-
-                    addAbilityLog({ cardName: 'Fool', abilityName: 'Decoy Resolution' }, resultText, false);
-                    gameState.foolDecoyActive = false;
-                    gameState.foolDecoyCardIndex = null;
-                    updateUI();
-                    renderHand();
+                    resolveFoolDecoyResult(aiGuess, isReal, false);
                 }, 1000);
             }
+        }
+
+        function resolveFoolDecoyResult(guess, isReal, isPlayerGuessing) {
+            let resultText;
+            const baseDamage = 20;
+
+            if (isPlayerGuessing) {
+                // Player is guessing opponent's decoy
+                if (guess === 'real' && isReal) {
+                    // Guessed real, was real - nothing happens
+                    resultText = `You guessed REAL - Correct! The card was real. Normal interaction.`;
+                } else if (guess === 'fake' && isReal) {
+                    // Guessed fake, was real - player takes double damage
+                    const damage = baseDamage * 2;
+                    gameState.playerHP = Math.max(0, gameState.playerHP - damage);
+                    showEffectPopup(`-${damage}`, 'damage', 'player');
+                    resultText = `You guessed FAKE but it was REAL! You take ${damage} damage!`;
+                } else if (guess === 'fake' && !isReal) {
+                    // Guessed fake, was fake - damage reflected to opponent (fool user)
+                    gameState.opponentHP = Math.max(0, gameState.opponentHP - baseDamage);
+                    showEffectPopup(`-${baseDamage}`, 'damage', 'opponent');
+                    resultText = `You guessed FAKE - Correct! Damage reflected to opponent for ${baseDamage}!`;
+                } else {
+                    // Guessed real, was fake - nothing major
+                    resultText = `You guessed REAL but it was FAKE. The decoy fades away.`;
+                }
+            } else {
+                // AI/Opponent is guessing player's decoy
+                if (guess === 'real' && isReal) {
+                    resultText = `Opponent guessed REAL - Correct! The card was real. Normal interaction.`;
+                } else if (guess === 'fake' && isReal) {
+                    // Opponent guessed fake, was real - opponent takes double damage
+                    const damage = baseDamage * 2;
+                    gameState.opponentHP = Math.max(0, gameState.opponentHP - damage);
+                    showEffectPopup(`-${damage}`, 'damage', 'opponent');
+                    resultText = `Opponent guessed FAKE but it was REAL! Opponent takes ${damage} damage!`;
+                } else if (guess === 'fake' && !isReal) {
+                    // Opponent guessed fake, was fake - damage reflected to player (fool user)
+                    gameState.playerHP = Math.max(0, gameState.playerHP - baseDamage);
+                    showEffectPopup(`-${baseDamage}`, 'damage', 'player');
+                    resultText = `Opponent guessed FAKE - Correct! Damage reflected to you for ${baseDamage}!`;
+                } else {
+                    resultText = `Opponent guessed REAL but it was FAKE. The decoy fades away.`;
+                }
+            }
+
+            addAbilityLog({ cardName: 'Fool', abilityName: 'Decoy Resolution' }, resultText, false);
+            gameState.foolDecoyActive = false;
+            gameState.foolDecoyCardIndex = null;
+            gameState.foolDecoyIsReal = null;
+            updateUI();
+            renderHand();
+            checkGameOver();
         }
 
         function selectFoolGuess(guess) {
@@ -10224,24 +10273,8 @@
         function resolveFoolGuess(isAIDecoy, decoyIndex) {
             if (selectedFoolGuess) {
                 const isReal = Math.random() > 0.5; // 50/50 for simplicity
-
-                let resultText;
-                if ((selectedFoolGuess === 'real' && isReal) || (selectedFoolGuess === 'fake' && !isReal)) {
-                    // Player guessed correctly - opponent takes 5 damage
-                    gameState.opponentHP = Math.max(0, gameState.opponentHP - 5);
-                    showEffectPopup('-5', 'damage', 'opponent');
-                    resultText = `You guessed ${selectedFoolGuess.toUpperCase()} - Correct! Opponent takes 5 damage.`;
-                } else {
-                    // Player guessed wrong - player takes 5 damage
-                    gameState.playerHP = Math.max(0, gameState.playerHP - 5);
-                    showEffectPopup('-5', 'damage', 'player');
-                    resultText = `You guessed ${selectedFoolGuess.toUpperCase()} - Wrong! You take 5 damage.`;
-                }
-
-                addAbilityLog({ cardName: 'Fool', abilityName: 'Decoy Resolution' }, resultText, false);
+                resolveFoolDecoyResult(selectedFoolGuess, isReal, true);
                 selectedFoolGuess = null;
-                updateUI();
-                checkGameOver();
             }
         }
 
