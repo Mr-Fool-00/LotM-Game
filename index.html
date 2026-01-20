@@ -8049,6 +8049,7 @@
             extraCardNextTurn: false,      // Door effect - draw extra card
             opponentExtraCard: false,      // Door effect for opponent
             abilitiesCancelled: false,     // Error effect - all abilities cancelled this turn
+            stealthPeekCards: null,        // Cards shown during Stealth ability
             opponentUsedAbility: false     // Track if opponent used ability (for AI)
         };
 
@@ -9598,11 +9599,10 @@
             document.getElementById('ability-modal').classList.remove('active');
         }
 
-        function discardRandomCard(hand, owner = 'player') {
+        function discardRandomCard(hand) {
             if (hand.length === 0) return null;
             const index = Math.floor(Math.random() * hand.length);
-            const discarded = hand.splice(index, 1)[0];
-            return discarded;
+            return hand.splice(index, 1)[0];
         }
 
         function getRandomPathway() {
@@ -9714,8 +9714,8 @@
 
         // Death/Corruption (Death, Hanged Man, Abyss): Both players discard a random card
         function executeDeathAbility(ability, isAI) {
-            const playerDiscarded = discardRandomCard(gameState.playerHand, 'player');
-            const opponentDiscarded = discardRandomCard(gameState.opponentHand, 'opponent');
+            const playerDiscarded = discardRandomCard(gameState.playerHand);
+            const opponentDiscarded = discardRandomCard(gameState.opponentHand);
 
             let effectText = 'Corruption spreads... ';
             if (playerDiscarded) effectText += `You lost ${playerDiscarded.name}. `;
@@ -9817,7 +9817,7 @@
                 cardsHtml += '</div>';
 
                 // Store for later use
-                window.stealthPeekCards = peekCards;
+                gameState.stealthPeekCards = peekCards;
 
                 showAbilityModal(
                     'Foresight',
@@ -9841,9 +9841,9 @@
         }
 
         function confirmStealthDiscard(ability) {
-            if (selectedStealthIndex !== null && window.stealthPeekCards) {
-                const discarded = window.stealthPeekCards[selectedStealthIndex];
-                const kept = window.stealthPeekCards[1 - selectedStealthIndex];
+            if (selectedStealthIndex !== null && gameState.stealthPeekCards) {
+                const discarded = gameState.stealthPeekCards[selectedStealthIndex];
+                const kept = gameState.stealthPeekCards[1 - selectedStealthIndex];
 
                 // Add the kept card to next turn effects
                 gameState.nextTurnEffects.push({
@@ -9854,7 +9854,7 @@
 
                 addAbilityLog(ability, `Discarded ${discarded.name} from the future. ${kept.name} is guaranteed next turn!`, false);
                 selectedStealthIndex = null;
-                window.stealthPeekCards = null;
+                gameState.stealthPeekCards = null;
             }
         }
 
@@ -9969,7 +9969,7 @@
         function executeDoorAbility(ability, isAI) {
             if (isAI) {
                 // AI discards a random card and gets extra next turn
-                const discarded = discardRandomCard(gameState.opponentHand, 'opponent');
+                const discarded = discardRandomCard(gameState.opponentHand);
                 gameState.opponentExtraCard = true;
                 addAbilityLog(ability, 'Opened a portal! Will draw extra card next turn.', isAI);
             } else {
