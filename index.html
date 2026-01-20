@@ -2210,7 +2210,7 @@
             display: none;
             justify-content: center;
             align-items: center;
-            z-index: 100;
+            z-index: 1200;
         }
 
         .game-over-overlay.show {
@@ -10285,6 +10285,10 @@
         function checkGameOver() {
             if (gameState.playerHP <= 0 || gameState.opponentHP <= 0) {
                 gameState.gameOver = true;
+                // Close any open ability modals
+                closeAbilityModal();
+                // End ability phase
+                gameState.abilityPhaseActive = false;
                 showGameOver();
             }
         }
