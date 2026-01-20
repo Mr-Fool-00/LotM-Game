@@ -10127,12 +10127,15 @@
         }
 
         // Fool: Decoy card mechanic
+        let aiDecoyIsReal = null; // Store AI's decoy real/fake status
+
         function executeFoolAbility(ability, isAI) {
             if (isAI) {
                 // AI sets a random card as decoy
                 if (gameState.opponentHand.length > 0) {
                     const decoyIndex = Math.floor(Math.random() * gameState.opponentHand.length);
-                    // For AI, we just log it - the decoy mechanic works differently
+                    // AI decides if the decoy is "real" or "fake" BEFORE player guesses
+                    aiDecoyIsReal = Math.random() > 0.5;
                     addAbilityLog(ability, 'Set a decoy! Is the card real or fake?', isAI);
 
                     // Create a simple guess prompt for the player
@@ -10151,7 +10154,7 @@
                                 </div>
                             </div>`,
                             [
-                                { text: 'Make Guess', class: 'primary', disabled: true, callback: () => resolveFoolGuess(true, decoyIndex) }
+                                { text: 'Make Guess', class: 'primary', disabled: true, callback: () => resolveFoolGuess() }
                             ]
                         );
                     }, 500);
@@ -10271,11 +10274,11 @@
             document.querySelector('.ability-modal-btn.primary').disabled = false;
         }
 
-        function resolveFoolGuess(isAIDecoy, decoyIndex) {
-            if (selectedFoolGuess) {
-                const isReal = Math.random() > 0.5; // 50/50 for simplicity
-                resolveFoolDecoyResult(selectedFoolGuess, isReal, true);
+        function resolveFoolGuess() {
+            if (selectedFoolGuess && aiDecoyIsReal !== null) {
+                resolveFoolDecoyResult(selectedFoolGuess, aiDecoyIsReal, true);
                 selectedFoolGuess = null;
+                aiDecoyIsReal = null;
             }
         }
 
