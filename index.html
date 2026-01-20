@@ -8330,6 +8330,23 @@
         let unlockedAchievements = JSON.parse(localStorage.getItem('pathwayClash_achievements') || '[]');
         let unlockedTriumphs = JSON.parse(localStorage.getItem('pathwayClash_triumphs') || '[]');
         let activeTitle = localStorage.getItem('pathwayClash_activeTitle') || null;
+
+        // Clean up achievement arrays - remove duplicates and invalid IDs
+        function cleanupAchievementData() {
+            const validAchievementIds = Object.keys(ACHIEVEMENTS);
+            const validTriumphIds = Object.keys(HIDDEN_TRIUMPHS);
+
+            // Remove duplicates and invalid achievement IDs
+            unlockedAchievements = [...new Set(unlockedAchievements)].filter(id => validAchievementIds.includes(id));
+            // Remove duplicates and invalid triumph IDs
+            unlockedTriumphs = [...new Set(unlockedTriumphs)].filter(id => validTriumphIds.includes(id));
+
+            // Save cleaned data
+            localStorage.setItem('pathwayClash_achievements', JSON.stringify(unlockedAchievements));
+            localStorage.setItem('pathwayClash_triumphs', JSON.stringify(unlockedTriumphs));
+        }
+        // Run cleanup on load
+        cleanupAchievementData();
         // Displayed achievement: { id: string, isTriumph: boolean } or null for auto (highest)
         let displayedAchievement = JSON.parse(localStorage.getItem('pathwayClash_displayedAchievement') || 'null');
 
