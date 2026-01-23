@@ -7660,7 +7660,13 @@
             playerCode = null;
             localStorage.removeItem('pathwayClash_playerCode');
             DOM.get('welcome-screen').classList.add('hidden');
-            DOM.get('intro-screen').classList.remove('hidden');
+
+            // Check if tutorial should be shown (same as new player flow)
+            if (shouldShowTutorial()) {
+                showTutorialPrompt();
+            } else {
+                DOM.get('intro-screen').classList.remove('hidden');
+            }
             // Update tutorial menu button
             updateTutorialMenuButton();
         }
