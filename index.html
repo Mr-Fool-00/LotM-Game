@@ -73,9 +73,6 @@
         body.light-mode {
             background: linear-gradient(135deg, #f0f0f5 0%, #e8e8f0 50%, #dde0e8 100%);
             color: #1a1a2e;
-        }
-
-        body.light-mode {
             --color-text: #1a1a2e;
             --color-text-muted: #555;
             --color-text-dim: #777;
@@ -789,14 +786,34 @@
         }
 
         .title-text.void-pulse {
-            color: #1a1a2e;
-            text-shadow: 0 0 10px #000, 0 0 20px #1a1a2e, 0 0 30px #2a2a4e;
+            color: #9977cc;
+            text-shadow: 0 0 10px #2a1a3e, 0 0 20px #4a3a6e, 0 0 30px #1a1a2e;
             animation: void-pulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .title-text.void-pulse::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -10px;
+            right: -10px;
+            bottom: -5px;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.6) 0%, rgba(20, 10, 30, 0.4) 40%, transparent 70%);
+            filter: blur(4px);
+            z-index: -1;
+            animation: fog-drift 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes fog-drift {
+            0%, 100% { opacity: 0.7; transform: scale(1) translateX(0); }
+            50% { opacity: 1; transform: scale(1.1) translateX(2px); }
         }
 
         @keyframes void-pulse {
-            0%, 100% { text-shadow: 0 0 10px #000, 0 0 20px #1a1a2e; opacity: 0.8; }
-            50% { text-shadow: 0 0 20px #000, 0 0 40px #2a2a4e, 0 0 60px #3a3a5e; opacity: 1; }
+            0%, 100% { text-shadow: 0 0 10px #2a1a3e, 0 0 20px #4a3a6e; opacity: 0.9; }
+            50% { text-shadow: 0 0 20px #4a3a6e, 0 0 40px #6a5a8e, 0 0 60px #2a1a3e; opacity: 1; }
         }
 
         .title-text.moon-shimmer {
@@ -3987,6 +4004,42 @@
             margin: 0;
         }
 
+        .leaderboard-header-buttons {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-refresh-leaderboard {
+            background: transparent;
+            border: 1px solid var(--color-gold);
+            color: var(--color-gold);
+            font-size: 18px;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .btn-refresh-leaderboard:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: rotate(180deg);
+        }
+
+        .btn-refresh-leaderboard.spinning {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
         .leaderboard-tabs {
             display: flex;
             gap: 5px;
@@ -4419,6 +4472,123 @@
             border-left: 3px solid #4a4a8a;
         }
 
+        .profile-name-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-edit-name {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+            padding: 2px;
+        }
+
+        .btn-edit-name:hover {
+            opacity: 1;
+        }
+
+        .name-editor {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .name-editor h4 {
+            margin: 0 0 8px 0;
+            color: var(--color-gold);
+            font-size: 14px;
+        }
+
+        .name-editor-input-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .name-editor-input-row input {
+            flex: 1;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--color-text);
+            font-size: 14px;
+        }
+
+        .name-editor-input-row input:focus {
+            outline: none;
+            border-color: var(--color-gold);
+        }
+
+        .btn-check-name {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: var(--color-text);
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .btn-check-name:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .name-availability {
+            font-size: 12px;
+            margin-bottom: 10px;
+            min-height: 20px;
+        }
+
+        .name-availability.available {
+            color: var(--color-success);
+        }
+
+        .name-availability.taken {
+            color: var(--color-danger);
+        }
+
+        .name-availability.checking {
+            color: var(--color-text-dim);
+        }
+
+        .name-editor-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-save-name {
+            flex: 1;
+            padding: 10px;
+            background: var(--color-success);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-save-name:disabled {
+            background: rgba(74, 138, 74, 0.3);
+            cursor: not-allowed;
+        }
+
+        .btn-cancel-name {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            color: var(--color-text);
+            cursor: pointer;
+        }
+
         .profile-section h3 {
             color: var(--color-gold);
             font-size: 14px;
@@ -4621,6 +4791,782 @@
             box-shadow: 0 4px 12px rgba(170, 68, 255, 0.2);
         }
 
+        /* Friends Button */
+        .btn-friends-main {
+            width: 100%;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #2a4a3a, #1d3d2d);
+            border: 2px solid #44cc88;
+            border-radius: 8px;
+            color: #66dd99;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .btn-friends-main:hover {
+            background: linear-gradient(135deg, #3a5a4a, #2d4d3d);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(68, 204, 136, 0.2);
+        }
+
+        .friends-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4444;
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 10px;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* Friends Modal */
+        .friends-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .friends-modal.show {
+            display: flex;
+        }
+
+        .friends-modal-content {
+            background: var(--color-bg-secondary);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #44cc88;
+        }
+
+        .friends-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #2a4a3a, #1d3d2d);
+            border-bottom: 1px solid #44cc88;
+        }
+
+        .friends-modal-header h2 {
+            margin: 0;
+            color: #66dd99;
+            font-size: 18px;
+        }
+
+        /* Friends Tabs */
+        .friends-tabs {
+            display: flex;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid #333;
+        }
+
+        .friends-tab {
+            flex: 1;
+            padding: 12px 15px;
+            background: transparent;
+            border: none;
+            color: var(--color-text-dim);
+            font-size: 13px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .friends-tab:hover {
+            background: rgba(68, 204, 136, 0.1);
+            color: #66dd99;
+        }
+
+        .friends-tab.active {
+            background: rgba(68, 204, 136, 0.2);
+            color: #66dd99;
+            border-bottom: 2px solid #44cc88;
+        }
+
+        .requests-count {
+            background: #ff4444;
+            color: white;
+            font-size: 10px;
+            padding: 1px 5px;
+            border-radius: 8px;
+            margin-left: 4px;
+        }
+
+        /* Friends Tab Content */
+        .friends-tab-content {
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .friends-tab-content.hidden {
+            display: none;
+        }
+
+        /* Friends List */
+        .friends-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .friends-empty, .requests-empty {
+            color: var(--color-text-dim);
+            text-align: center;
+            padding: 20px;
+            font-style: italic;
+        }
+
+        .friend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid #333;
+            transition: var(--transition-fast);
+        }
+
+        .friend-item:hover {
+            border-color: #44cc88;
+            background: rgba(68, 204, 136, 0.1);
+        }
+
+        .friend-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3a5a4a, #2d4d3d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: #66dd99;
+            flex-shrink: 0;
+        }
+
+        .friend-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .friend-name {
+            font-weight: bold;
+            color: var(--color-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .friend-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--color-text-dim);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .status-dot.online {
+            background: #44cc88;
+            box-shadow: 0 0 6px #44cc88;
+        }
+
+        .status-dot.away {
+            background: #ffaa44;
+            box-shadow: 0 0 6px #ffaa44;
+        }
+
+        .status-dot.offline {
+            background: #666;
+        }
+
+        .friend-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-friend-action {
+            padding: 6px 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-friend-chat {
+            background: #44cc88;
+            color: #111;
+        }
+
+        .btn-friend-chat:hover {
+            background: #55dd99;
+        }
+
+        .btn-friend-profile {
+            background: #555;
+            color: #fff;
+        }
+
+        .btn-friend-profile:hover {
+            background: #666;
+        }
+
+        /* Request Items */
+        .requests-section {
+            margin-bottom: 20px;
+        }
+
+        .requests-section h4 {
+            color: #66dd99;
+            font-size: 13px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #333;
+        }
+
+        .request-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid #333;
+            margin-bottom: 8px;
+        }
+
+        .request-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .request-name {
+            font-weight: bold;
+            color: var(--color-text);
+        }
+
+        .request-time {
+            font-size: 11px;
+            color: var(--color-text-dim);
+        }
+
+        .request-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-accept {
+            background: #44cc88;
+            color: #111;
+        }
+
+        .btn-accept:hover {
+            background: #55dd99;
+        }
+
+        .btn-decline {
+            background: #cc4444;
+            color: white;
+        }
+
+        .btn-decline:hover {
+            background: #dd5555;
+        }
+
+        .btn-cancel-request {
+            background: #666;
+            color: white;
+        }
+
+        .btn-cancel-request:hover {
+            background: #777;
+        }
+
+        /* Add Friend Form */
+        .add-friend-form {
+            text-align: center;
+        }
+
+        .add-friend-form p {
+            color: var(--color-text-dim);
+            margin-bottom: 15px;
+        }
+
+        .add-friend-input-row {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .add-friend-input-row input {
+            padding: 10px 15px;
+            border: 1px solid #44cc88;
+            border-radius: 6px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--color-text);
+            font-size: 14px;
+            width: 150px;
+        }
+
+        .add-friend-input-row input:focus {
+            outline: none;
+            border-color: #66dd99;
+            box-shadow: 0 0 8px rgba(68, 204, 136, 0.3);
+        }
+
+        .btn-send-request {
+            padding: 10px 20px;
+            background: #44cc88;
+            border: none;
+            border-radius: 6px;
+            color: #111;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-send-request:hover {
+            background: #55dd99;
+        }
+
+        .add-friend-status {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .add-friend-status.success {
+            background: rgba(68, 204, 136, 0.2);
+            color: #66dd99;
+            border: 1px solid #44cc88;
+        }
+
+        .add-friend-status.error {
+            background: rgba(204, 68, 68, 0.2);
+            color: #ff6666;
+            border: 1px solid #cc4444;
+        }
+
+        .add-friend-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: var(--color-text-dim);
+            font-size: 12px;
+        }
+
+        .add-friend-divider::before,
+        .add-friend-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #444;
+            margin: 0 10px;
+        }
+
+        .player-search-results {
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 10px;
+        }
+
+        .player-search-result {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid #333;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            transition: var(--transition-fast);
+        }
+
+        .player-search-result:hover {
+            background: rgba(68, 204, 136, 0.1);
+            border-color: #44cc88;
+        }
+
+        .player-search-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #44cc88, #2a8855);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .player-search-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .player-search-name {
+            font-size: 13px;
+            color: var(--color-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .player-search-code {
+            font-size: 11px;
+            color: var(--color-text-dim);
+        }
+
+        .btn-add-from-search {
+            padding: 6px 12px;
+            background: #44cc88;
+            border: none;
+            border-radius: 4px;
+            color: #111;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-add-from-search:hover {
+            background: #55dd99;
+        }
+
+        .btn-add-from-search:disabled {
+            background: #555;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .search-no-results {
+            text-align: center;
+            color: var(--color-text-dim);
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        .search-loading {
+            text-align: center;
+            color: var(--color-text-dim);
+            padding: 15px;
+            font-size: 13px;
+        }
+
+        /* Chat Modal */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-modal.show {
+            display: flex;
+        }
+
+        .chat-modal-content {
+            background: var(--color-bg-secondary);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 450px;
+            height: 70vh;
+            max-height: 600px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #44cc88;
+            overflow: hidden;
+        }
+
+        .chat-modal-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, #2a4a3a, #1d3d2d);
+            border-bottom: 1px solid #44cc88;
+        }
+
+        .btn-back-chat {
+            background: transparent;
+            border: none;
+            color: #66dd99;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+
+        .btn-back-chat:hover {
+            color: #88ffbb;
+        }
+
+        .chat-friend-info {
+            flex: 1;
+        }
+
+        .chat-friend-name {
+            display: block;
+            font-weight: bold;
+            color: #66dd99;
+            font-size: 14px;
+        }
+
+        .chat-friend-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--color-text-dim);
+        }
+
+        .btn-view-profile {
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .btn-view-profile:hover {
+            transform: scale(1.1);
+        }
+
+        /* Chat Messages */
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-empty {
+            color: var(--color-text-dim);
+            text-align: center;
+            padding: 40px 20px;
+            font-style: italic;
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .message-bubble.sent {
+            align-self: flex-end;
+            background: #44cc88;
+            color: #111;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            align-self: flex-start;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--color-text);
+            border-bottom-left-radius: 4px;
+        }
+
+        .message-time {
+            font-size: 10px;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .message-bubble.sent .message-time {
+            text-align: right;
+        }
+
+        /* Chat Input */
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid #333;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #44cc88;
+            border-radius: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--color-text);
+            font-size: 13px;
+        }
+
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: #66dd99;
+        }
+
+        .btn-send-message {
+            padding: 10px 18px;
+            background: #44cc88;
+            border: none;
+            border-radius: 20px;
+            color: #111;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-send-message:hover {
+            background: #55dd99;
+        }
+
+        /* Notification Popup */
+        .friend-notification {
+            position: fixed;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1100;
+            transition: top 0.3s ease;
+        }
+
+        .friend-notification.show {
+            top: 20px;
+        }
+
+        .friend-notification-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #2a4a3a, #1d3d2d);
+            border: 2px solid #44cc88;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .notification-icon {
+            font-size: 24px;
+        }
+
+        .notification-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notification-title {
+            font-weight: bold;
+            color: #66dd99;
+            font-size: 13px;
+        }
+
+        .notification-body {
+            color: var(--color-text-dim);
+            font-size: 12px;
+        }
+
+        .btn-dismiss-notification {
+            background: transparent;
+            border: none;
+            color: var(--color-text-dim);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .btn-dismiss-notification:hover {
+            color: var(--color-text);
+        }
+
+        /* Profile Footer Buttons for Friends */
+        .btn-add-friend, .btn-message-friend {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            margin-left: 8px;
+        }
+
+        .btn-add-friend {
+            background: #44cc88;
+            color: #111;
+        }
+
+        .btn-add-friend:hover {
+            background: #55dd99;
+        }
+
+        .btn-add-friend:disabled {
+            background: #555;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .btn-message-friend {
+            background: #4488cc;
+            color: white;
+        }
+
+        .btn-message-friend:hover {
+            background: #5599dd;
+        }
+
+        @media (max-width: 600px) {
+            .friends-modal-content, .chat-modal-content {
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .friend-item {
+                flex-wrap: wrap;
+            }
+
+            .friend-actions {
+                width: 100%;
+                justify-content: flex-end;
+                margin-top: 8px;
+            }
+        }
+
         @media (max-width: 600px) {
             .profile-modal-content {
                 margin: 10px;
@@ -4733,11 +5679,18 @@
             position: relative;
         }
 
-        .feedback-header h2 {
-            color: #ffd700;
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 15px;
             border-bottom: 1px solid #333;
             padding-bottom: 10px;
+        }
+
+        .feedback-header h2 {
+            color: #ffd700;
+            margin: 0;
         }
 
         .feedback-form-group {
@@ -7101,6 +8054,9 @@
                 <!-- Leaderboards Button -->
                 <button class="btn-leaderboard-main" onclick="openLeaderboard()">🏆 Leaderboards</button>
                 <button class="btn-profile-main" onclick="openProfile()">👤 Player Profile</button>
+                <button class="btn-friends-main" onclick="openFriendsModal()">
+                    Friends <span class="friends-badge" id="friends-badge" style="display:none;">0</span>
+                </button>
 
                 <!-- AI Difficulty Selection -->
                 <div class="difficulty-selection show" id="difficulty-selection">
@@ -7197,7 +8153,10 @@
         <div class="leaderboard-modal-content">
             <div class="leaderboard-modal-header">
                 <h2>Leaderboards</h2>
-                <button class="btn-close-modal" onclick="closeLeaderboard()">✕ Close</button>
+                <div class="leaderboard-header-buttons">
+                    <button class="btn-refresh-leaderboard" onclick="refreshLeaderboard()" title="Refresh">↻</button>
+                    <button class="btn-close-modal" onclick="closeLeaderboard()">✕ Close</button>
+                </div>
             </div>
 
             <!-- Main tabs -->
@@ -7252,7 +8211,10 @@
                 <div class="profile-header">
                     <div class="profile-avatar" id="profile-avatar">?</div>
                     <div class="profile-info">
-                        <div class="profile-name" id="profile-name">Player</div>
+                        <div class="profile-name-container">
+                            <div class="profile-name" id="profile-name">Player</div>
+                            <button class="btn-edit-name" id="btn-edit-name" onclick="openNameEditor()" style="display:none;" title="Change Name">✏️</button>
+                        </div>
                         <div class="profile-title-container">
                             <div class="profile-title title-text" id="profile-title"></div>
                             <button class="btn-change-title" id="btn-change-title" onclick="openTitleSelector()" style="display:none;">Change</button>
@@ -7260,6 +8222,21 @@
                         <div class="profile-code" id="profile-code">#0000</div>
                     </div>
                     <div class="profile-badge" id="profile-badge"></div>
+                </div>
+
+                <!-- Name Editor (only for own profile) -->
+                <div class="name-editor" id="name-editor" style="display:none;">
+                    <h4>Change Display Name</h4>
+                    <p style="font-size: 11px; color: var(--color-text-dim); margin-bottom: 10px;">Choose a unique name (3-16 characters, letters, numbers, spaces)</p>
+                    <div class="name-editor-input-row">
+                        <input type="text" id="name-editor-input" placeholder="Enter new name..." maxlength="16" minlength="3">
+                        <button class="btn-check-name" onclick="checkNameAvailability()">Check</button>
+                    </div>
+                    <div class="name-availability" id="name-availability"></div>
+                    <div class="name-editor-buttons">
+                        <button class="btn-save-name" id="btn-save-name" onclick="saveDisplayName()" disabled>Save Name</button>
+                        <button class="btn-cancel-name" onclick="closeNameEditor()">Cancel</button>
+                    </div>
                 </div>
 
                 <!-- Title Selector (for GMs) -->
@@ -7323,7 +8300,108 @@
             <!-- View Own Profile Button (when viewing others) -->
             <div class="profile-footer" id="profile-footer">
                 <button class="btn-view-own" onclick="openOwnProfile()">View My Profile</button>
+                <button class="btn-add-friend" id="profile-add-friend" onclick="sendFriendRequestFromProfile()" style="display:none;">Add Friend</button>
+                <button class="btn-message-friend" id="profile-message-friend" onclick="openChatFromProfile()" style="display:none;">Message</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Friends Modal -->
+    <div class="friends-modal" id="friends-modal">
+        <div class="friends-modal-content">
+            <div class="friends-modal-header">
+                <h2>Friends</h2>
+                <button class="btn-close-modal" onclick="closeFriendsModal()">✕ Close</button>
+            </div>
+
+            <!-- Friends Tabs -->
+            <div class="friends-tabs">
+                <button class="friends-tab active" id="tab-friends-list" onclick="switchFriendsTab('list')">Friends</button>
+                <button class="friends-tab" id="tab-friends-requests" onclick="switchFriendsTab('requests')">
+                    Requests <span class="requests-count" id="requests-count" style="display:none;">0</span>
+                </button>
+                <button class="friends-tab" id="tab-friends-add" onclick="switchFriendsTab('add')">Add Friend</button>
+            </div>
+
+            <!-- Friends List Tab -->
+            <div class="friends-tab-content" id="friends-list-content">
+                <div class="friends-list" id="friends-list">
+                    <div class="friends-empty" id="friends-empty">No friends yet. Add some friends!</div>
+                </div>
+            </div>
+
+            <!-- Requests Tab -->
+            <div class="friends-tab-content hidden" id="friends-requests-content">
+                <div class="requests-section">
+                    <h4>Incoming Requests</h4>
+                    <div class="requests-list" id="incoming-requests">
+                        <div class="requests-empty">No incoming requests</div>
+                    </div>
+                </div>
+                <div class="requests-section">
+                    <h4>Sent Requests</h4>
+                    <div class="requests-list" id="sent-requests">
+                        <div class="requests-empty">No sent requests</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Friend Tab -->
+            <div class="friends-tab-content hidden" id="friends-add-content">
+                <div class="add-friend-form">
+                    <p>Search by player name or enter a player code:</p>
+                    <div class="add-friend-input-row">
+                        <input type="text" id="add-friend-name-input" placeholder="Search by name..." maxlength="30" oninput="searchPlayersByName()">
+                    </div>
+                    <div class="player-search-results" id="player-search-results"></div>
+                    <div class="add-friend-divider">
+                        <span>or add by code</span>
+                    </div>
+                    <div class="add-friend-input-row">
+                        <input type="text" id="add-friend-input" placeholder="Enter player code..." maxlength="10">
+                        <button class="btn-send-request" onclick="sendFriendRequest()">Send Request</button>
+                    </div>
+                    <div class="add-friend-status" id="add-friend-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal -->
+    <div class="chat-modal" id="chat-modal">
+        <div class="chat-modal-content">
+            <div class="chat-modal-header">
+                <button class="btn-back-chat" onclick="closeChatModal()">←</button>
+                <div class="chat-friend-info">
+                    <span class="chat-friend-name" id="chat-friend-name">Friend</span>
+                    <span class="chat-friend-status" id="chat-friend-status">
+                        <span class="status-dot offline"></span>
+                        <span class="status-text">Offline</span>
+                    </span>
+                </div>
+                <button class="btn-view-profile" onclick="viewChatFriendProfile()">👤</button>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-empty">Start a conversation!</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type a message..." maxlength="500">
+                <button class="btn-send-message" onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friend Notification Popup -->
+    <div class="friend-notification" id="friend-notification">
+        <div class="friend-notification-content">
+            <span class="notification-icon">👤</span>
+            <div class="notification-text">
+                <span class="notification-title" id="notification-title">New Friend Request</span>
+                <span class="notification-body" id="notification-body">Player #0001 wants to be friends</span>
+            </div>
+            <button class="btn-dismiss-notification" onclick="dismissNotification()">✕</button>
         </div>
     </div>
 
@@ -7347,6 +8425,7 @@
         <div class="feedback-content">
             <div class="feedback-header">
                 <h2>Send Feedback</h2>
+                <button class="btn-close-modal" onclick="closeFeedback()">✕ Close</button>
             </div>
             <div class="feedback-body">
                 <a href="https://discord.gg/62gpGPtmsQ" target="_blank" class="btn-discord">Join our Discord Community</a>
@@ -7506,7 +8585,6 @@
             // 1. HONEYPOT CHECK
             const honey = DOM.get("website_url").value;
             if (honey !== "") {
-                console.log("Spam detected.");
                 closeFeedback();
                 return; // Silently fail for bots
             }
@@ -7514,7 +8592,6 @@
             // 2. TIME TRAP CHECK (Must take at least 2 seconds)
             const timeTaken = Date.now() - feedbackOpenTime;
             if (timeTaken < 2000) {
-                console.log("Too fast. Bot detected.");
                 closeFeedback();
                 return; // Silently fail
             }
@@ -7626,6 +8703,9 @@
             // Hide welcome screen
             DOM.get('welcome-screen').classList.add('hidden');
 
+            // Initialize friends system
+            initFriendsSystem();
+
             // Check if tutorial should be shown
             if (shouldShowTutorial()) {
                 // Show tutorial prompt for new players
@@ -7709,6 +8789,9 @@
                 playerCode = paddedCode;
                 localStorage.setItem('pathwayClash_playerCode', playerCode);
 
+                // Initialize friends system
+                initFriendsSystem();
+
                 // Proceed to tutorial
                 DOM.get('welcome-screen').classList.add('hidden');
                 DOM.get('intro-screen').classList.remove('hidden');
@@ -7733,6 +8816,9 @@
             // Player is continuing with their existing code
             DOM.get('welcome-screen').classList.add('hidden');
             DOM.get('intro-screen').classList.remove('hidden');
+
+            // Initialize friends system
+            initFriendsSystem();
 
             // Update tutorial menu button (they can access it manually if needed)
             updateTutorialMenuButton();
@@ -7788,6 +8874,990 @@
             localStorage.setItem('pathwayClash_tutorialDone', 'true');
             tutorialCompleted = true;
         }
+
+        // ============================================
+        // FRIENDS & MESSAGING SYSTEM
+        // ============================================
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        let friendsList = [];
+        let friendRequests = { incoming: [], sent: [] };
+        let currentChatFriend = null;
+        let currentConversationId = null;
+        let notificationCount = 0;
+        let messageListener = null;
+        let presenceRef = null;
+
+        // Listener tracking for cleanup
+        let connectedRefListener = null;
+        let visibilityChangeListener = null;
+        let friendRequestsListener = null;
+        let notificationsListener = null;
+
+        function initFriendsSystem() {
+            if (!playerCode) return;
+
+            initPlayerFirebase();
+            setupPresenceSystem();
+            loadFriendsList();
+            loadFriendRequests();
+            setupNotificationListeners();
+        }
+
+        function setupPresenceSystem() {
+            if (!playerCode || !playerDb) return;
+
+            const connectedRef = playerDb.ref('.info/connected');
+            presenceRef = playerDb.ref('players/' + playerCode);
+
+            // Store listener reference for cleanup
+            connectedRefListener = connectedRef.on('value', (snapshot) => {
+                if (snapshot.val() === true) {
+                    // Update status to online
+                    presenceRef.update({
+                        status: 'online',
+                        statusUpdatedAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+
+                    // Set offline on disconnect
+                    presenceRef.onDisconnect().update({
+                        status: 'offline',
+                        statusUpdatedAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                }
+            });
+
+            // Track tab visibility for away status (store reference for cleanup)
+            visibilityChangeListener = () => {
+                if (!playerCode || !presenceRef) return;
+
+                if (document.hidden) {
+                    presenceRef.update({
+                        status: 'away',
+                        statusUpdatedAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                } else {
+                    presenceRef.update({
+                        status: 'online',
+                        statusUpdatedAt: firebase.database.ServerValue.TIMESTAMP
+                    });
+                }
+            };
+            document.addEventListener('visibilitychange', visibilityChangeListener);
+        }
+
+        function openFriendsModal() {
+            document.getElementById('friends-modal').classList.add('show');
+            switchFriendsTab('list');
+            loadFriendsList();
+            loadFriendRequests();
+        }
+
+        function closeFriendsModal() {
+            document.getElementById('friends-modal').classList.remove('show');
+        }
+
+        function switchFriendsTab(tab) {
+            // Update tab buttons
+            document.querySelectorAll('.friends-tab').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-friends-' + tab).classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.friends-tab-content').forEach(content => content.classList.add('hidden'));
+            document.getElementById('friends-' + tab + '-content').classList.remove('hidden');
+        }
+
+        async function loadFriendsList() {
+            if (!playerCode || !playerDb) return;
+
+            try {
+                const friendsRef = playerDb.ref('friends/' + playerCode);
+                const snapshot = await friendsRef.once('value');
+                const friendsData = snapshot.val() || {};
+
+                friendsList = Object.values(friendsData);
+
+                // Sort by online status then name
+                const statusOrder = { online: 0, away: 1, offline: 2 };
+
+                // Fetch current status for each friend
+                const friendsWithStatus = await Promise.all(
+                    friendsList.map(async (friend) => {
+                        try {
+                            const playerSnapshot = await playerDb.ref('players/' + friend.friendCode + '/status').once('value');
+                            friend.status = playerSnapshot.val() || 'offline';
+                        } catch (e) {
+                            friend.status = 'offline';
+                        }
+                        return friend;
+                    })
+                );
+
+                friendsWithStatus.sort((a, b) => {
+                    const statusDiff = (statusOrder[a.status] || 2) - (statusOrder[b.status] || 2);
+                    if (statusDiff !== 0) return statusDiff;
+                    return (a.friendName || '').localeCompare(b.friendName || '');
+                });
+
+                renderFriendsList(friendsWithStatus);
+            } catch (error) {
+                console.error('Error loading friends list:', error);
+            }
+        }
+
+        function renderFriendsList(friends) {
+            const container = document.getElementById('friends-list');
+            const emptyEl = document.getElementById('friends-empty');
+
+            if (friends.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyEl);
+                emptyEl.style.display = 'block';
+                return;
+            }
+
+            emptyEl.style.display = 'none';
+            container.innerHTML = friends.map(friend => `
+                <div class="friend-item" data-code="${escapeHtml(friend.friendCode)}">
+                    <div class="friend-avatar">${(friend.friendName || '?').charAt(0).toUpperCase()}</div>
+                    <div class="friend-info">
+                        <div class="friend-name">${escapeHtml(friend.friendName || 'Player #' + friend.friendCode)}</div>
+                        <div class="friend-status">
+                            <span class="status-dot ${friend.status || 'offline'}"></span>
+                            <span>${friend.status === 'online' ? 'Online' : friend.status === 'away' ? 'Away' : 'Offline'}</span>
+                        </div>
+                    </div>
+                    <div class="friend-actions">
+                        <button class="btn-friend-action btn-friend-chat" onclick="openChat('${escapeHtml(friend.friendCode)}')">Chat</button>
+                        <button class="btn-friend-action btn-friend-profile" onclick="viewFriendProfile('${escapeHtml(friend.friendCode)}')">Profile</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        async function loadFriendRequests() {
+            if (!playerCode || !playerDb) return;
+
+            try {
+                // Load incoming requests
+                const incomingRef = playerDb.ref('friendRequests/' + playerCode);
+                const incomingSnapshot = await incomingRef.once('value');
+                const incomingData = incomingSnapshot.val() || {};
+                friendRequests.incoming = Object.values(incomingData).filter(r => r.status === 'pending');
+
+                // Load sent requests
+                const sentRef = playerDb.ref('sentRequests/' + playerCode);
+                const sentSnapshot = await sentRef.once('value');
+                const sentData = sentSnapshot.val() || {};
+                friendRequests.sent = Object.values(sentData).filter(r => r.status === 'pending');
+
+                renderFriendRequests();
+                updateRequestsCount();
+            } catch (error) {
+                console.error('Error loading friend requests:', error);
+            }
+        }
+
+        function renderFriendRequests() {
+            // Render incoming requests
+            const incomingContainer = document.getElementById('incoming-requests');
+            if (friendRequests.incoming.length === 0) {
+                incomingContainer.innerHTML = '<div class="requests-empty">No incoming requests</div>';
+            } else {
+                incomingContainer.innerHTML = friendRequests.incoming.map(req => `
+                    <div class="request-item">
+                        <div class="friend-avatar">${(req.senderName || '?').charAt(0).toUpperCase()}</div>
+                        <div class="request-info">
+                            <div class="request-name">${escapeHtml(req.senderName || 'Player #' + req.senderCode)}</div>
+                            <div class="request-time">${formatTimeAgo(req.timestamp)}</div>
+                        </div>
+                        <div class="request-actions">
+                            <button class="btn-friend-action btn-accept" onclick="acceptFriendRequest('${escapeHtml(req.senderCode)}')">Accept</button>
+                            <button class="btn-friend-action btn-decline" onclick="declineFriendRequest('${escapeHtml(req.senderCode)}')">Decline</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Render sent requests
+            const sentContainer = document.getElementById('sent-requests');
+            if (friendRequests.sent.length === 0) {
+                sentContainer.innerHTML = '<div class="requests-empty">No sent requests</div>';
+            } else {
+                sentContainer.innerHTML = friendRequests.sent.map(req => `
+                    <div class="request-item">
+                        <div class="friend-avatar">${(req.receiverName || '?').charAt(0).toUpperCase()}</div>
+                        <div class="request-info">
+                            <div class="request-name">${escapeHtml(req.receiverName || 'Player #' + req.receiverCode)}</div>
+                            <div class="request-time">Sent ${formatTimeAgo(req.timestamp)}</div>
+                        </div>
+                        <div class="request-actions">
+                            <button class="btn-friend-action btn-cancel-request" onclick="cancelFriendRequest('${escapeHtml(req.receiverCode)}')">Cancel</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function updateRequestsCount() {
+            const count = friendRequests.incoming.length;
+            const countEl = document.getElementById('requests-count');
+            const badgeEl = document.getElementById('friends-badge');
+
+            if (count > 0) {
+                countEl.textContent = count;
+                countEl.style.display = 'inline';
+                badgeEl.textContent = count;
+                badgeEl.style.display = 'inline';
+            } else {
+                countEl.style.display = 'none';
+                badgeEl.style.display = 'none';
+            }
+        }
+
+        function formatTimeAgo(timestamp) {
+            if (!timestamp) return '';
+            const now = Date.now();
+            const diff = now - timestamp;
+
+            const minutes = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+
+            if (minutes < 1) return 'Just now';
+            if (minutes < 60) return minutes + 'm ago';
+            if (hours < 24) return hours + 'h ago';
+            return days + 'd ago';
+        }
+
+        async function sendFriendRequest() {
+            if (!playerCode || !playerDb) {
+                showAddFriendStatus('You must be logged in to send friend requests', 'error');
+                return;
+            }
+
+            const input = document.getElementById('add-friend-input');
+            const targetCode = input.value.trim().padStart(4, '0');
+
+            if (!targetCode || !/^\d+$/.test(input.value.trim())) {
+                showAddFriendStatus('Please enter a valid player code', 'error');
+                return;
+            }
+
+            if (targetCode === playerCode) {
+                showAddFriendStatus('You cannot add yourself as a friend', 'error');
+                return;
+            }
+
+            try {
+                // Check if player exists
+                const playerSnapshot = await playerDb.ref('players/' + targetCode).once('value');
+                if (!playerSnapshot.exists()) {
+                    showAddFriendStatus('Player not found', 'error');
+                    return;
+                }
+
+                // Check if already friends
+                const existingFriend = await playerDb.ref('friends/' + playerCode + '/' + targetCode).once('value');
+                if (existingFriend.exists()) {
+                    showAddFriendStatus('You are already friends with this player', 'error');
+                    return;
+                }
+
+                // Check if request already sent
+                const existingRequest = await playerDb.ref('sentRequests/' + playerCode + '/' + targetCode).once('value');
+                if (existingRequest.exists() && existingRequest.val().status === 'pending') {
+                    showAddFriendStatus('Friend request already sent', 'error');
+                    return;
+                }
+
+                // Get current player's name
+                const myPlayerData = await playerDb.ref('players/' + playerCode).once('value');
+                const myName = myPlayerData.val()?.displayName || 'Player #' + playerCode;
+
+                // Get target player's name
+                const targetPlayerData = playerSnapshot.val();
+                const targetName = targetPlayerData.displayName || 'Player #' + targetCode;
+
+                // Send the request
+                const timestamp = Date.now();
+
+                await playerDb.ref('friendRequests/' + targetCode + '/' + playerCode).set({
+                    senderCode: playerCode,
+                    senderName: myName,
+                    timestamp: timestamp,
+                    status: 'pending'
+                });
+
+                await playerDb.ref('sentRequests/' + playerCode + '/' + targetCode).set({
+                    receiverCode: targetCode,
+                    receiverName: targetName,
+                    timestamp: timestamp,
+                    status: 'pending'
+                });
+
+                // Create notification for target player
+                await playerDb.ref('notifications/' + targetCode).push({
+                    type: 'friend_request',
+                    fromCode: playerCode,
+                    fromName: myName,
+                    message: myName + ' wants to be friends',
+                    timestamp: timestamp,
+                    read: false
+                });
+
+                showAddFriendStatus('Friend request sent!', 'success');
+                input.value = '';
+                loadFriendRequests();
+            } catch (error) {
+                console.error('Error sending friend request:', error);
+                showAddFriendStatus('Error sending request. Please try again.', 'error');
+            }
+        }
+
+        function showAddFriendStatus(message, type) {
+            const statusEl = document.getElementById('add-friend-status');
+            statusEl.textContent = message;
+            statusEl.className = 'add-friend-status ' + type;
+            statusEl.style.display = 'block';
+
+            setTimeout(() => {
+                statusEl.style.display = 'none';
+            }, 3000);
+        }
+
+        // Player name search with debounce
+        let searchTimeout = null;
+        let lastSearchQuery = '';
+
+        async function searchPlayersByName() {
+            const input = document.getElementById('add-friend-name-input');
+            const resultsContainer = document.getElementById('player-search-results');
+            const query = input.value.trim().toLowerCase();
+
+            // Clear previous timeout
+            if (searchTimeout) {
+                clearTimeout(searchTimeout);
+            }
+
+            // Clear results if query is too short
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '';
+                lastSearchQuery = '';
+                return;
+            }
+
+            // Show loading state
+            resultsContainer.innerHTML = '<div class="search-loading">Searching...</div>';
+
+            // Debounce the search
+            searchTimeout = setTimeout(async () => {
+                if (query === lastSearchQuery) return;
+                lastSearchQuery = query;
+
+                if (!playerDb) {
+                    resultsContainer.innerHTML = '<div class="search-no-results">Not connected</div>';
+                    return;
+                }
+
+                try {
+                    // Search players by displayName (fetch all and filter client-side for simplicity)
+                    const playersRef = playerDb.ref('players');
+                    const snapshot = await playersRef.orderByChild('displayName').once('value');
+                    const playersData = snapshot.val() || {};
+
+                    // Filter players matching the query
+                    const results = [];
+                    for (const [code, data] of Object.entries(playersData)) {
+                        if (code === playerCode) continue; // Skip self
+                        const name = data.displayName || '';
+                        if (name.toLowerCase().includes(query)) {
+                            results.push({
+                                code: code,
+                                name: name || 'Player #' + code,
+                                wins: data.wins || 0,
+                                games: data.gamesPlayed || 0
+                            });
+                        }
+                        if (results.length >= 10) break; // Limit results
+                    }
+
+                    if (results.length === 0) {
+                        resultsContainer.innerHTML = '<div class="search-no-results">No players found</div>';
+                        return;
+                    }
+
+                    // Check existing friends and pending requests
+                    const friendsSnapshot = await playerDb.ref('friends/' + playerCode).once('value');
+                    const friendsData = friendsSnapshot.val() || {};
+                    const friendCodes = Object.keys(friendsData);
+
+                    const sentSnapshot = await playerDb.ref('sentRequests/' + playerCode).once('value');
+                    const sentData = sentSnapshot.val() || {};
+                    const pendingCodes = Object.keys(sentData).filter(c => sentData[c].status === 'pending');
+
+                    // Render results
+                    resultsContainer.innerHTML = results.map(player => {
+                        const isFriend = friendCodes.includes(player.code);
+                        const isPending = pendingCodes.includes(player.code);
+                        const buttonText = isFriend ? 'Friends' : isPending ? 'Pending' : 'Add';
+                        const buttonDisabled = isFriend || isPending ? 'disabled' : '';
+
+                        return `
+                            <div class="player-search-result">
+                                <div class="player-search-avatar">${(player.name).charAt(0).toUpperCase()}</div>
+                                <div class="player-search-info">
+                                    <div class="player-search-name">${escapeHtml(player.name)}</div>
+                                    <div class="player-search-code">#${player.code} · ${player.wins}W/${player.games}G</div>
+                                </div>
+                                <button class="btn-add-from-search" ${buttonDisabled} onclick="sendFriendRequestToCode('${player.code}', '${escapeHtml(player.name)}')">${buttonText}</button>
+                            </div>
+                        `;
+                    }).join('');
+
+                } catch (error) {
+                    console.error('Error searching players:', error);
+                    resultsContainer.innerHTML = '<div class="search-no-results">Search error</div>';
+                }
+            }, 300); // 300ms debounce
+        }
+
+        async function sendFriendRequestToCode(targetCode, targetName) {
+            if (!playerCode || !playerDb) {
+                showAddFriendStatus('You must be logged in to send friend requests', 'error');
+                return;
+            }
+
+            try {
+                // Get current player's name
+                const myPlayerData = await playerDb.ref('players/' + playerCode).once('value');
+                const myName = myPlayerData.val()?.displayName || 'Player #' + playerCode;
+
+                // Send the request
+                const timestamp = Date.now();
+
+                await playerDb.ref('friendRequests/' + targetCode + '/' + playerCode).set({
+                    senderCode: playerCode,
+                    senderName: myName,
+                    timestamp: timestamp,
+                    status: 'pending'
+                });
+
+                await playerDb.ref('sentRequests/' + playerCode + '/' + targetCode).set({
+                    receiverCode: targetCode,
+                    receiverName: targetName,
+                    timestamp: timestamp,
+                    status: 'pending'
+                });
+
+                // Create notification for target player
+                await playerDb.ref('notifications/' + targetCode).push({
+                    type: 'friend_request',
+                    fromCode: playerCode,
+                    fromName: myName,
+                    message: myName + ' wants to be friends',
+                    timestamp: timestamp,
+                    read: false
+                });
+
+                showAddFriendStatus('Friend request sent to ' + targetName + '!', 'success');
+
+                // Refresh the search results to show updated button state
+                searchPlayersByName();
+                loadFriendRequests();
+            } catch (error) {
+                console.error('Error sending friend request:', error);
+                showAddFriendStatus('Error sending request. Please try again.', 'error');
+            }
+        }
+
+        async function acceptFriendRequest(senderCode) {
+            if (!playerCode || !playerDb) return;
+
+            try {
+                // Get the request data
+                const requestSnapshot = await playerDb.ref('friendRequests/' + playerCode + '/' + senderCode).once('value');
+                const requestData = requestSnapshot.val();
+
+                if (!requestData) {
+                    console.error('Request not found');
+                    return;
+                }
+
+                // Get both players' names
+                const myPlayerData = await playerDb.ref('players/' + playerCode).once('value');
+                const myName = myPlayerData.val()?.displayName || 'Player #' + playerCode;
+
+                const timestamp = Date.now();
+
+                // Add to both friends lists
+                await playerDb.ref('friends/' + playerCode + '/' + senderCode).set({
+                    friendCode: senderCode,
+                    friendName: requestData.senderName,
+                    addedAt: timestamp,
+                    lastMessageAt: null
+                });
+
+                await playerDb.ref('friends/' + senderCode + '/' + playerCode).set({
+                    friendCode: playerCode,
+                    friendName: myName,
+                    addedAt: timestamp,
+                    lastMessageAt: null
+                });
+
+                // Remove the requests
+                await playerDb.ref('friendRequests/' + playerCode + '/' + senderCode).remove();
+                await playerDb.ref('sentRequests/' + senderCode + '/' + playerCode).remove();
+
+                // Create notification for sender
+                await playerDb.ref('notifications/' + senderCode).push({
+                    type: 'friend_accepted',
+                    fromCode: playerCode,
+                    fromName: myName,
+                    message: myName + ' accepted your friend request',
+                    timestamp: timestamp,
+                    read: false
+                });
+
+                // Reload lists
+                loadFriendRequests();
+                loadFriendsList();
+            } catch (error) {
+                console.error('Error accepting friend request:', error);
+            }
+        }
+
+        async function declineFriendRequest(senderCode) {
+            if (!playerCode || !playerDb) return;
+
+            try {
+                await playerDb.ref('friendRequests/' + playerCode + '/' + senderCode).remove();
+                await playerDb.ref('sentRequests/' + senderCode + '/' + playerCode).update({ status: 'declined' });
+                loadFriendRequests();
+            } catch (error) {
+                console.error('Error declining friend request:', error);
+            }
+        }
+
+        async function cancelFriendRequest(receiverCode) {
+            if (!playerCode || !playerDb) return;
+
+            try {
+                await playerDb.ref('sentRequests/' + playerCode + '/' + receiverCode).remove();
+                await playerDb.ref('friendRequests/' + receiverCode + '/' + playerCode).remove();
+                loadFriendRequests();
+            } catch (error) {
+                console.error('Error canceling friend request:', error);
+            }
+        }
+
+        function getConversationId(code1, code2) {
+            return [code1, code2].sort().join('_');
+        }
+
+        async function openChat(friendCode) {
+            if (!playerCode || !playerDb) return;
+
+            currentChatFriend = friendCode;
+            currentConversationId = getConversationId(playerCode, friendCode);
+
+            // Get friend info
+            const friendSnapshot = await playerDb.ref('friends/' + playerCode + '/' + friendCode).once('value');
+            const friendData = friendSnapshot.val() || {};
+
+            // Get friend status
+            const statusSnapshot = await playerDb.ref('players/' + friendCode + '/status').once('value');
+            const status = statusSnapshot.val() || 'offline';
+
+            document.getElementById('chat-friend-name').textContent = friendData.friendName || 'Player #' + friendCode;
+            const statusEl = document.getElementById('chat-friend-status');
+            statusEl.querySelector('.status-dot').className = 'status-dot ' + status;
+            statusEl.querySelector('.status-text').textContent = status === 'online' ? 'Online' : status === 'away' ? 'Away' : 'Offline';
+
+            document.getElementById('chat-modal').classList.add('show');
+
+            await loadMessages();
+            setupMessageListener();
+
+            // Scroll to bottom
+            const messagesContainer = document.getElementById('chat-messages');
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function closeChatModal() {
+            document.getElementById('chat-modal').classList.remove('show');
+
+            // Remove message listener
+            if (messageListener && currentConversationId) {
+                playerDb.ref('messages/' + currentConversationId).off('child_added', messageListener);
+                messageListener = null;
+            }
+
+            currentChatFriend = null;
+            currentConversationId = null;
+        }
+
+        async function loadMessages() {
+            if (!currentConversationId || !playerDb) return;
+
+            try {
+                const messagesRef = playerDb.ref('messages/' + currentConversationId).orderByChild('timestamp').limitToLast(50);
+                const snapshot = await messagesRef.once('value');
+                const messagesData = snapshot.val() || {};
+
+                const messages = Object.values(messagesData).sort((a, b) => a.timestamp - b.timestamp);
+                renderMessages(messages);
+
+                // Mark messages as read (using Promise.all to properly await all updates)
+                await Promise.all(
+                    Object.keys(messagesData).map(async (msgId) => {
+                        const msg = messagesData[msgId];
+                        if (msg.senderId !== playerCode && !msg.read) {
+                            return playerDb.ref('messages/' + currentConversationId + '/' + msgId + '/read').set(true);
+                        }
+                    })
+                );
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        function renderMessages(messages) {
+            const container = document.getElementById('chat-messages');
+
+            if (messages.length === 0) {
+                container.innerHTML = '<div class="chat-empty">Start a conversation!</div>';
+                return;
+            }
+
+            container.innerHTML = messages.map(msg => `
+                <div class="message-bubble ${msg.senderId === playerCode ? 'sent' : 'received'}">
+                    <div class="message-text">${escapeHtml(msg.text)}</div>
+                    <div class="message-time">${formatMessageTime(msg.timestamp)}</div>
+                </div>
+            `).join('');
+
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function formatMessageTime(timestamp) {
+            if (!timestamp) return '';
+            const date = new Date(timestamp);
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function setupMessageListener() {
+            if (!currentConversationId || !playerDb) return;
+
+            // Remove existing listener
+            if (messageListener) {
+                playerDb.ref('messages/' + currentConversationId).off('child_added', messageListener);
+            }
+
+            const messagesRef = playerDb.ref('messages/' + currentConversationId);
+            messageListener = messagesRef.orderByChild('timestamp').startAt(Date.now()).on('child_added', (snapshot) => {
+                const message = snapshot.val();
+                if (message && message.senderId !== playerCode) {
+                    // Append new message
+                    const container = document.getElementById('chat-messages');
+                    const emptyEl = container.querySelector('.chat-empty');
+                    if (emptyEl) emptyEl.remove();
+
+                    const msgEl = document.createElement('div');
+                    msgEl.className = 'message-bubble received';
+                    msgEl.innerHTML = `
+                        <div class="message-text">${escapeHtml(message.text)}</div>
+                        <div class="message-time">${formatMessageTime(message.timestamp)}</div>
+                    `;
+                    container.appendChild(msgEl);
+                    container.scrollTop = container.scrollHeight;
+
+                    // Mark as read
+                    playerDb.ref('messages/' + currentConversationId + '/' + snapshot.key + '/read').set(true);
+                }
+            });
+        }
+
+        async function sendMessage() {
+            if (!playerCode || !playerDb || !currentConversationId || !currentChatFriend) return;
+
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+
+            if (!text) return;
+            if (text.length > 500) {
+                alert('Message too long. Maximum 500 characters.');
+                return;
+            }
+
+            try {
+                const myPlayerData = await playerDb.ref('players/' + playerCode).once('value');
+                const myName = myPlayerData.val()?.displayName || 'Player #' + playerCode;
+
+                const timestamp = Date.now();
+
+                // Create the message
+                const messageRef = playerDb.ref('messages/' + currentConversationId).push();
+                await messageRef.set({
+                    senderId: playerCode,
+                    senderName: myName,
+                    text: text,
+                    timestamp: timestamp,
+                    read: false
+                });
+
+                // Update conversation metadata
+                await playerDb.ref('conversations/' + currentConversationId).set({
+                    participants: {
+                        [playerCode]: true,
+                        [currentChatFriend]: true
+                    },
+                    lastMessage: text.substring(0, 50),
+                    lastMessageAt: timestamp,
+                    lastMessageBy: playerCode
+                });
+
+                // Update lastMessageAt in friends list
+                await playerDb.ref('friends/' + playerCode + '/' + currentChatFriend + '/lastMessageAt').set(timestamp);
+                await playerDb.ref('friends/' + currentChatFriend + '/' + playerCode + '/lastMessageAt').set(timestamp);
+
+                // Create notification for recipient
+                await playerDb.ref('notifications/' + currentChatFriend).push({
+                    type: 'new_message',
+                    fromCode: playerCode,
+                    fromName: myName,
+                    message: text.substring(0, 50) + (text.length > 50 ? '...' : ''),
+                    timestamp: timestamp,
+                    read: false
+                });
+
+                // Add message to UI
+                const container = document.getElementById('chat-messages');
+                const emptyEl = container.querySelector('.chat-empty');
+                if (emptyEl) emptyEl.remove();
+
+                const msgEl = document.createElement('div');
+                msgEl.className = 'message-bubble sent';
+                msgEl.innerHTML = `
+                    <div class="message-text">${escapeHtml(text)}</div>
+                    <div class="message-time">${formatMessageTime(timestamp)}</div>
+                `;
+                container.appendChild(msgEl);
+                container.scrollTop = container.scrollHeight;
+
+                input.value = '';
+            } catch (error) {
+                console.error('Error sending message:', error);
+            }
+        }
+
+        function setupNotificationListeners() {
+            if (!playerCode || !playerDb) return;
+
+            // Listen for new friend requests (store reference for cleanup)
+            friendRequestsListener = playerDb.ref('friendRequests/' + playerCode).on('child_added', (snapshot) => {
+                const request = snapshot.val();
+                if (request && request.status === 'pending') {
+                    loadFriendRequests();
+                    showNotificationPopup({
+                        type: 'friend_request',
+                        title: 'New Friend Request',
+                        body: (request.senderName || 'Player #' + request.senderCode) + ' wants to be friends'
+                    });
+                }
+            });
+
+            // Listen for notifications (store reference for cleanup)
+            notificationsListener = playerDb.ref('notifications/' + playerCode).orderByChild('timestamp').startAt(Date.now()).on('child_added', (snapshot) => {
+                const notification = snapshot.val();
+                if (notification && !notification.read) {
+                    if (notification.type === 'friend_accepted') {
+                        loadFriendsList();
+                        showNotificationPopup({
+                            type: 'friend_accepted',
+                            title: 'Friend Request Accepted',
+                            body: notification.fromName + ' is now your friend!'
+                        });
+                    } else if (notification.type === 'new_message' && notification.fromCode !== currentChatFriend) {
+                        showNotificationPopup({
+                            type: 'new_message',
+                            title: 'New Message from ' + notification.fromName,
+                            body: notification.message,
+                            fromCode: notification.fromCode
+                        });
+                    }
+
+                    // Mark as read
+                    playerDb.ref('notifications/' + playerCode + '/' + snapshot.key + '/read').set(true);
+                }
+            });
+        }
+
+        // Cleanup function to remove all listeners (prevents memory leaks)
+        function cleanupFriendsListeners() {
+            if (playerDb && playerCode) {
+                // Remove Firebase listeners
+                if (connectedRefListener) {
+                    playerDb.ref('.info/connected').off('value', connectedRefListener);
+                    connectedRefListener = null;
+                }
+                if (friendRequestsListener) {
+                    playerDb.ref('friendRequests/' + playerCode).off('child_added', friendRequestsListener);
+                    friendRequestsListener = null;
+                }
+                if (notificationsListener) {
+                    playerDb.ref('notifications/' + playerCode).off('child_added', notificationsListener);
+                    notificationsListener = null;
+                }
+            }
+            // Remove DOM event listener
+            if (visibilityChangeListener) {
+                document.removeEventListener('visibilitychange', visibilityChangeListener);
+                visibilityChangeListener = null;
+            }
+        }
+
+        function showNotificationPopup(notification) {
+            const popup = document.getElementById('friend-notification');
+            const titleEl = document.getElementById('notification-title');
+            const bodyEl = document.getElementById('notification-body');
+            const iconEl = popup.querySelector('.notification-icon');
+
+            titleEl.textContent = notification.title;
+            bodyEl.textContent = notification.body;
+
+            if (notification.type === 'friend_request') {
+                iconEl.textContent = '👤';
+            } else if (notification.type === 'friend_accepted') {
+                iconEl.textContent = '🤝';
+            } else if (notification.type === 'new_message') {
+                iconEl.textContent = '💬';
+            }
+
+            // Store the fromCode for clicking to open chat
+            popup.dataset.type = notification.type;
+            popup.dataset.fromCode = notification.fromCode || '';
+
+            popup.classList.add('show');
+
+            // Auto-dismiss after 5 seconds
+            setTimeout(() => {
+                dismissNotification();
+            }, 5000);
+
+            // Click to open relevant modal/chat
+            popup.onclick = () => {
+                dismissNotification();
+                if (notification.type === 'friend_request') {
+                    openFriendsModal();
+                    switchFriendsTab('requests');
+                } else if (notification.type === 'new_message' && notification.fromCode) {
+                    openChat(notification.fromCode);
+                }
+            };
+        }
+
+        function dismissNotification() {
+            document.getElementById('friend-notification').classList.remove('show');
+        }
+
+        function viewFriendProfile(friendCode) {
+            closeFriendsModal();
+            if (typeof searchPlayerByCode === 'function') {
+                searchPlayerByCode(friendCode);
+            } else {
+                // Fallback: open profile modal and search
+                openProfile();
+                document.getElementById('profile-search-input').value = friendCode;
+                searchPlayerProfile();
+            }
+        }
+
+        function viewChatFriendProfile() {
+            if (currentChatFriend) {
+                closeChatModal();
+                viewFriendProfile(currentChatFriend);
+            }
+        }
+
+        // Profile modal integration functions (uses currentProfileCode from profile system)
+
+        async function updateProfileFriendButtons(profileCode) {
+            if (!playerCode || profileCode === playerCode) {
+                document.getElementById('profile-add-friend').style.display = 'none';
+                document.getElementById('profile-message-friend').style.display = 'none';
+                return;
+            }
+
+            // Check if already friends
+            try {
+                const friendSnapshot = await playerDb.ref('friends/' + playerCode + '/' + profileCode).once('value');
+                const isFriend = friendSnapshot.exists();
+
+                const addBtn = document.getElementById('profile-add-friend');
+                const msgBtn = document.getElementById('profile-message-friend');
+
+                if (isFriend) {
+                    addBtn.style.display = 'none';
+                    msgBtn.style.display = 'inline-block';
+                } else {
+                    // Check if request pending
+                    const requestSnapshot = await playerDb.ref('sentRequests/' + playerCode + '/' + profileCode).once('value');
+                    const requestPending = requestSnapshot.exists() && requestSnapshot.val().status === 'pending';
+
+                    addBtn.style.display = 'inline-block';
+                    addBtn.disabled = requestPending;
+                    addBtn.textContent = requestPending ? 'Request Sent' : 'Add Friend';
+                    msgBtn.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error checking friend status:', error);
+            }
+        }
+
+        async function sendFriendRequestFromProfile() {
+            if (!currentProfileCode) return;
+
+            document.getElementById('add-friend-input').value = currentProfileCode;
+            await sendFriendRequest();
+
+            // Update button state
+            const addBtn = document.getElementById('profile-add-friend');
+            addBtn.disabled = true;
+            addBtn.textContent = 'Request Sent';
+        }
+
+        function openChatFromProfile() {
+            if (!currentProfileCode) return;
+            closeProfile();
+            openChat(currentProfileCode);
+        }
+
+        // Add Enter key support for chat input
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+
+            const addFriendInput = document.getElementById('add-friend-input');
+            if (addFriendInput) {
+                addFriendInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendFriendRequest();
+                    }
+                });
+            }
+        });
 
         // ============================================
         // SECRET CODE EASTER EGG
@@ -8309,7 +10379,7 @@
                 if (subTabs && subTabs.length > 0) {
                     subTabsContainer.innerHTML = subTabs.map((st, index) =>
                         `<button class="leaderboard-sub-tab ${index === 0 ? 'active' : ''}"
-                                 onclick="switchLeaderboardSubTab('${tab}', '${st.key}')">${st.label}</button>`
+                                 onclick="switchLeaderboardSubTab('${tab}', '${st.key}', this)">${st.label}</button>`
                     ).join('');
                     subTabsContainer.classList.add('show');
 
@@ -8320,31 +10390,38 @@
             }
         }
 
-        function switchLeaderboardSubTab(mainTab, subTab) {
+        function switchLeaderboardSubTab(mainTab, subTab, buttonEl) {
             currentLeaderboardSubTab = subTab;
 
             // Update sub-tab active states
             document.querySelectorAll('.leaderboard-sub-tab').forEach(t => {
                 t.classList.remove('active');
             });
-            event.target.classList.add('active');
+            if (buttonEl) {
+                buttonEl.classList.add('active');
+            }
 
             loadLeaderboard(mainTab, subTab);
         }
 
-        function loadLeaderboard(category, subCategory) {
+        let leaderboardLoadTimeout = null;
+
+        function loadLeaderboard(category, subCategory, forceRefresh = false) {
             const loadingEl = document.getElementById('leaderboard-loading');
             const emptyEl = document.getElementById('leaderboard-empty');
             const tableContainer = document.querySelector('.leaderboard-table-container');
+
+            // Store current category for refresh
+            currentLeaderboardTab = category;
 
             // Show loading
             loadingEl.classList.add('show');
             emptyEl.classList.remove('show');
             tableContainer.style.display = 'none';
 
-            // Check cache
+            // Check cache (skip if force refresh)
             const cacheKey = category + '_' + (subCategory || 'all');
-            if (leaderboardCache[cacheKey]) {
+            if (!forceRefresh && leaderboardCache[cacheKey]) {
                 renderLeaderboard(leaderboardCache[cacheKey]);
                 return;
             }
@@ -8353,13 +10430,29 @@
             const db = ensureFirebaseInitialized();
             if (!db) {
                 loadingEl.classList.remove('show');
-                emptyEl.textContent = 'Database not available.';
+                emptyEl.textContent = 'Database not available. Please check your connection.';
                 emptyEl.classList.add('show');
                 return;
             }
 
+            // Set loading timeout (10 seconds)
+            if (leaderboardLoadTimeout) {
+                clearTimeout(leaderboardLoadTimeout);
+            }
+            leaderboardLoadTimeout = setTimeout(() => {
+                loadingEl.classList.remove('show');
+                emptyEl.textContent = 'Loading timed out. Please try refreshing.';
+                emptyEl.classList.add('show');
+            }, 10000);
+
             db.ref('players').once('value')
                 .then(snapshot => {
+                    // Clear timeout on success
+                    if (leaderboardLoadTimeout) {
+                        clearTimeout(leaderboardLoadTimeout);
+                        leaderboardLoadTimeout = null;
+                    }
+
                     const players = [];
                     snapshot.forEach(child => {
                         const code = child.key;
@@ -8376,11 +10469,40 @@
                     renderLeaderboard(processed);
                 })
                 .catch(error => {
+                    // Clear timeout on error
+                    if (leaderboardLoadTimeout) {
+                        clearTimeout(leaderboardLoadTimeout);
+                        leaderboardLoadTimeout = null;
+                    }
+
                     console.error('Error loading leaderboard:', error);
                     loadingEl.classList.remove('show');
-                    emptyEl.textContent = 'Error loading data.';
+
+                    // Provide more specific error messages
+                    let errorMessage = 'Error loading data.';
+                    if (error.code === 'PERMISSION_DENIED') {
+                        errorMessage = 'Access denied. Please try again later.';
+                    } else if (error.message && error.message.includes('network')) {
+                        errorMessage = 'Network error. Please check your connection.';
+                    }
+                    emptyEl.textContent = errorMessage;
                     emptyEl.classList.add('show');
                 });
+        }
+
+        function refreshLeaderboard() {
+            const refreshBtn = document.querySelector('.btn-refresh-leaderboard');
+            if (refreshBtn) {
+                refreshBtn.classList.add('spinning');
+                setTimeout(() => refreshBtn.classList.remove('spinning'), 1000);
+            }
+
+            // Clear cache for current view
+            const cacheKey = currentLeaderboardTab + '_' + (currentLeaderboardSubTab || 'all');
+            delete leaderboardCache[cacheKey];
+
+            // Reload
+            loadLeaderboard(currentLeaderboardTab, currentLeaderboardSubTab, true);
         }
 
         function processLeaderboardData(players, category, subCategory) {
@@ -8463,7 +10585,7 @@
                 return `
                     <tr class="${rankClass} ${playerClass}">
                         <td>${rank}</td>
-                        <td class="leaderboard-player-name" onclick="viewProfileFromLeaderboard('${player.code}')">${player.name}</td>
+                        <td class="leaderboard-player-name" data-code="${escapeHtml(player.code)}" onclick="viewProfileFromLeaderboard(this.dataset.code)">${escapeHtml(player.name)}</td>
                         <td>${player.wins}</td>
                         <td>${player.games}</td>
                         <td>${winRate}%</td>
@@ -8506,6 +10628,201 @@
             const modal = document.getElementById('profile-modal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
+            closeNameEditor();
+        }
+
+        // ============================================
+        // NAME EDITOR FUNCTIONS
+        // ============================================
+
+        let nameCheckTimeout = null;
+        let lastCheckedName = '';
+        let nameIsAvailable = false;
+
+        function openNameEditor() {
+            if (!isViewingOwnProfile) return;
+
+            const editor = document.getElementById('name-editor');
+            const input = document.getElementById('name-editor-input');
+            const availability = document.getElementById('name-availability');
+
+            editor.style.display = 'block';
+            input.value = '';
+            availability.textContent = '';
+            availability.className = 'name-availability';
+            document.getElementById('btn-save-name').disabled = true;
+            nameIsAvailable = false;
+
+            input.focus();
+
+            // Add live checking as user types
+            input.oninput = () => {
+                clearTimeout(nameCheckTimeout);
+                const name = input.value.trim();
+
+                if (name.length < 3) {
+                    availability.textContent = name.length > 0 ? 'Name must be at least 3 characters' : '';
+                    availability.className = 'name-availability taken';
+                    document.getElementById('btn-save-name').disabled = true;
+                    nameIsAvailable = false;
+                    return;
+                }
+
+                if (!/^[a-zA-Z0-9 ]+$/.test(name)) {
+                    availability.textContent = 'Only letters, numbers, and spaces allowed';
+                    availability.className = 'name-availability taken';
+                    document.getElementById('btn-save-name').disabled = true;
+                    nameIsAvailable = false;
+                    return;
+                }
+
+                availability.textContent = 'Checking...';
+                availability.className = 'name-availability checking';
+
+                // Debounce the check
+                nameCheckTimeout = setTimeout(() => checkNameAvailability(), 500);
+            };
+        }
+
+        function closeNameEditor() {
+            document.getElementById('name-editor').style.display = 'none';
+            nameIsAvailable = false;
+        }
+
+        function checkNameAvailability() {
+            const input = document.getElementById('name-editor-input');
+            const availability = document.getElementById('name-availability');
+            const name = input.value.trim();
+
+            if (name.length < 3) {
+                availability.textContent = 'Name must be at least 3 characters';
+                availability.className = 'name-availability taken';
+                document.getElementById('btn-save-name').disabled = true;
+                nameIsAvailable = false;
+                return;
+            }
+
+            if (name.length > 16) {
+                availability.textContent = 'Name must be 16 characters or less';
+                availability.className = 'name-availability taken';
+                document.getElementById('btn-save-name').disabled = true;
+                nameIsAvailable = false;
+                return;
+            }
+
+            if (!/^[a-zA-Z0-9 ]+$/.test(name)) {
+                availability.textContent = 'Only letters, numbers, and spaces allowed';
+                availability.className = 'name-availability taken';
+                document.getElementById('btn-save-name').disabled = true;
+                nameIsAvailable = false;
+                return;
+            }
+
+            // Check for reserved/inappropriate names
+            const lowerName = name.toLowerCase();
+            const reserved = ['admin', 'moderator', 'gm', 'gamemaster', 'system', 'player', 'guest'];
+            if (reserved.some(r => lowerName.includes(r))) {
+                availability.textContent = 'This name is reserved';
+                availability.className = 'name-availability taken';
+                document.getElementById('btn-save-name').disabled = true;
+                nameIsAvailable = false;
+                return;
+            }
+
+            if (name === lastCheckedName && nameIsAvailable) {
+                return; // Already checked and available
+            }
+
+            availability.textContent = 'Checking availability...';
+            availability.className = 'name-availability checking';
+
+            const db = ensureFirebaseInitialized();
+            if (!db) {
+                availability.textContent = 'Database unavailable';
+                availability.className = 'name-availability taken';
+                return;
+            }
+
+            // Check if name exists in the names index
+            const nameLower = name.toLowerCase();
+            db.ref('displayNames/' + nameLower).once('value')
+                .then(snapshot => {
+                    if (snapshot.exists() && snapshot.val() !== playerCode) {
+                        availability.textContent = '❌ Name is already taken';
+                        availability.className = 'name-availability taken';
+                        document.getElementById('btn-save-name').disabled = true;
+                        nameIsAvailable = false;
+                    } else {
+                        availability.textContent = '✅ Name is available!';
+                        availability.className = 'name-availability available';
+                        document.getElementById('btn-save-name').disabled = false;
+                        nameIsAvailable = true;
+                        lastCheckedName = name;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error checking name:', error);
+                    availability.textContent = 'Error checking availability';
+                    availability.className = 'name-availability taken';
+                });
+        }
+
+        function saveDisplayName() {
+            if (!nameIsAvailable || !playerCode) return;
+
+            const input = document.getElementById('name-editor-input');
+            const name = input.value.trim();
+            const nameLower = name.toLowerCase();
+
+            const db = ensureFirebaseInitialized();
+            if (!db) {
+                showNotification('Database unavailable', 'error');
+                return;
+            }
+
+            const availability = document.getElementById('name-availability');
+            availability.textContent = 'Saving...';
+            availability.className = 'name-availability checking';
+            document.getElementById('btn-save-name').disabled = true;
+
+            // Get current display name to remove from index
+            db.ref('players/' + playerCode + '/displayName').once('value')
+                .then(snapshot => {
+                    const oldName = snapshot.val();
+                    const updates = {};
+
+                    // Remove old name from index if it exists
+                    if (oldName) {
+                        updates['displayNames/' + oldName.toLowerCase()] = null;
+                    }
+
+                    // Add new name to index
+                    updates['displayNames/' + nameLower] = playerCode;
+
+                    // Update player's display name
+                    updates['players/' + playerCode + '/displayName'] = name;
+
+                    return db.ref().update(updates);
+                })
+                .then(() => {
+                    showNotification('Name changed to: ' + name, 'success');
+                    closeNameEditor();
+
+                    // Update the profile display (GMs show "Game Master [name]")
+                    const isGM = playerCode && playerCode.startsWith('GM');
+                    const profileDisplayName = isGM ? 'Game Master ' + name : name;
+                    document.getElementById('profile-name').textContent = profileDisplayName;
+                    document.getElementById('profile-avatar').textContent = isGM ? '👑' : name.charAt(0).toUpperCase();
+
+                    // Update local storage for quick access
+                    localStorage.setItem('pathwayClash_displayName', name);
+                })
+                .catch(error => {
+                    console.error('Error saving name:', error);
+                    availability.textContent = 'Error saving name. Try again.';
+                    availability.className = 'name-availability taken';
+                    document.getElementById('btn-save-name').disabled = false;
+                });
         }
 
         function viewProfileFromLeaderboard(code) {
@@ -8593,14 +10910,27 @@
             // Check if GM account
             const isGM = code.startsWith('GM');
 
-            // Basic info
-            const displayName = data.displayName || (isGM ? 'Game Master ' + code : 'Player ' + code);
+            // Basic info - GMs show "Game Master [name]", regular players show just name
+            let displayName;
+            if (isGM) {
+                const gmName = data.displayName || code;
+                displayName = 'Game Master ' + gmName;
+            } else {
+                displayName = data.displayName || 'Player ' + code;
+            }
             document.getElementById('profile-name').textContent = displayName;
             document.getElementById('profile-code').textContent = '#' + code;
 
             // Avatar - use special icon for GMs
             const avatar = isGM ? '👑' : displayName.charAt(0).toUpperCase();
             document.getElementById('profile-avatar').textContent = avatar;
+
+            // Show/hide edit name button (for own profile - GMs can edit too)
+            const editNameBtn = document.getElementById('btn-edit-name');
+            editNameBtn.style.display = isViewingOwnProfile ? 'inline-block' : 'none';
+
+            // Hide name editor when viewing profile
+            document.getElementById('name-editor').style.display = 'none';
 
             // Active title and badge
             renderProfileTitle(data, isGM);
@@ -8631,6 +10961,9 @@
 
             // Achievements
             renderProfileAchievements(data, isGM);
+
+            // Update friend buttons (for other players' profiles)
+            updateProfileFriendButtons(code);
         }
 
         // GM title selection storage
@@ -12575,6 +14908,9 @@
                 if (result.committed && isSearchingForMatch) {
                     // Check if opponent is still available
                     checkOpponentAndCreateRoom(opponentQueueId);
+                } else if (!result.committed && isSearchingForMatch) {
+                    // Transaction aborted (race condition), keep searching
+                    console.log('Match attempt failed (already matched or state changed), continuing search...');
                 }
             }).catch(err => {
                 console.error('Transaction error:', err);
@@ -12608,6 +14944,12 @@
                     }
                 } else {
                     // Opponent matched with someone else, reset
+                    queueRef.child(myQueueId).update({ status: 'waiting', matchWith: null });
+                }
+            }).catch(error => {
+                console.error('Error checking opponent:', error);
+                // Reset to waiting state on error
+                if (isSearchingForMatch && myQueueId) {
                     queueRef.child(myQueueId).update({ status: 'waiting', matchWith: null });
                 }
             });
@@ -12729,6 +15071,10 @@
                     updatePlayerIndicator();
                     updateConnectionStatus('waiting', 'Waiting for opponent to join...');
                     setupRoomListeners();
+                }).catch(error => {
+                    console.error('Error creating room:', error);
+                    updateConnectionStatus('error', 'Failed to create room. Please try again.');
+                    playerId = null;
                 });
             } else {
                 // Join room as player 2 - first get room data to know our side
@@ -12768,6 +15114,11 @@
                     populatePathwayTable();
 
                     startPvPGame();
+                }).catch(error => {
+                    console.error('Error joining room:', error);
+                    updateConnectionStatus('error', 'Failed to join room. Please try again.');
+                    playerId = null;
+                    opponentReady = false;
                 });
             }
         }
@@ -14458,15 +16809,21 @@
                 const opponentPaths = getOpponentPathways();
                 const handicapChance = aiDifficulty === 'easy' ? 0.85 : 0.5; // 85% for easy, 50% for medium
 
+                // Track cards already in AI hand to prevent duplicates
+                const usedCards = new Set(gameState.opponentHand.map(c => c.name));
+
                 // For each AI card, try to replace it with a card the player beats
                 for (let i = 0; i < gameState.opponentHand.length; i++) {
                     if (Math.random() < handicapChance) {
                         // Pick a random player card to find a loser against
                         const targetPlayerCard = gameState.playerHand[Math.floor(Math.random() * gameState.playerHand.length)];
                         if (targetPlayerCard) {
-                            // Find a card that LOSES to the player's card
+                            // Find a card that LOSES to the player's card AND isn't already in hand
+                            const currentCardName = gameState.opponentHand[i].name;
                             const losers = [];
                             for (const opCard of opponentPaths) {
+                                // Skip if already in hand (except the card we're replacing)
+                                if (usedCards.has(opCard.name) && opCard.name !== currentCardName) continue;
                                 const result = getMatchupResult(targetPlayerCard.name, opCard.name);
                                 if (result.outcome === 'WIN') {
                                     losers.push(opCard);
@@ -14475,6 +16832,8 @@
                             if (losers.length > 0) {
                                 // Replace AI card with a loser
                                 const loserCard = losers[Math.floor(Math.random() * losers.length)];
+                                usedCards.delete(currentCardName); // Remove old card from tracking
+                                usedCards.add(loserCard.name); // Add new card to tracking
                                 gameState.opponentHand[i] = loserCard;
                             }
                         }
@@ -14489,41 +16848,59 @@
                 const lowTier = getCurrentLowTierList();
                 const opponentMatchups = getCurrentMatchups();
 
-                // Track which indices have been sabotaged to avoid duplicates
+                // Track cards already in hands to prevent duplicates
+                const playerUsedCards = new Set(gameState.playerHand.map(c => c.name));
+                const opponentUsedCards = new Set(gameState.opponentHand.map(c => c.name));
                 const sabotagedIndices = new Set();
 
                 // CHEAT 1: 70% chance to sabotage player's first card
                 if (Math.random() < 0.7 && lowTier.length > 0 && gameState.playerHand.length > 0) {
-                    const randomLow = lowTier[Math.floor(Math.random() * lowTier.length)];
-                    const lowCard = playerPaths.find(p => p.name === randomLow);
-                    if (lowCard) {
-                        const replaceIndex = Math.floor(Math.random() * gameState.playerHand.length);
-                        gameState.playerHand[replaceIndex] = lowCard;
-                        sabotagedIndices.add(replaceIndex);
+                    // Find a low tier card not already in hand
+                    const availableLow = lowTier.filter(name => !playerUsedCards.has(name));
+                    if (availableLow.length > 0) {
+                        const randomLow = availableLow[Math.floor(Math.random() * availableLow.length)];
+                        const lowCard = playerPaths.find(p => p.name === randomLow);
+                        if (lowCard) {
+                            const replaceIndex = Math.floor(Math.random() * gameState.playerHand.length);
+                            playerUsedCards.delete(gameState.playerHand[replaceIndex].name);
+                            playerUsedCards.add(lowCard.name);
+                            gameState.playerHand[replaceIndex] = lowCard;
+                            sabotagedIndices.add(replaceIndex);
+                        }
                     }
                 }
 
                 // CHEAT 2: 40% chance to sabotage a SECOND player card (different from first)
                 if (Math.random() < 0.4 && lowTier.length > 0 && gameState.playerHand.length > 1) {
-                    const randomLow = lowTier[Math.floor(Math.random() * lowTier.length)];
-                    const lowCard = playerPaths.find(p => p.name === randomLow);
-                    if (lowCard) {
-                        // Get available indices that haven't been sabotaged
-                        const availableIndices = [];
-                        for (let i = 0; i < gameState.playerHand.length; i++) {
-                            if (!sabotagedIndices.has(i)) availableIndices.push(i);
-                        }
-                        if (availableIndices.length > 0) {
-                            const replaceIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
-                            gameState.playerHand[replaceIndex] = lowCard;
+                    // Find a low tier card not already in hand
+                    const availableLow = lowTier.filter(name => !playerUsedCards.has(name));
+                    if (availableLow.length > 0) {
+                        const randomLow = availableLow[Math.floor(Math.random() * availableLow.length)];
+                        const lowCard = playerPaths.find(p => p.name === randomLow);
+                        if (lowCard) {
+                            // Get available indices that haven't been sabotaged
+                            const availableIndices = [];
+                            for (let i = 0; i < gameState.playerHand.length; i++) {
+                                if (!sabotagedIndices.has(i)) availableIndices.push(i);
+                            }
+                            if (availableIndices.length > 0) {
+                                const replaceIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+                                playerUsedCards.delete(gameState.playerHand[replaceIndex].name);
+                                playerUsedCards.add(lowCard.name);
+                                gameState.playerHand[replaceIndex] = lowCard;
+                            }
                         }
                     }
                 }
 
-                // CHEAT 3: AI gets a 4th card
+                // CHEAT 3: AI gets a 4th card (that's not already in hand)
                 if (gameState.opponentHand.length === 3) {
-                    const extraCard = opponentPaths[Math.floor(Math.random() * opponentPaths.length)];
-                    gameState.opponentHand.push(extraCard);
+                    const availableCards = opponentPaths.filter(p => !opponentUsedCards.has(p.name));
+                    if (availableCards.length > 0) {
+                        const extraCard = availableCards[Math.floor(Math.random() * availableCards.length)];
+                        opponentUsedCards.add(extraCard.name);
+                        gameState.opponentHand.push(extraCard);
+                    }
                 }
 
                 // CHEAT 4: 60% chance to guarantee AI has a counter for each player card
@@ -14531,11 +16908,15 @@
                     // Pick a random player card and find a counter
                     const targetPlayerCard = gameState.playerHand[Math.floor(Math.random() * gameState.playerHand.length)];
                     if (targetPlayerCard) {
-                        // Find a card that beats it with Low or Mid diff
+                        // Find a card that beats it with Low or Mid diff AND isn't already in hand
+                        const currentCardName = gameState.opponentHand[0].name;
                         for (const opCard of opponentPaths) {
+                            if (opponentUsedCards.has(opCard.name) && opCard.name !== currentCardName) continue;
                             const result = getMatchupResult(opCard.name, targetPlayerCard.name);
                             if (result.outcome === 'WIN' && (result.diff === 'Low' || result.diff === 'Mid')) {
                                 // Replace AI's worst card with this counter
+                                opponentUsedCards.delete(currentCardName);
+                                opponentUsedCards.add(opCard.name);
                                 gameState.opponentHand[0] = opCard;
                                 break;
                             }
@@ -14549,7 +16930,7 @@
                 }
             }
 
-            // Door ability: extra card is guaranteed medium hit or higher
+            // Door ability: extra card is guaranteed medium hit or higher (no duplicates)
             const currentPathways = getCurrentPathways();
             const currentBigHits = getCurrentBigHitList();
             const currentMediumHits = getCurrentMediumHitList();
@@ -14560,7 +16941,8 @@
             const opponentMediumHits = getOpponentMediumHitList();
 
             if (gameState.extraCardNextTurn && gameState.playerHand.length > 3) {
-                const mediumOrHigher = [...currentBigHits, ...currentMediumHits];
+                const playerCardNames = new Set(gameState.playerHand.slice(0, 3).map(c => c.name));
+                const mediumOrHigher = [...currentBigHits, ...currentMediumHits].filter(name => !playerCardNames.has(name));
                 if (mediumOrHigher.length > 0) {
                     const randomName = mediumOrHigher[Math.floor(Math.random() * mediumOrHigher.length)];
                     const guaranteedCard = currentPathways.find(p => p.name === randomName);
@@ -14570,7 +16952,8 @@
                 }
             }
             if (gameState.opponentExtraCard && gameState.opponentHand.length > 3) {
-                const mediumOrHigher = [...opponentBigHits, ...opponentMediumHits];
+                const opponentCardNames = new Set(gameState.opponentHand.slice(0, 3).map(c => c.name));
+                const mediumOrHigher = [...opponentBigHits, ...opponentMediumHits].filter(name => !opponentCardNames.has(name));
                 if (mediumOrHigher.length > 0) {
                     const randomName = mediumOrHigher[Math.floor(Math.random() * mediumOrHigher.length)];
                     const guaranteedCard = opponentPathwaysList.find(p => p.name === randomName);
@@ -14580,10 +16963,11 @@
                 }
             }
 
-            // Apply guaranteed pathways (Fate/Authority)
+            // Apply guaranteed pathways (Fate/Authority) - skip if already in hand
             if (gameState.guaranteedPlayerPathway) {
                 const pathway = currentPathways.find(p => p.name === gameState.guaranteedPlayerPathway);
-                if (pathway && gameState.playerHand.length > 0) {
+                const alreadyInHand = gameState.playerHand.some(c => c.name === gameState.guaranteedPlayerPathway);
+                if (pathway && gameState.playerHand.length > 0 && !alreadyInHand) {
                     gameState.playerHand[0] = pathway;
                 }
                 gameState.guaranteedPlayerPathway = null;
@@ -14591,26 +16975,38 @@
 
             if (gameState.guaranteedOpponentPathway) {
                 const pathway = opponentPathwaysList.find(p => p.name === gameState.guaranteedOpponentPathway);
-                if (pathway && gameState.opponentHand.length > 0) {
+                const alreadyInHand = gameState.opponentHand.some(c => c.name === gameState.guaranteedOpponentPathway);
+                if (pathway && gameState.opponentHand.length > 0 && !alreadyInHand) {
                     gameState.opponentHand[0] = pathway;
                 }
                 gameState.guaranteedOpponentPathway = null;
             }
 
-            // Apply next turn effects
+            // Apply next turn effects - skip if card already in hand
             gameState.nextTurnEffects.forEach(effect => {
                 if (effect.type === 'recallCard') {
                     if (effect.target === 'player' && effect.card) {
-                        // Replace first card with recalled card
-                        gameState.playerHand[0] = effect.card;
+                        const alreadyInHand = gameState.playerHand.some(c => c.name === effect.card.name);
+                        if (!alreadyInHand) {
+                            gameState.playerHand[0] = effect.card;
+                        }
                     } else if (effect.target === 'opponent' && effect.card) {
-                        gameState.opponentHand[0] = effect.card;
+                        const alreadyInHand = gameState.opponentHand.some(c => c.name === effect.card.name);
+                        if (!alreadyInHand) {
+                            gameState.opponentHand[0] = effect.card;
+                        }
                     }
                 } else if (effect.type === 'guaranteeCard') {
                     if (effect.target === 'player' && effect.card) {
-                        gameState.playerHand[0] = effect.card;
+                        const alreadyInHand = gameState.playerHand.some(c => c.name === effect.card.name);
+                        if (!alreadyInHand) {
+                            gameState.playerHand[0] = effect.card;
+                        }
                     } else if (effect.target === 'opponent' && effect.card) {
-                        gameState.opponentHand[0] = effect.card;
+                        const alreadyInHand = gameState.opponentHand.some(c => c.name === effect.card.name);
+                        if (!alreadyInHand) {
+                            gameState.opponentHand[0] = effect.card;
+                        }
                     }
                 }
             });
@@ -14981,16 +17377,22 @@
                 // Check if opponent already selected
                 checkBothAbilitiesSelected();
             } else {
-                // AI mode: Store ability for execution during battle phase
+                // AI mode: Execute ability immediately (before card selection)
                 gameState.abilityUsedThisTurn = true;
                 gameState.abilityPhaseActive = false;
 
-                // Store player's ability for later (don't execute yet)
-                gameState.playerPendingAbility = gameState.selectedAbility;
-
-                // Hide ability phase and show the indicator
+                // Hide ability phase first
                 abilitySection.classList.remove('active');
+
+                // Execute the ability immediately
+                executeAbility(gameState.selectedAbility, false);
+                addLogEntry(`You used ${gameState.selectedAbility.abilityName} (${gameState.selectedAbility.cardName})`, 'info');
+
+                // Show the indicator
                 showAbilityUsedIndicator(gameState.selectedAbility);
+
+                // Clear the selection (already executed)
+                gameState.playerPendingAbility = null;
 
                 // Re-render hand to enable card selection
                 renderHand();
@@ -16496,17 +18898,21 @@
                 }
             }
 
-            // Store the selected ability for later execution (don't execute yet)
+            // Execute the selected ability immediately (before card selection)
             if (selectedAbility) {
                 const gameAbility = GAME_ABILITIES[selectedAbility.category];
-                gameState.aiPendingAbility = {
+                const aiAbility = {
                     cardIndex: selectedAbility.index,
                     abilityIndex: 0,
                     cardName: selectedAbility.card.name,
                     abilityName: gameAbility.name,
                     abilityDesc: gameAbility.desc
                 };
+                // Execute immediately
+                executeAbility(aiAbility, true);
+                addLogEntry(`Opponent used ${aiAbility.abilityName} (${aiAbility.cardName})`, 'info');
                 gameState.opponentUsedAbility = true;
+                gameState.aiPendingAbility = null;
             } else {
                 gameState.aiPendingAbility = null;
                 gameState.opponentUsedAbility = false;
@@ -16525,22 +18931,9 @@
 
         // Execute pending abilities during battle phase (after cards selected)
         function executePendingAbilities() {
-            // Execute AI's pending ability first
-            if (gameState.aiPendingAbility) {
-                executeAbility(gameState.aiPendingAbility, true);
-                addLogEntry(`Opponent used ${gameState.aiPendingAbility.abilityName} (${gameState.aiPendingAbility.cardName})`, 'info');
-                gameState.aiPendingAbility = null;
-            }
-
-            // Check if game ended after AI's ability (e.g., madness death)
-            if (gameState.gameOver) return;
-
-            // Execute player's pending ability
-            if (gameState.playerPendingAbility) {
-                executeAbility(gameState.playerPendingAbility, false);
-                addLogEntry(`You used ${gameState.playerPendingAbility.abilityName} (${gameState.playerPendingAbility.cardName})`, 'info');
-                gameState.playerPendingAbility = null;
-            }
+            // Both player and AI abilities now execute immediately during ability phase
+            // before card selection, so nothing to do here anymore
+            // This function is kept for PvP mode compatibility
         }
 
         function getMatchupResult(playerCard, opponentCard) {
@@ -17970,6 +20363,8 @@
             if (queueRef && queueListener) {
                 queueRef.off('value', queueListener);
             }
+            // Clean up friends system listeners
+            cleanupFriendsListeners();
         });
 
         // Function to populate pathway reference grid
@@ -18396,8 +20791,10 @@
 
             // Enable continue button
             const continueBtn = document.getElementById('tutorial-continue-btn');
-            continueBtn.disabled = false;
-            continueBtn.textContent = 'Continue';
+            if (continueBtn) {
+                continueBtn.disabled = false;
+                continueBtn.textContent = 'Continue';
+            }
             tutorialWaitingForEvent = null;
 
             // Hide tutorial box while ability modals might be open
@@ -18405,13 +20802,15 @@
             if (eventName === 'cardPlayed') {
                 // Hide the tutorial instruction box temporarily
                 const instructionBox = document.getElementById('tutorial-instruction-box');
-                instructionBox.classList.add('hidden');
+                if (instructionBox) {
+                    instructionBox.classList.add('hidden');
 
-                // Show it again after a delay (after ability modals should be done)
-                // But don't auto-advance - let user click Continue
-                setTimeout(() => {
-                    instructionBox.classList.remove('hidden');
-                }, 3000);
+                    // Show it again after a delay (after ability modals should be done)
+                    // But don't auto-advance - let user click Continue
+                    setTimeout(() => {
+                        instructionBox.classList.remove('hidden');
+                    }, 3000);
+                }
             }
         }
 
@@ -18420,13 +20819,17 @@
             unlockTutorialUI();
 
             // Hide instruction box
-            document.getElementById('tutorial-instruction-box').classList.add('hidden');
+            const instructionBox = document.getElementById('tutorial-instruction-box');
+            if (instructionBox) instructionBox.classList.add('hidden');
 
             // Handle review mode differently
             if (tutorialReviewMode) {
                 // Hide tutorial overlay
-                document.getElementById('tutorial-overlay').classList.remove('active');
-                document.getElementById('tutorial-overlay').classList.add('hidden');
+                const overlay = document.getElementById('tutorial-overlay');
+                if (overlay) {
+                    overlay.classList.remove('active');
+                    overlay.classList.add('hidden');
+                }
                 document.body.classList.remove('tutorial-active');
 
                 const chapterData = TUTORIAL_CHAPTERS[tutorialChapter];
@@ -18801,9 +21204,7 @@
                 }
             });
 
-            // Also update player's coin balance if we had a currency system
-            // For now just log it
-            console.log('Tutorial rewards awarded:', rewards);
+            // TODO: Update player's coin balance when currency system is implemented
         }
 
         function updateTutorialProgress() {
