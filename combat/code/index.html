@@ -1979,6 +1979,373 @@
             font-style: italic;
         }
 
+        /* Pre-Match Showcase Overlay */
+        .showcase-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 150;
+        }
+
+        .showcase-overlay.show {
+            display: flex;
+        }
+
+        .showcase-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            max-width: 100%;
+        }
+
+        .showcase-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            border: 2px solid #4a4a8a;
+            opacity: 0;
+            transform: translateX(0);
+            transition: all 0.6s ease-out;
+        }
+
+        .showcase-card-left {
+            transform: translateX(-50px);
+        }
+
+        .showcase-card-right {
+            transform: translateX(50px);
+        }
+
+        .showcase-card.reveal {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .showcase-card.glow-active {
+            box-shadow: 0 0 30px var(--glow-color, rgba(255, 215, 0, 0.5));
+            border-color: var(--glow-color, #ffd700);
+        }
+
+        /* Title-specific card glow colors */
+        .showcase-card.glow-void-pulse { --glow-color: rgba(75, 0, 130, 0.7); }
+        .showcase-card.glow-sefirah-glow { --glow-color: rgba(255, 215, 0, 0.7); }
+        .showcase-card.glow-moon-shimmer { --glow-color: rgba(192, 192, 255, 0.7); }
+        .showcase-card.glow-crystal-cool { --glow-color: rgba(102, 204, 255, 0.7); }
+        .showcase-card.glow-blood-drip { --glow-color: rgba(170, 0, 0, 0.7); }
+        .showcase-card.glow-mystic-runes { --glow-color: rgba(153, 68, 255, 0.7); }
+        .showcase-card.glow-ghostly-fade { --glow-color: rgba(170, 204, 255, 0.7); }
+        .showcase-card.glow-golden-shimmer { --glow-color: rgba(255, 215, 0, 0.7); }
+        .showcase-card.glow-elegant-gold { --glow-color: rgba(255, 215, 0, 0.7); }
+        .showcase-card.glow-foggy-glitch { --glow-color: rgba(128, 128, 128, 0.7); }
+        .showcase-card.glow-flame-pulse { --glow-color: rgba(255, 100, 0, 0.7); }
+        .showcase-card.glow-meteor-glow { --glow-color: rgba(255, 140, 0, 0.7); }
+        .showcase-card.glow-target-lock { --glow-color: rgba(255, 0, 0, 0.7); }
+        .showcase-card.glow-eye-glow { --glow-color: rgba(255, 255, 100, 0.7); }
+        .showcase-card.glow-void-swirl { --glow-color: rgba(75, 0, 130, 0.7); }
+        .showcase-card.glow-door-creak { --glow-color: rgba(139, 90, 43, 0.7); }
+        .showcase-card.glow-royal-shimmer { --glow-color: rgba(128, 0, 128, 0.7); }
+        .showcase-card.glow-frenzy-flicker { --glow-color: rgba(255, 50, 50, 0.7); }
+        .showcase-card.glow-madness-pulse { --glow-color: rgba(170, 0, 170, 0.7); }
+        .showcase-card.glow-order-pulse { --glow-color: rgba(255, 255, 255, 0.6); }
+        .showcase-card.glow-holy-radiance { --glow-color: rgba(255, 255, 200, 0.7); }
+        .showcase-card.glow-abyssal-corruption { --glow-color: rgba(0, 50, 100, 0.7); }
+        .showcase-card.glow-knowledge-glow { --glow-color: rgba(100, 200, 255, 0.7); }
+
+        .showcase-card-header {
+            text-align: center;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.4s ease-out;
+        }
+
+        .showcase-card-header.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .showcase-player-name {
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .showcase-player-code {
+            font-size: 14px;
+            color: var(--color-gold);
+            font-family: monospace;
+        }
+
+        .showcase-card-title {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.4s ease-out;
+        }
+
+        .showcase-card-title.reveal {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .showcase-card-title .title-text {
+            font-size: 14px;
+        }
+
+        .showcase-card-title .no-title {
+            color: #666;
+            font-style: italic;
+        }
+
+        .showcase-card-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease-out;
+        }
+
+        .showcase-card-stats.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .showcase-stat {
+            text-align: center;
+        }
+
+        .showcase-stat .stat-value {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--color-gold);
+        }
+
+        .showcase-stat .stat-label {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+        }
+
+        .showcase-section {
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease-out;
+        }
+
+        .showcase-section.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .showcase-section-label {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+        }
+
+        .showcase-pathways {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .showcase-pathway-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #ddd;
+            padding: 4px 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .showcase-pathway-item img {
+            width: 18px;
+            height: 18px;
+        }
+
+        .showcase-pathway-item .pathway-wins {
+            margin-left: auto;
+            color: var(--color-gold);
+            font-size: 11px;
+        }
+
+        .showcase-achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .showcase-achievement-item {
+            font-size: 18px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            cursor: default;
+        }
+
+        /* Center Clash Effect */
+        .showcase-clash {
+            position: relative;
+            width: 100px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .clash-vs {
+            font-size: 48px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 0 0 20px #ffd700, 0 0 40px #ff8c00;
+            z-index: 2;
+            animation: vs-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes vs-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .clash-energy {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.3) 0%, transparent 70%);
+            animation: energy-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes energy-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+        }
+
+        .clash-lightning {
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ffd700, #fff, #ffd700, transparent);
+            animation: lightning-flash 0.15s linear infinite;
+        }
+
+        .clash-lightning-left {
+            left: -30px;
+            transform: rotate(-15deg);
+        }
+
+        .clash-lightning-right {
+            right: -30px;
+            transform: rotate(15deg);
+            animation-delay: 0.075s;
+        }
+
+        @keyframes lightning-flash {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Countdown */
+        .showcase-countdown {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease-out;
+        }
+
+        .showcase-countdown.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .countdown-text {
+            font-size: 16px;
+            color: var(--color-text-muted);
+            margin-bottom: 10px;
+        }
+
+        .countdown-timer {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--color-gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            animation: countdown-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes countdown-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 700px) {
+            .showcase-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .showcase-card {
+                width: 90%;
+                max-width: 300px;
+            }
+
+            .showcase-card-left {
+                transform: translateY(-30px);
+            }
+
+            .showcase-card-right {
+                transform: translateY(30px);
+            }
+
+            .showcase-clash {
+                height: 60px;
+                width: 100%;
+            }
+
+            .clash-vs {
+                font-size: 32px;
+            }
+
+            .clash-lightning-left {
+                left: 20%;
+            }
+
+            .clash-lightning-right {
+                right: 20%;
+            }
+
+            .showcase-countdown {
+                margin-top: 15px;
+            }
+
+            .countdown-timer {
+                font-size: 36px;
+            }
+        }
+
         /* Opponent hand (face down) */
         .opponent-hand {
             display: flex;
@@ -4309,6 +4676,91 @@
             <h2 id="game-over-title">Victory!</h2>
             <p id="game-over-text">You have defeated your opponent!</p>
             <p class="game-over-hint">Click anywhere to view battle log</p>
+        </div>
+    </div>
+
+    <!-- Pre-Match Showcase Overlay -->
+    <div class="showcase-overlay" id="showcase-overlay">
+        <div class="showcase-container">
+            <!-- Left Player Card (Player 1 / Host) -->
+            <div class="showcase-card showcase-card-left" id="showcase-card-left">
+                <div class="showcase-card-header">
+                    <div class="showcase-player-name" id="showcase-name-left">Loading...</div>
+                    <div class="showcase-player-code" id="showcase-code-left">#----</div>
+                </div>
+                <div class="showcase-card-title" id="showcase-title-left">
+                    <span class="title-text">No title equipped</span>
+                </div>
+                <div class="showcase-card-stats" id="showcase-stats-left">
+                    <div class="showcase-stat">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">Wins</span>
+                    </div>
+                    <div class="showcase-stat">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">Losses</span>
+                    </div>
+                </div>
+                <div class="showcase-section">
+                    <div class="showcase-section-label">Top Pathways</div>
+                    <div class="showcase-pathways" id="showcase-pathways-left">
+                        <div class="showcase-pathway-item">Loading...</div>
+                    </div>
+                </div>
+                <div class="showcase-section">
+                    <div class="showcase-section-label">Achievements</div>
+                    <div class="showcase-achievements" id="showcase-achievements-left">
+                        <div class="showcase-achievement-item">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Clash Effect -->
+            <div class="showcase-clash">
+                <div class="clash-vs">VS</div>
+                <div class="clash-lightning clash-lightning-left"></div>
+                <div class="clash-lightning clash-lightning-right"></div>
+                <div class="clash-energy"></div>
+            </div>
+
+            <!-- Right Player Card (Player 2 / Client) -->
+            <div class="showcase-card showcase-card-right" id="showcase-card-right">
+                <div class="showcase-card-header">
+                    <div class="showcase-player-name" id="showcase-name-right">Loading...</div>
+                    <div class="showcase-player-code" id="showcase-code-right">#----</div>
+                </div>
+                <div class="showcase-card-title" id="showcase-title-right">
+                    <span class="title-text">No title equipped</span>
+                </div>
+                <div class="showcase-card-stats" id="showcase-stats-right">
+                    <div class="showcase-stat">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">Wins</span>
+                    </div>
+                    <div class="showcase-stat">
+                        <span class="stat-value">-</span>
+                        <span class="stat-label">Losses</span>
+                    </div>
+                </div>
+                <div class="showcase-section">
+                    <div class="showcase-section-label">Top Pathways</div>
+                    <div class="showcase-pathways" id="showcase-pathways-right">
+                        <div class="showcase-pathway-item">Loading...</div>
+                    </div>
+                </div>
+                <div class="showcase-section">
+                    <div class="showcase-section-label">Achievements</div>
+                    <div class="showcase-achievements" id="showcase-achievements-right">
+                        <div class="showcase-achievement-item">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="showcase-countdown" id="showcase-countdown">
+            <div class="countdown-text">Match starting in</div>
+            <div class="countdown-timer" id="countdown-timer">7</div>
         </div>
     </div>
 
@@ -7395,6 +7847,8 @@
                     player2: false,
                     player1Card: null,
                     player2Card: null,
+                    player1Code: playerCode || 'anonymous',
+                    player2Code: null,
                     turn: 1,
                     lastUpdate: firebase.database.ServerValue.TIMESTAMP,
                     isPublic: true
@@ -7407,13 +7861,20 @@
                 // Join room as player 2
                 roomRef.update({
                     player2: true,
+                    player2Code: playerCode || 'anonymous',
                     lastUpdate: firebase.database.ServerValue.TIMESTAMP
-                }).then(() => {
+                }).then(async () => {
                     updatePlayerIndicator();
                     opponentReady = true;
                     updateConnectionStatus('connected', 'Both players connected!');
                     setupRoomListeners();
-                    startPvPGame();
+
+                    // For public matches, show showcase before starting game
+                    // Fetch host (player1) code from room data
+                    const roomSnapshot = await roomRef.once('value');
+                    const roomData = roomSnapshot.val();
+                    const hostCode = roomData?.player1Code || 'anonymous';
+                    showPreMatchShowcase(playerCode || 'anonymous', hostCode, false);
                 });
             }
         }
@@ -7558,11 +8019,22 @@
 
         function setupRoomListeners() {
             // Listen for player2 joining (for player1)
-            roomRef.child('player2').on('value', (snapshot) => {
+            roomRef.child('player2').on('value', async (snapshot) => {
                 if (playerId === 'player1' && snapshot.val() === true && !opponentReady) {
                     opponentReady = true;
                     updateConnectionStatus('connected', 'Room ' + currentRoomCode + ' - Connected! Both players ready.');
-                    startPvPGame();
+
+                    // For public matches, show showcase before starting game
+                    if (matchType === 'public') {
+                        // Fetch opponent (player2) code from room data
+                        const roomSnapshot = await roomRef.once('value');
+                        const roomData = roomSnapshot.val();
+                        const opponentCode = roomData?.player2Code || 'anonymous';
+                        showPreMatchShowcase(playerCode || 'anonymous', opponentCode, true);
+                    } else {
+                        // Private matches start directly
+                        startPvPGame();
+                    }
                 }
             });
 
@@ -7590,6 +8062,9 @@
                 if (snapshot.val() === false && opponentReady) {
                     updateConnectionStatus('waiting', 'Opponent disconnected');
                     opponentReady = false;
+
+                    // Hide showcase if it's showing (opponent disconnected during showcase)
+                    hideShowcase();
 
                     // Show Find New Match button for public matches
                     if (matchType === 'public') {
@@ -7627,6 +8102,263 @@
         function startPvPGame() {
             resetGameState();
             addLogEntry('PvP game started! Select a card.', 'info');
+        }
+
+        // ============================================
+        // PRE-MATCH SHOWCASE SYSTEM
+        // ============================================
+        let showcaseCountdownInterval = null;
+
+        async function fetchShowcasePlayerData(code) {
+            if (!code || code === 'anonymous') {
+                return null;
+            }
+            try {
+                initPlayerFirebase();
+                const snapshot = await playerDb.ref('players/' + code).once('value');
+                return snapshot.val();
+            } catch (error) {
+                console.error('Error fetching player data for showcase:', error);
+                return null;
+            }
+        }
+
+        function getTopPathways(singlePathwayWins, limit = 3) {
+            if (!singlePathwayWins || typeof singlePathwayWins !== 'object') {
+                return [];
+            }
+            return Object.entries(singlePathwayWins)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, limit)
+                .map(([pathway, wins]) => ({ pathway, wins }));
+        }
+
+        function getHardestAchievements(achievements = [], triumphs = [], achLimit = 3, triumphLimit = 2) {
+            // Sort achievements by difficulty (highest first)
+            const sortedAch = achievements
+                .filter(id => ACHIEVEMENTS[id])
+                .map(id => ({ id, ...ACHIEVEMENTS[id], isTriumph: false }))
+                .sort((a, b) => b.difficulty - a.difficulty)
+                .slice(0, achLimit);
+
+            // Sort triumphs by difficulty (highest first)
+            const sortedTriumphs = triumphs
+                .filter(id => HIDDEN_TRIUMPHS[id])
+                .map(id => ({ id, ...HIDDEN_TRIUMPHS[id], isTriumph: true }))
+                .sort((a, b) => b.difficulty - a.difficulty)
+                .slice(0, triumphLimit);
+
+            return [...sortedTriumphs, ...sortedAch];
+        }
+
+        function renderShowcaseCard(side, data, code) {
+            const nameEl = document.getElementById(`showcase-name-${side}`);
+            const codeEl = document.getElementById(`showcase-code-${side}`);
+            const titleEl = document.getElementById(`showcase-title-${side}`);
+            const statsEl = document.getElementById(`showcase-stats-${side}`);
+            const pathwaysEl = document.getElementById(`showcase-pathways-${side}`);
+            const achievementsEl = document.getElementById(`showcase-achievements-${side}`);
+
+            if (!data) {
+                // Unknown player
+                nameEl.textContent = 'Unknown Player';
+                codeEl.textContent = code ? `#${code}` : '#????';
+                titleEl.innerHTML = '<span class="title-text no-title">No data available</span>';
+                statsEl.innerHTML = `
+                    <div class="showcase-stat"><span class="stat-value">?</span><span class="stat-label">Wins</span></div>
+                    <div class="showcase-stat"><span class="stat-value">?</span><span class="stat-label">Losses</span></div>
+                `;
+                pathwaysEl.innerHTML = '<div class="showcase-pathway-item">No pathway data</div>';
+                achievementsEl.innerHTML = '<div class="showcase-achievement-item">No achievements</div>';
+                return null;
+            }
+
+            // Name and code
+            nameEl.textContent = data.displayName || `Player ${code}`;
+            codeEl.textContent = `#${code}`;
+
+            // Title
+            const activeTitleId = data.activeTitle;
+            let titleEffect = null;
+            if (activeTitleId && HIDDEN_TRIUMPHS[activeTitleId]) {
+                const triumph = HIDDEN_TRIUMPHS[activeTitleId];
+                titleEl.innerHTML = `<span class="title-text ${triumph.titleEffect}">${triumph.title}</span>`;
+                titleEffect = triumph.titleEffect;
+            } else {
+                titleEl.innerHTML = '<span class="title-text no-title">No title equipped</span>';
+            }
+
+            // Stats
+            const wins = data.wins || 0;
+            const losses = data.losses || 0;
+            statsEl.innerHTML = `
+                <div class="showcase-stat"><span class="stat-value">${wins}</span><span class="stat-label">Wins</span></div>
+                <div class="showcase-stat"><span class="stat-value">${losses}</span><span class="stat-label">Losses</span></div>
+            `;
+
+            // Top pathways
+            const topPathways = getTopPathways(data.singlePathwayWins, 3);
+            if (topPathways.length > 0) {
+                pathwaysEl.innerHTML = topPathways.map(p => {
+                    const pathwayData = PATHWAYS.find(pw => pw.name === p.pathway);
+                    const icon = pathwayData ? `<img src="${pathwayData.icon}" alt="${p.pathway}">` : '';
+                    return `<div class="showcase-pathway-item">${icon}<span>${p.pathway}</span><span class="pathway-wins">${p.wins} wins</span></div>`;
+                }).join('');
+            } else {
+                pathwaysEl.innerHTML = '<div class="showcase-pathway-item">No pathway data</div>';
+            }
+
+            // Achievements (3 hardest achievements + 2 hardest triumphs)
+            const playerAchievements = data.unlockedAchievements || [];
+            const playerTriumphs = data.unlockedTriumphs || [];
+            const hardest = getHardestAchievements(playerAchievements, playerTriumphs, 3, 2);
+
+            if (hardest.length > 0) {
+                achievementsEl.innerHTML = hardest.map(a => {
+                    const tooltip = a.isTriumph ? `${a.title} - ${a.desc}` : `${a.name} - ${a.desc}`;
+                    return `<div class="showcase-achievement-item" title="${tooltip}">${a.icon}</div>`;
+                }).join('');
+            } else {
+                achievementsEl.innerHTML = '<div class="showcase-achievement-item" style="font-size: 12px; color: #666;">No achievements yet</div>';
+            }
+
+            return titleEffect;
+        }
+
+        function animateShowcaseElements() {
+            const leftCard = document.getElementById('showcase-card-left');
+            const rightCard = document.getElementById('showcase-card-right');
+            const countdown = document.getElementById('showcase-countdown');
+
+            // Animate cards sliding in
+            setTimeout(() => leftCard.classList.add('reveal'), 100);
+            setTimeout(() => rightCard.classList.add('reveal'), 200);
+
+            // Animate headers
+            setTimeout(() => {
+                leftCard.querySelector('.showcase-card-header').classList.add('reveal');
+                rightCard.querySelector('.showcase-card-header').classList.add('reveal');
+            }, 500);
+
+            // Animate titles
+            setTimeout(() => {
+                leftCard.querySelector('.showcase-card-title').classList.add('reveal');
+                rightCard.querySelector('.showcase-card-title').classList.add('reveal');
+                // Add glow effect after title reveals
+                leftCard.classList.add('glow-active');
+                rightCard.classList.add('glow-active');
+            }, 800);
+
+            // Animate stats
+            setTimeout(() => {
+                leftCard.querySelector('.showcase-card-stats').classList.add('reveal');
+                rightCard.querySelector('.showcase-card-stats').classList.add('reveal');
+            }, 1100);
+
+            // Animate sections (pathways and achievements)
+            const leftSections = leftCard.querySelectorAll('.showcase-section');
+            const rightSections = rightCard.querySelectorAll('.showcase-section');
+            leftSections.forEach((section, i) => {
+                setTimeout(() => section.classList.add('reveal'), 1400 + (i * 200));
+            });
+            rightSections.forEach((section, i) => {
+                setTimeout(() => section.classList.add('reveal'), 1400 + (i * 200));
+            });
+
+            // Animate countdown
+            setTimeout(() => countdown.classList.add('reveal'), 1800);
+        }
+
+        function startShowcaseCountdown(seconds, onComplete) {
+            const timerEl = document.getElementById('countdown-timer');
+            let remaining = seconds;
+            timerEl.textContent = remaining;
+
+            showcaseCountdownInterval = setInterval(() => {
+                remaining--;
+                timerEl.textContent = remaining;
+
+                if (remaining <= 0) {
+                    clearInterval(showcaseCountdownInterval);
+                    showcaseCountdownInterval = null;
+                    if (onComplete) onComplete();
+                }
+            }, 1000);
+        }
+
+        async function showPreMatchShowcase(localCode, opponentCode, isHost) {
+            const overlay = document.getElementById('showcase-overlay');
+
+            // Reset any previous state
+            hideShowcase();
+
+            // Determine which side each player goes on
+            // Host (player1) is always on left, client (player2) on right
+            const leftCode = isHost ? localCode : opponentCode;
+            const rightCode = isHost ? opponentCode : localCode;
+
+            // Fetch both player data in parallel
+            const [leftData, rightData] = await Promise.all([
+                fetchShowcasePlayerData(leftCode),
+                fetchShowcasePlayerData(rightCode)
+            ]);
+
+            // Render cards and get title effects for glow
+            const leftTitleEffect = renderShowcaseCard('left', leftData, leftCode);
+            const rightTitleEffect = renderShowcaseCard('right', rightData, rightCode);
+
+            // Apply title-based glow classes
+            const leftCard = document.getElementById('showcase-card-left');
+            const rightCard = document.getElementById('showcase-card-right');
+
+            if (leftTitleEffect) {
+                leftCard.classList.add(`glow-${leftTitleEffect}`);
+            }
+            if (rightTitleEffect) {
+                rightCard.classList.add(`glow-${rightTitleEffect}`);
+            }
+
+            // Show overlay
+            overlay.classList.add('show');
+
+            // Animate elements progressively
+            animateShowcaseElements();
+
+            // Start countdown (7 seconds)
+            startShowcaseCountdown(7, () => {
+                hideShowcase();
+                startPvPGame();
+            });
+        }
+
+        function hideShowcase() {
+            const overlay = document.getElementById('showcase-overlay');
+
+            // Clear countdown if running
+            if (showcaseCountdownInterval) {
+                clearInterval(showcaseCountdownInterval);
+                showcaseCountdownInterval = null;
+            }
+
+            // Hide overlay
+            overlay.classList.remove('show');
+
+            // Reset all animation states
+            const leftCard = document.getElementById('showcase-card-left');
+            const rightCard = document.getElementById('showcase-card-right');
+            const countdown = document.getElementById('showcase-countdown');
+
+            [leftCard, rightCard].forEach(card => {
+                card.classList.remove('reveal', 'glow-active');
+                // Remove all glow-* classes
+                card.className = card.className.replace(/glow-[\w-]+/g, '').trim();
+                card.querySelector('.showcase-card-header')?.classList.remove('reveal');
+                card.querySelector('.showcase-card-title')?.classList.remove('reveal');
+                card.querySelector('.showcase-card-stats')?.classList.remove('reveal');
+                card.querySelectorAll('.showcase-section').forEach(s => s.classList.remove('reveal'));
+            });
+
+            countdown.classList.remove('reveal');
         }
 
         function checkBothPlayed() {
